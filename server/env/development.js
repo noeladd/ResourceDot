@@ -1,5 +1,5 @@
 module.exports = {
-  DATABASE_URL: 'postgres://localhost:5432/ResourceDot',
+  DATABASE_URL: 'postgres://localhost:5432/resourcedot',
   SESSION_SECRET: 'Optimus Prime is my real dad',
   TWITTER: {
     consumerKey: 'INSERT_TWITTER_CONSUMER_KEY_HERE',
