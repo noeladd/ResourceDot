@@ -10,6 +10,9 @@ const User = db.model('user');
 router.get('/', function(req, res, next){
     User.findAll()
     .then(function(users){
+        if (users.length === 0){
+            res.status(404).send();
+        }
         res.json(users);
     })
     .catch(next);
@@ -22,6 +25,9 @@ router.get('/:id', function(req, res, next){
         {model: User, as: 'friend'}
     ]})
     .then(function(user){
+        if (!user){
+            res.status(404).send();
+        }
         res.json(user);
     })
     .catch(next);
@@ -33,4 +39,4 @@ router.post('/', function(req, res, next){
         res.status(201).json(createdUser);
     })
     .catch(next);
-})
+});
