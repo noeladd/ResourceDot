@@ -14,7 +14,7 @@ router.get('/', function(req, res, next) {
     .catch(next);
 });
 
-router.get('/:id', function(req, res, next) {
+router.get('id/:id', function(req, res, next) {
     Resource.findById(req.params.id)
     .then(function(resource) {
         res.json(resource);
