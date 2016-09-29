@@ -1,14 +1,15 @@
 'use strict';
-const Sequelize = require('sequelize');
+const Sequelize = require('sequelize')
+
 const db = require('../_db');
 
-module.exports = db.define('book', {
+module.exports = db.define('resource', {
     title: {
         type: Sequelize.STRING,
         allowNull: false
     },
     author: {
-        type: Sequelize.STRING
+        type: Sequelize.STRING,
     },
     link: {
         type: Sequelize.STRING,
@@ -22,5 +23,8 @@ module.exports = db.define('book', {
     dislikes: {
         type: Sequelize.INTEGER,
         defaultValue: 0
+    },
+    type: {
+        type: Sequelize.ENUM('article', 'book', 'blog', 'podcast', 'website')
     }
 });
