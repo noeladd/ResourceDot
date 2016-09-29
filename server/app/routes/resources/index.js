@@ -9,24 +9,13 @@ const Tag = db.model('tag')
 
 //route would be /api/resources?type=article
 router.get('/', function(req, res, next) {
-    var reqType = req.query.type
-    if(reqType){
-       return Resource.findAll({
-        where:
-            {type: reqType},
-        include: [
-            {model: 'Tag'}
-        ]
-    })
+  Resource.findAll({
+    where: req.query,
+    include: [
+      {model: 'Tag'}
+    ]
+  })
     .then(function(resources){
-        if (resources.length === 0){
-            res.status(404).send();
-        }
-        res.json(resources);
-    });
-    }
-    return Resource.findAll()
-    .then(function(resources) {
         if (resources.length === 0){
             res.status(404).send();
         }
@@ -35,9 +24,7 @@ router.get('/', function(req, res, next) {
     .catch(next);
 });
 
-
-
-router.get('id/:id', function(req, res, next) {
+router.get('/:id', function(req, res, next) {
     Resource.findById(req.params.id)
     .then(function(resource) {
         if (!resource){
@@ -47,23 +34,6 @@ router.get('id/:id', function(req, res, next) {
     })
     .catch(next);
 });
-
-router.get('/type/:type', function(req, res, next) {
-    Resource.findAll({
-        where:
-            {type: req.params.type},
-        include: [
-            {model: 'Tag'}
-        ]
-    })
-    .then(function(resources){
-        if (resources.length === 0){
-            res.status(404).send();
-        }
-        res.json(resources);
-    })
-    .catch(next);
-})
 
 router.post('/', function(req, res, next) {
     Resource.create(req.body)
