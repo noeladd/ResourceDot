@@ -11,7 +11,7 @@ router.get('/', function(req, res, next){
     User.findAll()
     .then(function(users){
         if (users.length === 0){
-            res.status(404).send()
+            res.status(404).send();
         }
         res.json(users);
     })
@@ -39,4 +39,4 @@ router.post('/', function(req, res, next){
         res.status(201).json(createdUser);
     })
     .catch(next);
-})
+});

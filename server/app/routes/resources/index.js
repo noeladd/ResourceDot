@@ -4,8 +4,7 @@ module.exports = router;
 
 const db = require('../../../db');
 const Resource = db.model('resource');
-const Tag = db.model('tag')
-
+const Tag = db.model('tag');
 
 //route would be /api/resources?type=article
 router.get('/', function(req, res, next) {

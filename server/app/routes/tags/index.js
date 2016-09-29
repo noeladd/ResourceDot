@@ -10,9 +10,12 @@ const User = db.model('user');
 router.get('/', function(req, res, next){
     Tag.findAll()
     .then(function(tags){
+<<<<<<< HEAD
         if (tags.length === 0){
             res.status(404).send();
         }
+=======
+>>>>>>> develop
         res.json(tags);
     })
     .catch(next)
@@ -23,6 +26,7 @@ router.get('/:id', function(req, res, next){
         {model: Resource},
         {model: User}
     ]})
+<<<<<<< HEAD
     .then(function(tag){
         if(!tag){
             res.status(404).send();
@@ -30,6 +34,8 @@ router.get('/:id', function(req, res, next){
         res.json(tag)
     })
     .catch(next)
+=======
+>>>>>>> develop
 });
 
 router.post('/', function(req, res, next){
