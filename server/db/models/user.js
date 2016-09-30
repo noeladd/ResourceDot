@@ -23,6 +23,12 @@ module.exports = db.define('user', {
     },
     google_id: {
         type: Sequelize.STRING
+    },
+    github_id: {
+        type: Sequelize.STRING
+    },
+    description: {
+        type: Sequelize.TEXT
     }
 }, {
     instanceMethods: {
