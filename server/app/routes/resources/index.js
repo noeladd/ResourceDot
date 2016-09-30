@@ -11,7 +11,7 @@ router.get('/', function(req, res, next) {
   Resource.findAll({
     where: req.query,
     include: [
-      {model: 'Tag'}
+      {model: Tag}
     ]
   })
     .then(function(resources){
@@ -23,8 +23,12 @@ router.get('/', function(req, res, next) {
     .catch(next);
 });
 
+
 router.get('/:id', function(req, res, next) {
-    Resource.findById(req.params.id)
+    Resource.findById(req.params.id, {
+        include: [
+        {model: Tag}
+    ]})
     .then(function(resource) {
         if (!resource){
             res.status(404).send();
