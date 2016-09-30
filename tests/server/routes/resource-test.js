@@ -40,6 +40,7 @@ describe('Resource Route', function() {
         Tag.create(tagInfo)
         .then(function(createdTag){
             tag = createdTag;
+            console.log(tag);
             done();
         })
         .catch(done)
@@ -52,14 +53,13 @@ describe('Resource Route', function() {
             .send(resourceInfo)
             .expect(201)
             .then(function (response){
-                resource = response;
-                
-                return tag.addResource(resource.body.id)
-                .then(function(){
-    
-                 return Resource.findById(resource.body.id)
+                resource = response.body;
+                return tag.addResource(resource.id)
+                .then(function(foundTag){
+                 return Resource.findById(resource.id)
                 })
                 .then(function(foundResource){
+                    console.log(foundResource);
                     expect(foundResource.title).to.be.equal('Create a Single Page App With Go, Echo and Vue');
                     });
             })
