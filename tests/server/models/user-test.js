@@ -1,3 +1,4 @@
+/*global require describe beforeEach it afterEach */
 var sinon = require('sinon');
 var expect = require('chai').expect;
 
@@ -6,15 +7,13 @@ var Sequelize = require('sequelize');
 var db = require('../../../server/db');
 
 var User = db.model('user');
-var Tag = db.model('tag');
-var Resource = db.model('resource');
 
 var userInfo = {
 			email: 'joe@gmail.com',
 			password: 'shoopdawoop'
 		};
 
-let user;
+let newUser;
 
 describe('User model', function () {
 
@@ -27,7 +26,6 @@ describe('User model', function () {
     });
 
     it('can be created', function(){
-        console.log(User);
         expect(User.create).to.be.a('function');
         
     })
@@ -36,16 +34,25 @@ describe('User model', function () {
         beforeEach('create a User', function(done){
             User.create(userInfo)
             .then(function(createdUser){
-                user = createdUser;
+                newUser = createdUser;
                 done()
             })
         });
 
         it('has associated tag functions', function(){
-            expect(user.addTag).to.be.a('function');
-            expect(user.createTag).to.be.a('function');
+            expect(newUser.addTag).to.be.a('function');
+            expect(newUser.createTag).to.be.a('function');
         });
 
+        it('has associated user functions', function(){
+           expect(newUser.addFriend).to.be.a('function');
+           expect(newUser.createFriend).to.be.a('function');
+        });
+
+        it('has associated resource functions', function(){
+            expect(newUser.addResource).to.be.a('function');
+            expect(newUser.createResource).to.be.a('function');
+        })
         
     })
     
@@ -93,7 +100,7 @@ describe('User model', function () {
 
             it('should call crypto.createHash with "sha1"', function () {
                 User.encryptPassword('asldkjf', 'asd08uf2j');
-                expect(cryptoStub.calledWith('sha1')).to.be.ok;
+                expect(cryptoStub.calledWith('sha1')).to.be.ok; //eslint-disable-line
             });
 
             it('should call hash.update with the first and second argument', function () {
@@ -115,7 +122,7 @@ describe('User model', function () {
 
                 var e = User.encryptPassword('sdlkfj', 'asldkjflksf');
 
-                expect(hashDigestStub.calledWith('hex')).to.be.ok;
+                expect(hashDigestStub.calledWith('hex')).to.be.ok; //eslint-disable-line
                 expect(e).to.be.equal(x);
 
             });
@@ -144,7 +151,7 @@ describe('User model', function () {
             it('should call User.encryptPassword with the given password and generated salt', function (done) {
                 createUser().then(function () {
                     var generatedSalt = saltSpy.getCall(0).returnValue;
-                    expect(encryptSpy.calledWith('potus', generatedSalt)).to.be.ok;
+                    expect(encryptSpy.calledWith('potus', generatedSalt)).to.be.ok; //eslint-disable-line
                     done();
                 });
             });
@@ -176,10 +183,10 @@ describe('User model', function () {
             it('should remove sensitive information from a user object', function () {
                 createUser().then(function (user) {
                     var sanitizedUser = user.sanitize();
-                    expect(user.password).to.be.ok;
-                    expect(user.salt).to.be.ok;
-                    expect(sanitizedUser.password).to.be.undefined;
-                    expect(sanitizedUser.salt).to.be.undefined;
+                    expect(user.password).to.be.ok; //eslint-disable-line
+                    expect(user.salt).to.be.ok; //eslint-disable-line
+                    expect(sanitizedUser.password).to.be.undefined; //eslint-disable-line
+                    expect(sanitizedUser.salt).to.be.undefined; //eslint-disable-line
                 });
             });
         });
