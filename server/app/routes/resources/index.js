@@ -25,7 +25,10 @@ router.get('/', function(req, res, next) {
 
 
 router.get('/:id', function(req, res, next) {
-    Resource.findById(req.params.id)
+    Resource.findById(req.params.id, {
+        include: [
+        {model: 'Tag'}
+    ]})
     .then(function(resource) {
         if (!resource){
             res.status(404).send();
@@ -36,7 +39,6 @@ router.get('/:id', function(req, res, next) {
 });
 
 router.post('/', function(req, res, next) {
-    console.log(req.body);
     Resource.create(req.body)
     .then(function(createdResource) {
         res.status(201).json(createdResource);

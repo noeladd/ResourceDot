@@ -52,13 +52,17 @@ describe('Resource Route', function() {
             .send(resourceInfo)
             .expect(201)
             .then(function (response){
-                console.log(response)
                 resource = response;
+                
+                return tag.addResource(resource.body.id)
+                .then(function(){
+    
                  return Resource.findById(resource.body.id)
                 })
                 .then(function(foundResource){
                     expect(foundResource.title).to.be.equal('Create a Single Page App With Go, Echo and Vue');
                     });
+            })
         });
     });
 })
