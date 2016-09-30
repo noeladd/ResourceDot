@@ -10,7 +10,6 @@ const User = db.model('user');
 router.get('/', function(req, res, next){
     Tag.findAll()
     .then(function(tags){
-
         if (tags.length === 0){
             res.status(404).send();
         }
