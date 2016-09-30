@@ -20,32 +20,21 @@ name in the environment files.
 var chalk = require('chalk');
 var db = require('./server/db');
 var User = db.model('user');
+var Resource = db.model('resource');
+var Tag = db.model('tag');
 var Promise = require('sequelize').Promise;
+var fs = require('fs');
+var Converter = require('csvtojson').Converter;
+var converter = new Converter({});
+var faker = require('faker');
 
-var seedUsers = function () {
-
-    var users = [
-        {
-            email: 'testing@fsa.com',
-            password: 'password'
-        },
-        {
-            email: 'obama@gmail.com',
-            password: 'potus'
-        }
-    ];
-
-    var creatingUsers = users.map(function (userObj) {
-        return User.create(userObj);
-    });
-
-    return Promise.all(creatingUsers);
-
-};
-
-db.sync({ force: true })
+converter.on('end_parsed', function (jsonArray) {
+    db.sync({ force: true })
     .then(function () {
         return seedUsers();
+    })
+    .then(function(){
+        return seedResources(jsonArray);
     })
     .then(function () {
         console.log(chalk.green('Seed successful!'));
@@ -55,3 +44,44 @@ db.sync({ force: true })
         console.error(err);
         process.exit(1);
     });
+});
+
+fs.createReadStream(__dirname + '/csv/seed.csv').pipe(converter);
+
+function seedResources(jsonArray){
+    return Promise.map(jsonArray, function(resource){
+        //HEY, FILTER THIS ARRAY FOR UNIQUE VALUES
+        var tags = resource.tags.split(',');
+        return Resource.findOrCreate({where: {link: resource.link}, defaults: resource})
+        .spread(function(newResource){
+            return Promise.map(tags, function(tag){
+                tag = tag.toLowerCase();
+               return Tag.findOrCreate({where: {
+                title: tag
+               }})
+               .spread(function(newTag){
+                    return newResource.addTag(newTag);
+               })
+            });
+        });
+    });
+}
+
+function writeUser(){
+    var user = {};
+    user.name = faker.Name.findName();
+    user.email = faker.Internet.email();
+    user.password = 'password';
+    return user;
+}
+
+function seedUsers() {
+    var users = [];
+    for (var i = 0; i < 100; i++){
+        users.push(writeUser());
+    }
+    var creatingUsers = users.map(function (userObj) {
+        return User.create(userObj);
+    });
+    return Promise.all(creatingUsers);
+}

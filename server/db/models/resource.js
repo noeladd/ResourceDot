@@ -6,7 +6,7 @@ const db = require('../_db');
 module.exports = db.define('resource', {
     title: {
         type: Sequelize.STRING,
-        //allowNull: false
+        allowNull: false
     },
     author: {
         type: Sequelize.STRING,
@@ -14,7 +14,10 @@ module.exports = db.define('resource', {
     link: {
         type: Sequelize.STRING,
         unique: true,
-        //allowNull: false
+        allowNull: false
+    },
+    source: {
+        type: Sequelize.STRING
     },
     likes: {
         type: Sequelize.INTEGER,
