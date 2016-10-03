@@ -2,20 +2,11 @@
 var sinon = require('sinon');
 var expect = require('chai').expect;
 
-var Sequelize = require('sequelize');
 
 var db = require('../../../server/db');
 
 var User = db.model('user');
-var Tag = db.model('tag');
-var Resource = db.model('resource');
 
-var userInfo = {
-			email: 'joe@gmail.com',
-			password: 'shoopdawoop'
-		};
-
-let user;
 
 var userInfo = {
 			email: 'joe@gmail.com',
@@ -24,20 +15,21 @@ var userInfo = {
 
 let newUser;
 
+
 describe('User model', function () {
 
     beforeEach('Sync DB', function () {
        return db.sync({ force: true });
     });
 
-    it ('exists', function(){
+    it('exists', function(){
         expect(User.findAll).to.be.a('function');
     });
 
     it('can be created', function(){
 
         expect(User.create).to.be.a('function');
-        
+
     })
     describe('Instance methods', function(){
 
@@ -63,13 +55,14 @@ describe('User model', function () {
         });
 
         it('has associated resource functions', function(){
-            expect(newUser.addResource).to.be.a('function');
-            expect(newUser.createResource).to.be.a('function');
+            expect(newUser.addLike).to.be.a('function');
+            expect(newUser.createLike).to.be.a('function');
+            expect(newUser.addDislike).to.be.a('function');
         })
 
-        
+
     })
-    
+
 
     describe('password encryption', function () {
 
@@ -131,10 +124,10 @@ describe('User model', function () {
 
             it('should call hash.digest with hex and return the result', function () {
 
-                var x = {};
+                var x = {}; //eslint-disable-line id-length
                 hashDigestStub.returns(x);
 
-                var e = User.encryptPassword('sdlkfj', 'asldkjflksf');
+                var e = User.encryptPassword('sdlkfj', 'asldkjflksf'); //eslint-disable-line id-length
 
                 expect(hashDigestStub.calledWith('hex')).to.be.ok; //eslint-disable-line
                 expect(e).to.be.equal(x);
