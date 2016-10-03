@@ -13,7 +13,6 @@ User.belongsToMany(User, {as: 'friend', through: 'user_friends', foreignKey: 'fr
 
 User.belongsToMany(User, {as: 'user', through: 'user_friends', foreignKey: 'userId'});
 
-
 User.belongsToMany(Resource, {through: 'user_resource'});
 Resource.belongsToMany(User, {through: 'user_resource'});
 
