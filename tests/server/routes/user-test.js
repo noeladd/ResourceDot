@@ -77,7 +77,7 @@ describe('User Route', function() {
     });
 
     beforeEach('Create a tag', function(done){
-        Tag.create(tagInfo)
+        Tag.create(tagInfo)()
         .then(function(createdTag){
             tag = createdTag;
             done();
@@ -116,8 +116,10 @@ describe('User Route', function() {
         });
 
         describe('Association routes', function() {
-            beforeEach('Add a friend', function(done) {
+            beforeEach('Add a friend, resource and tag', function(done) {
                 user.addFriend(friend);
+                user.addResource(resource);
+                user.addTag(tag);
                 done();
             });
 
@@ -132,6 +134,30 @@ describe('User Route', function() {
                     expect(res.body.friend[0].id).to.be.equal(friend.id);
                     done();
                 });
+            });
+
+            it('returns tags of a user', function(done){
+                agent
+                .get('/api/users/' + user.id)
+                .expect(200)
+                .end(function(err, res){
+                    if (err) return done(err);
+                    expect(res.body.tags).to.be.an('array');
+                    expect(res.body.tags[0].id).to.be.equal(tag.id);
+                    done();
+                })
+            })
+
+            it('returns resources of a user', function(done){
+                agent
+                .get('/api/users/' + user.id)
+                .expect(200)
+                .end(function(err, res){
+                    if (err) return done(err);
+                    expect(res.body.resources).to.be.an('array');
+                    expect(res.body.resources[0].id).to.be.equal(tag.id);
+                    done();
+                })
             })
         });
     });
