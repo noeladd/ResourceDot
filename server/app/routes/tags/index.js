@@ -33,6 +33,7 @@ router.get('/:id', function(req, res, next){
 });
 
 router.post('/', function(req, res, next){
+    req.body.title = req.body.title.toLowerCase()
     Tag.create(req.body)
     .then(function(createdTag) {
         res.status(201).json(createdTag);
