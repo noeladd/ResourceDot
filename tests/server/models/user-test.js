@@ -6,12 +6,49 @@ var Sequelize = require('sequelize');
 var db = require('../../../server/db');
 
 var User = db.model('user');
+var Tag = db.model('tag');
+var Resource = db.model('resource');
+
+var userInfo = {
+			email: 'joe@gmail.com',
+			password: 'shoopdawoop'
+		};
+
+let user;
 
 describe('User model', function () {
 
     beforeEach('Sync DB', function () {
        return db.sync({ force: true });
     });
+
+    it ('exists', function(){
+        expect(User.findAll).to.be.a('function');
+    });
+
+    it('can be created', function(){
+        console.log(User);
+        expect(User.create).to.be.a('function');
+        
+    })
+    describe('Instance methods', function(){
+
+        beforeEach('create a User', function(done){
+            User.create(userInfo)
+            .then(function(createdUser){
+                user = createdUser;
+                done()
+            })
+        });
+
+        it('has associated tag functions', function(){
+            expect(user.addTag).to.be.a('function');
+            expect(user.createTag).to.be.a('function');
+        });
+
+        
+    })
+    
 
     describe('password encryption', function () {
 
