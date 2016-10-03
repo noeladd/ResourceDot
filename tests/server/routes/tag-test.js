@@ -61,10 +61,11 @@ describe('Tag Route', function(){
         .catch(done)
     });
 
-    xbeforeEach('Create a tag', function(done){
+    beforeEach('Create a tag', function(done){
         Tag.create(tagInfo)
         .then(function(createdTag){
             tag = createdTag
+            //console.log(tag)
             done()
         })
     }); 
@@ -92,13 +93,14 @@ describe('Tag Route', function(){
             });
         });
 
-    xdescribe('Get routes', function(){
+    describe('Get routes', function(){
         it('gets back all tags', function(done){
             agent
             .get('/api/tags')
             .expect(200)
             .end(function(err, res) {
                 if (err) return done(err);
+                console.log(res.body[0]);
                 expect(res.body).to.be.an('array');
                 expect(res.body).to.have.length(1);
                 expect(res.body[0].id).to.equal(tag.id);
@@ -108,13 +110,14 @@ describe('Tag Route', function(){
 
         it('gets back an individual tag with associated users and resources', function(done){
             agent
-            .get('/api/tags' + tag.id)
+            .get('/api/tags/' + tag.id)
             .expect(200)
             .end(function(err, res) {
                 if (err) return done(err);
                 expect(res.body.id).to.equal(tag.id);
                 expect(res.body.users[0].id).to.equal(user.id);
                 expect(res.body.resources[0].id).to.equal(resource.id);
+                done();
             })
         })
     })

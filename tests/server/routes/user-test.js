@@ -77,7 +77,7 @@ describe('User Route', function() {
     });
 
     beforeEach('Create a tag', function(done){
-        Tag.create(tagInfo)()
+        Tag.create(tagInfo)
         .then(function(createdTag){
             tag = createdTag;
             done();
