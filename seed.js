@@ -1,22 +1,3 @@
-/*
-
-This seed file is only a placeholder. It should be expanded and altered
-to fit the development of your application.
-
-It uses the same file the server uses to establish
-the database connection:
---- server/db/index.js
-
-The name of the database used is set in your environment files:
---- server/env/*
-
-This seed file has a safety check to see if you already have users
-in the database. If you are developing multiple applications with the
-fsg scaffolding, keep in mind that fsg always uses the same database
-name in the environment files.
-
-*/
-
 var chalk = require('chalk');
 var db = require('./server/db');
 var User = db.model('user');
@@ -50,8 +31,10 @@ fs.createReadStream(__dirname + '/csv/seed.csv').pipe(converter);
 
 function seedResources(jsonArray){
     return Promise.map(jsonArray, function(resource){
-        //HEY, FILTER THIS ARRAY FOR UNIQUE VALUES
         var tags = resource.tags.split(',');
+        tags = tags.filter(function(tag, i, array){
+            return array.indexOf(tag) === i;
+        });
         return Resource.findOrCreate({where: {link: resource.link}, defaults: resource})
         .spread(function(newResource){
             return Promise.map(tags, function(tag){
