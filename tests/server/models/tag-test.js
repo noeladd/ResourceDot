@@ -1,8 +1,5 @@
-/*global require describe beforeEach it afterEach */
-var sinon = require('sinon');
+/*global require describe beforeEach it */
 var expect = require('chai').expect;
-
-var Sequelize = require('sequelize');
 
 var db = require('../../../server/db');
 

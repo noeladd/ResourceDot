@@ -68,7 +68,7 @@ describe('Tag Route', function(){
             //console.log(tag)
             done()
         })
-    }); 
+    });
 
     beforeEach('associate instances', function(done){
         tag.addUser(user);
@@ -122,5 +122,5 @@ describe('Tag Route', function(){
         })
     })
     })
-    
+
 })

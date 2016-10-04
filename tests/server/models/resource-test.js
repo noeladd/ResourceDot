@@ -1,4 +1,4 @@
-/*global require describe beforeEach it afterEach */
+/*global require describe beforeEach it */
 var expect = require('chai').expect;
 
 var db = require('../../../server/db');
@@ -28,7 +28,7 @@ describe('Resource model', function(){
     })
 
     describe('Instance methods', function(){
-        
+
         beforeEach('create a Resource', function(done){
             Resource.create(resourceInfo)
             .then(function(createdResource){
@@ -43,7 +43,7 @@ describe('Resource model', function(){
         });
 
         it('has associated user functions', function(){
-            expect(newResource.addUser).to.be.a('function');
+            expect(newResource.addProfile).to.be.a('function');
             expect(newResource.createUser).to.be.a('function');
         })
     })

@@ -5,8 +5,9 @@ module.exports = router;
 const db = require('../../../db');
 const Resource = db.model('resource');
 const Tag = db.model('tag');
+const User = db.model('user')
 
-//route would be /api/resources?type=article
+//route would be /api/resources?type=article, /api/resources?tag=javascript
 router.get('/', function(req, res, next) {
   Resource.findAll({
     where: req.query,
@@ -27,7 +28,9 @@ router.get('/', function(req, res, next) {
 router.get('/:id', function(req, res, next) {
     Resource.findById(req.params.id, {
         include: [
-        {model: Tag}
+        {model: Tag},
+        {model: User, as: 'user'},
+        {model: User, as: 'profile'}
     ]})
     .then(function(resource) {
         if (!resource){
