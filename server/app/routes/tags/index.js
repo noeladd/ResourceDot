@@ -8,14 +8,19 @@ const Tag = db.model('tag');
 const User = db.model('user');
 
 router.get('/', function(req, res, next){
-    Tag.findAll()
-    .then(function(tags){
-        if (tags.length === 0){
-            res.status(404).send();
-        }
-        res.json(tags);
-    })
-    .catch(next)
+    if (req.query.tags){
+        var tags = req.query.tags.split(',');
+    }
+    else {
+        Tag.findAll()
+        .then(function(tags){
+            if (tags.length === 0){
+                res.status(404).send();
+            }
+            res.json(tags);
+        })
+        .catch(next)
+    }
 });
 
 router.get('/:id', function(req, res, next){

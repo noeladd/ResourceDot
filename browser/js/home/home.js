@@ -1,43 +1,34 @@
-app.controller('HomeCtrl', function($scope, TagFactory) {
-  $scope.ctrl = {};
-
+app.controller('HomeCtrl', function($scope, $filter, TagFactory, $log) {
   TagFactory.getTags()
   .then(function(tags){
-    $scope.ctrl.readonly = false;
-    $scope.ctrl.selectedItem = null;
-    $scope.ctrl.searchText = null;
-    $scope.ctrl.querySearch = querySearch;
-    $scope.ctrl.searchTags = tags;
-    $scope.ctrl.selectedTags = [];
-    $scope.ctrl.numberChips = [];
-    $scope.ctrl.numberChips2 = [];
-    $scope.ctrl.numberBuffer = '';
-    $scope.ctrl.autocompleteDemoRequireMatch = true;
-    $scope.ctrl.transformChip = transformChip;
-  });
-    function querySearch (query) {
-      var results = query ? $scope.ctrl.searchTags.filter(createFilterFor(query)) : [];
-      return results;
-    }
+    var allTags = tags;
 
-    function transformChip(chip) {
-      // If it is an object, it's already a known chip
-      if (angular.isObject(chip)) {
-        return chip;
-      }
+    $scope.allTags = allTags;
+    $scope.selectedTags = [];
 
-      // Otherwise, create a new one
-      return { name: chip, type: 'new' };
-    }
+    $scope.queryTags = function(search) {
+      var firstPass = allTags.filter(function(tag){
+        return tag.title.includes(search);
+      });
+      return firstPass.filter(function(tag){
+        for(var i = 0; i < $scope.selectedTags.length; i++){
+          if (tag.title === search) return false;
+        }
+        return true;
+      });
+    };
 
-    function createFilterFor(query) {
-      var lowercaseQuery = angular.lowercase(query);
-      return function filterFn(tag) {
-        return tag.title === lowercaseQuery;
-      };
+    $scope.addTag = function(group) {
+        $scope.selectedTags.push(group);
+    };
 
-    }
-  });
+    $scope.$watchCollection('selectedTags', function() {
+        $scope.availableTags = $scope.queryTags('');
+    });
+  })
+  .catch($log.error);
+
+});
 
 app.config(function ($stateProvider) {
     $stateProvider.state('home', {
