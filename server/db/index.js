@@ -12,7 +12,6 @@ var Tag = require('./models/tag');
 User.belongsToMany(User, {as: 'friend', through: 'user_friends', foreignKey: 'friendId'});
 User.belongsToMany(User, {as: 'user', through: 'user_friends', foreignKey: 'userId'});
 
-
 User.belongsToMany(Resource, {as: 'like', through: 'profile_like'});
 Resource.belongsToMany(User, {as: 'profile', through: 'profile_like'});
 

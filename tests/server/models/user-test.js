@@ -7,7 +7,6 @@ var db = require('../../../server/db');
 
 var User = db.model('user');
 
-
 var userInfo = {
 			email: 'joe@gmail.com',
 			password: 'shoopdawoop'
@@ -36,14 +35,13 @@ describe('User model', function () {
         beforeEach('create a User', function(done){
             User.create(userInfo)
             .then(function(createdUser){
-
                 newUser = createdUser;
-
                 done()
             })
         });
 
         it('has associated tag functions', function(){
+
 
             expect(newUser.addTag).to.be.a('function');
             expect(newUser.createTag).to.be.a('function');
