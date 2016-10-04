@@ -1,51 +1,21 @@
-/*
-
-This seed file is only a placeholder. It should be expanded and altered
-to fit the development of your application.
-
-It uses the same file the server uses to establish
-the database connection:
---- server/db/index.js
-
-The name of the database used is set in your environment files:
---- server/env/*
-
-This seed file has a safety check to see if you already have users
-in the database. If you are developing multiple applications with the
-fsg scaffolding, keep in mind that fsg always uses the same database
-name in the environment files.
-
-*/
-
 var chalk = require('chalk');
 var db = require('./server/db');
 var User = db.model('user');
+var Resource = db.model('resource');
+var Tag = db.model('tag');
 var Promise = require('sequelize').Promise;
+var fs = require('fs');
+var Converter = require('csvtojson').Converter;
+var converter = new Converter({});
+var faker = require('faker');
 
-var seedUsers = function () {
-
-    var users = [
-        {
-            email: 'testing@fsa.com',
-            password: 'password'
-        },
-        {
-            email: 'obama@gmail.com',
-            password: 'potus'
-        }
-    ];
-
-    var creatingUsers = users.map(function (userObj) {
-        return User.create(userObj);
-    });
-
-    return Promise.all(creatingUsers);
-
-};
-
-db.sync({ force: true })
+converter.on('end_parsed', function (jsonArray) {
+    db.sync({ force: true })
     .then(function () {
         return seedUsers();
+    })
+    .then(function(){
+        return seedResources(jsonArray);
     })
     .then(function () {
         console.log(chalk.green('Seed successful!'));
@@ -55,3 +25,46 @@ db.sync({ force: true })
         console.error(err);
         process.exit(1);
     });
+});
+
+fs.createReadStream(__dirname + '/csv/seed.csv').pipe(converter);
+
+function seedResources(jsonArray){
+    return Promise.map(jsonArray, function(resource){
+        var tags = resource.tags.split(',');
+        tags = tags.filter(function(tag, i, array){
+            return array.indexOf(tag) === i;
+        });
+        return Resource.findOrCreate({where: {link: resource.link}, defaults: resource})
+        .spread(function(newResource){
+            return Promise.map(tags, function(tag){
+                tag = tag.toLowerCase();
+               return Tag.findOrCreate({where: {
+                title: tag
+               }})
+               .spread(function(newTag){
+                    return newResource.addTag(newTag);
+               })
+            });
+        });
+    });
+}
+
+function writeUser(){
+    var user = {};
+    user.name = faker.Name.findName();
+    user.email = faker.Internet.email();
+    user.password = 'password';
+    return user;
+}
+
+function seedUsers() {
+    var users = [];
+    for (var i = 0; i < 100; i++){
+        users.push(writeUser());
+    }
+    var creatingUsers = users.map(function (userObj) {
+        return User.create(userObj);
+    });
+    return Promise.all(creatingUsers);
+}
