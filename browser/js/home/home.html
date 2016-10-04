@@ -1,4 +1,33 @@
-<section id="home">
-    <fullstack-logo></fullstack-logo>
-    <rando-greeting></rando-greeting>
-</section>
+<div ng-controller="HomeCtrl" layout="column">
+  <div flex id="home">
+    <h1>What are you learning?</h1>
+
+      <md-chips ng-model="ctrl.selectedTags" md-autocomplete-snap
+              md-transform-chip="ctrl.transformChip($chip)"
+              md-require-match="ctrl.autocompleteDemoRequireMatch">
+      <md-autocomplete
+          md-selected-item="ctrl.selectedItem"
+          md-search-text="ctrl.searchText"
+          md-items="item in ctrl.querySearch(ctrl.searchText)"
+          md-item-text="item.title"
+          placeholder="Add a topic">
+        <span md-highlight-text="ctrl.searchText">{{item.title}} :: {{item.type}}</span>
+      </md-autocomplete>
+      <md-chip-template>
+        <span>
+          <strong>{{$chip.name}}</strong>
+          <em>({{$chip.type}})</em>
+        </span>
+      </md-chip-template>
+    </md-chips>
+
+      <!-- <md-chips ng-model="tags">
+        <md-autocomplete placeholder="Add a topic"></md-autocomplete>
+      </md-chips> -->
+
+      <!-- <tags-input ng-model="tags" placeholder="Add a topic">
+        <auto-complete source="loadTags($query)">
+        </auto-complete>
+      </tags-input> -->
+  </div>
+</div>
