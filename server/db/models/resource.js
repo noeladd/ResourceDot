@@ -28,4 +28,10 @@ module.exports = db.define('resource', {
         type: Sequelize.ENUM('article', 'book', 'blog', 'podcast', 'website'), //eslint-disable-line new-cap
         defaultValue: 'article'
     }
+}, {
+    getterMethods: {
+        netLikes: function(){
+            return this.likes - this.dislikes
+        }
+    }
 });

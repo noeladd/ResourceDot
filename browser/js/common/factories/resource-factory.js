@@ -59,7 +59,7 @@ app.factory('ResourceFactory', function($http) {
 	ResourceFactory.getRecommendations = function(resources, user) {
 		resources.forEach(function(resource){
 			//Formula for calculating how many friends like each resource.
-			var currentRating = intersect(user.friend, resource.profile).length - intersect(user.friend, resource.user)
+			var currentRating = intersect(user.friend, resource.profile).length - intersect(user.friend, resource.user).length;
 			if (currentRating > 0){
 				recommended.push({id: resource.id, rating: currentRating})
 			}
