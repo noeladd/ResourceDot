@@ -4,6 +4,7 @@ const Promise = require('bluebird');
 
 const db = require('../_db');
 const Tag = require('./tag');
+const User = require('./user')
 
 module.exports = db.define('resource', {
     title: {
@@ -41,7 +42,10 @@ module.exports = db.define('resource', {
         })
         .then(function(tagsInstances){
             return Promise.map(tagsInstances, function(tag){
-                return tag.getResources();
+                return tag.getResources({include :[
+                    {model : User, as: 'likeUser'},
+                    {model: User, as: 'dislikeUser'}
+                    ]});
             });
         })
         .then(function(resources){
@@ -52,8 +56,7 @@ module.exports = db.define('resource', {
             return allResources;
       });
     }
-  }
-}, {
+  },
     getterMethods: {
         netLikes: function(){
             return this.likes - this.dislikes
