@@ -53,4 +53,10 @@ module.exports = db.define('resource', {
       });
     }
   }
+}, {
+    getterMethods: {
+        netLikes: function(){
+            return this.likes - this.dislikes
+        }
+    }
 });
