@@ -80,7 +80,7 @@ router.put('/:id/dislike', function(req, res, next){
 router.post('/', function(req, res, next) {
     Resource.create(req.body)
     .then(function(createdResource) {
-        res.status(204).json(createdResource);
+        res.status(201).json(createdResource);
     })
     .catch(next);
 });
