@@ -30,8 +30,11 @@ app.factory('ResourceFactory', function($http, DataFactory) {
 		return $http.get('/api/resources')
 		.then(DataFactory.getData(response))
 	}
-	ResourceFactory.getAllByTag = function(tag) {
-		return $http.get('/api/resources?tag=' + tag)
+	ResourceFactory.getAllByTag = function() {
+		var tagIds = [...arguments]
+		tagIds = tagIds.join(',');
+		//  '/api/resources?tagIds=1,2,3,'
+		return $http.get('/api/resources?tagIds=' + tagIds)
 		.then(DataFactory.getData(response))
 	}
 	ResourceFactory.getAllByType = function(type) {
