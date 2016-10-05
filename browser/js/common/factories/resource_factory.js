@@ -1,4 +1,4 @@
-app.factory('ResourceFactory', function($http) {
+app.factory('ResourceFactory', function($http, DataFactory) {
 	let ResourceFactory = {};
 	let	recommended = [];
 	let	intersect = function(a, b){
@@ -28,38 +28,31 @@ app.factory('ResourceFactory', function($http) {
 
 	ResourceFactory.getAll = function() {
 		return $http.get('/api/resources')
-		.then(function (resources) {
-			return resources.data;
-		})
+		.then(DataFactory.getData(response))
 	}
-	ResourceFactory.getAllByTag = function(tag) {
-		return $http.get('/api/resources?tag=' + tag)
-		.then(function (resources) {
-			return resources.data;
-		})
+	ResourceFactory.getAllByTag = function() {
+		var tagIds = [...arguments]
+		tagIds = tagIds.join(',');
+		//  '/api/resources?tagIds=1,2,3,'
+		return $http.get('/api/resources?tagIds=' + tagIds)
+		.then(DataFactory.getData(response))
 	}
 	ResourceFactory.getAllByType = function(type) {
 		return $http.get('/api/resources?type=' + type)
-		.then(function (resources) {
-			return resources.data;
-		})
+		.then(DataFactory.getData(response))
 	}
 	ResourceFactory.getById = function(id) {
 		return $http.get('/api/resources/' + id)
-		.then(function (resources) {
-			return resources.data;
-		})
+		.then(DataFactory.getData(response))
 	}
 	ResourceFactory.post = function(data) {
 		return $http.post('/api/resources', data)
-		.then(function (createdResource) {
-			return createdResource.data;
-		})
+		.then(DataFactory.getData(response))
 	}
 	ResourceFactory.getRecommendations = function(resources, user) {
 		resources.forEach(function(resource){
 			//Formula for calculating how many friends like each resource.
-			var currentRating = intersect(user.friend, resource.profile).length - intersect(user.friend, resource.user)
+			var currentRating = intersect(user.friend, resource.profile).length - intersect(user.friend, resource.user).length;
 			if (currentRating > 0){
 				recommended.push({id: resource.id, rating: currentRating})
 			}

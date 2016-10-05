@@ -1,20 +1,19 @@
-app.factory('TagFactory', function($http){
-    let getAll = function(){
+app.factory('TagFactory', function($http, DataFactory){
+    let TagFactory = {};
+
+    TagFactory.getAll = function(){
         return $http.get('/api/tags')
-        .then(function(response){
-            return response.data;
-        })
+        .then(DataFactory.getData(response))
     }
 
-    let addTag = function(info){
+    TagFactory.addTag = function(info){
         return $http.post('/api/tags', info)
+        .then(DataFactory.getData(response))
     }
 
-    let getById = function(id){
+    TagFactory.getById = function(id){
         return $http.get('/api/tags/' + id)
-        .then(function(response){
-            return response.data
-        })
+        .then(DataFactory.getData(response))
     }
-    return {getAll, addTag, getById}
+    return TagFactory;
 })
