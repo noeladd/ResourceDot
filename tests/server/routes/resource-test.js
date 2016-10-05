@@ -68,7 +68,6 @@ describe('Resource Route', function() {
                 return Resource.findById(createdResource.id)
             })
             .then(function (foundResource) {
-                console.log(foundResource)
                 expect(foundResource.title).to.be.equal('ABCD');
             });
 

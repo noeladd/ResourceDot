@@ -30,7 +30,7 @@ module.exports = db.define('resource', {
         defaultValue: 0
     },
     type: {
-        type: Sequelize.ENUM('article', 'book', 'blog', 'podcast', 'website'),
+        type: Sequelize.ENUM('article', 'book', 'blog', 'podcast', 'website'), //eslint-disable-line new-cap
         defaultValue: 'article'
     }
   }, {
