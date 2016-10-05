@@ -97,6 +97,17 @@ describe('Resource Route', function() {
                 expect(response.body[0].id).to.equal(resource.id);
                 done();
             })
+        }),
+
+        it('gets back resource by associated tag', function(done){
+            agent
+            .get('/api/resources?tagIds=1')
+            .expect(200)
+            .end(function(err, response){
+                console.log(response.body)
+                expect(response.body[0].id).to.equal(resource.id);
+                done();
+            })
         })
 
         it('gets back an empty array if no resource of that type', function(done){

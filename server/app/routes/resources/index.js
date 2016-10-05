@@ -5,16 +5,30 @@ module.exports = router;
 const db = require('../../../db');
 const Resource = db.model('resource');
 const Tag = db.model('tag');
-const User = db.model('user')
+const User = db.model('user');
 
 //route would be /api/resources?type=article, /api/resources?tag=javascript
 router.get('/', function(req, res, next) {
-  Resource.findAll({
-    where: req.query,
-    include: [
-      {model: Tag}
-    ]
-  })
+  var reqType = req.query.type
+  var reqTagIds = req.query.tagIds
+  if (reqTagIds){
+      var tags = reqTagIds.split(',');
+
+      Resource.findByTags(tags)
+      .then(function(resources){
+        if (resources.length === 0){
+            res.status(404).send();
+        }
+        res.json(resources);
+        })
+      .catch(next);
+    } else {
+    Resource.findAll({
+        where: req.query,
+        include: [
+        {model: Tag}
+        ]
+    })
     .then(function(resources){
         if (resources.length === 0){
             res.status(404).send();
@@ -22,6 +36,7 @@ router.get('/', function(req, res, next) {
         res.json(resources);
     })
     .catch(next);
+}
 });
 
 
