@@ -53,14 +53,13 @@ describe('User model', function () {
         });
 
         it('has associated resource functions', function(){
-            expect(newUser.addLike).to.be.a('function');
-            expect(newUser.createLike).to.be.a('function');
-            expect(newUser.addDislike).to.be.a('function');
+            expect(newUser.addResourceLike).to.be.a('function');
+            expect(newUser.createResourceLike).to.be.a('function');
+            expect(newUser.addResourceDislike).to.be.a('function');
         })
 
 
     })
-
 
     describe('password encryption', function () {
 

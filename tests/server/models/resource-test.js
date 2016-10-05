@@ -43,8 +43,8 @@ describe('Resource model', function(){
         });
 
         it('has associated user functions', function(){
-            expect(newResource.addProfile).to.be.a('function');
-            expect(newResource.createUser).to.be.a('function');
+            expect(newResource.addDislikeUser).to.be.a('function');
+            expect(newResource.createLikeUser).to.be.a('function');
         })
     })
 })
