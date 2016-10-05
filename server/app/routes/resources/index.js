@@ -44,8 +44,8 @@ router.get('/:id', function(req, res, next) {
     Resource.findById(req.params.id, {
         include: [
         {model: Tag},
-        {model: User, as: 'user'},
-        {model: User, as: 'profile'}
+        {model: User, as: 'likeUser'},
+        {model: User, as: 'dislikeUser'}
     ]})
     .then(function(resource) {
         if (!resource){
