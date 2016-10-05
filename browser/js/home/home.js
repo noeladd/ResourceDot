@@ -1,5 +1,5 @@
-app.controller('HomeCtrl', function($scope, $filter, TagFactory, $log) {
-  TagFactory.getTags()
+app.controller('HomeCtrl', function($scope, $filter, TagFactory, ResourceFactory, $state, $log) {
+  TagFactory.getAll()
   .then(function(tags){
     var allTags = tags;
 
@@ -27,6 +27,17 @@ app.controller('HomeCtrl', function($scope, $filter, TagFactory, $log) {
     });
   })
   .catch($log.error);
+
+  $scope.search = function() {
+    var tags = $scope.selectedTags.map(function(tag) {
+      return tag.id;
+    });
+
+    return ResourceFactory.getAllByTag(tags)
+    .then(function(resources) {
+      $state.go('searchResults', {resources: resources});
+    });
+  };
 
 });
 
