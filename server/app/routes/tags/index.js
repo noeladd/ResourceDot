@@ -9,25 +9,16 @@ const User = db.model('user');
 
 router.get('/', function(req, res, next){
     if (req.query.tagIds){
-        var tags = req.query.tagIds.split(',');
-        Promise.map(tags, function(tag){
-            return Tag.findById(+tag);
+      var tags = req.query.tagIds.split(',');
+
+      Resource.findByTags(tags)
+      .then(function(resources){
+        if (resources.length === 0){
+            res.status(404).send();
+        }
+        res.json(resources);
         })
-        .then(function(tagsInstances){
-            return Promise.map(tagsInstances, function(tag){
-                return tag.getResources();
-            });
-        })
-        .then(function(resources){
-            var allResources = resources.reduce(function(a, b){
-                return a.concat(b);
-            })
-            if (resources.length === 0){
-                res.status(404).send();
-            }
-            res.json(resources);
-        })
-        .catch(next);
+      .catch(next);
     }
     else {
         Tag.findAll()
@@ -37,7 +28,7 @@ router.get('/', function(req, res, next){
             }
             res.json(tags);
         })
-        .catch(next)
+        .catch(next);
     }
 });
 
