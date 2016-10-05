@@ -10,8 +10,8 @@ var Guide = require('./models/guide');
 
 // if we had more models, we could associate them in this file
 // e.g. User.hasMany(Reports)
-User.belongsToMany(User, {as: 'friend', through: 'user_friends', foreignKey: 'friendId'});
-User.belongsToMany(User, {as: 'user', through: 'user_friends', foreignKey: 'userId'});
+User.belongsToMany(User, {as: 'friend', through: 'user_friends', foreignKey: 'userId'});
+User.belongsToMany(User, {as: 'user', through: 'user_friends', foreignKey: 'friendId'});
 
 User.belongsToMany(Resource, {as: 'resourceLike', through: 'resource_like'});
 Resource.belongsToMany(User, {as: 'likeUser', through: 'resource_like'});
