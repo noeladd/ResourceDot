@@ -38,7 +38,7 @@ module.exports = db.define('user', {
     },
     picture: {
         type: Sequelize.STRING,
-        defaultValue: "http://lorempixel.com/150/150/abstract"
+        defaultValue: 'http://lorempixel.com/150/150/abstract'
     }
 }, {
     instanceMethods: {
