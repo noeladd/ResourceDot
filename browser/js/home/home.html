@@ -1,4 +1,21 @@
-<section id="home">
-    <fullstack-logo></fullstack-logo>
-    <rando-greeting></rando-greeting>
-</section>
+<div ng-controller="HomeCtrl" layout="column">
+  <div flex id="home">
+    <h1>What are you learning?</h1>
+    <md-chips ng-model="selectedTags" md-autocomplete-snap md-require-match="true">
+      <md-autocomplete
+                       md-search-text="searchText"
+                       md-items="item in queryTags(searchText)"
+                       md-item-text="item.title"
+                       md-autoselect="true"
+                       md-no-cache="true"
+                       md-require-match="true"
+                       placeholder="Add a topic">
+          <span md-highlight-text="searchText">{{item.title}}</span>
+      </md-autocomplete>
+      <md-chip-template>
+          <span>{{$chip.title}}</span>
+      </md-chip-template>
+    </md-chips>
+
+  </div>
+</div>

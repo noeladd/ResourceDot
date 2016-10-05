@@ -1,21 +1,35 @@
 'use strict';
 const router = require('express').Router(); //eslint-disable-line new-cap
 module.exports = router;
-
+const Promise = require('bluebird');
 const db = require('../../../db');
 const Resource = db.model('resource');
 const Tag = db.model('tag');
 const User = db.model('user');
 
 router.get('/', function(req, res, next){
-    Tag.findAll()
-    .then(function(tags){
-        if (tags.length === 0){
+    if (req.query.tagIds){
+      var tags = req.query.tagIds.split(',');
+
+      Resource.findByTags(tags)
+      .then(function(resources){
+        if (resources.length === 0){
             res.status(404).send();
         }
-        res.json(tags);
-    })
-    .catch(next)
+        res.json(resources);
+        })
+      .catch(next);
+    }
+    else {
+        Tag.findAll()
+        .then(function(tags){
+            if (tags.length === 0){
+                res.status(404).send();
+            }
+            res.json(tags);
+        })
+        .catch(next);
+    }
 });
 
 router.get('/:id', function(req, res, next){

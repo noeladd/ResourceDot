@@ -52,8 +52,8 @@ function seedResources(jsonArray){
 
 function writeUser(){
     var user = {};
-    user.name = faker.Name.findName();
-    user.email = faker.Internet.email();
+    user.name = faker.name.findName();
+    user.email = faker.internet.email();
     user.password = 'password';
     return user;
 }

@@ -2,11 +2,9 @@
 var router = require('express').Router(); // eslint-disable-line new-cap
 module.exports = router;
 
-router.use('/members', require('./members'));
 router.use('/resources', require('./resources'));
+router.use('/tags', require('./tags'));
 router.use('/users', require('./users'));
-router.use('/tags', require('./tags'))
-
 
 // Make sure this is after all of
 // the registered routes!
