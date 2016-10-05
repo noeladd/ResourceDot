@@ -68,7 +68,6 @@ describe('Resource Route', function() {
                 return Resource.findById(createdResource.id)
             })
             .then(function (foundResource) {
-                console.log(foundResource)
                 expect(foundResource.title).to.be.equal('ABCD');
             });
 
@@ -95,6 +94,18 @@ describe('Resource Route', function() {
                 if (err) return done(err);
                 expect(response.body).to.be.an('array');
                 expect(response.body).to.have.length(1);
+                expect(response.body[0].id).to.equal(resource.id);
+                done();
+            })
+        })
+
+        it('gets back resource by associated tag', function(done){
+            agent
+            .get('/api/resources?tagIds=1')
+            .expect(200)
+            .end(function(err, response){
+                if (err) return done (err)
+                console.log(response.body.netLikes)
                 expect(response.body[0].id).to.equal(resource.id);
                 done();
             })

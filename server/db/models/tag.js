@@ -6,6 +6,9 @@ module.exports = db.define('tag', {
     title: {
         type: Sequelize.STRING,
         allowNull: false,
-        unique: true
+        unique: true,
+        set: function(val) {
+            this.setDataValue('title', val.toLowerCase())
+        }
     }
 })
