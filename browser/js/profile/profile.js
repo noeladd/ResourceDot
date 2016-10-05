@@ -7,7 +7,7 @@ app.config(function ($stateProvider) {
 
 });
 
-app.controller('ProfileController', function ($scope, TagFactory, UserFactory, AuthService, $log, ResourceFactory) {
+app.controller('ProfileController', function ($scope, TagFactory, UserFactory, AuthService, $log, ResourceFactory, RecommendationFactory) {
 
   AuthService.getLoggedInUser()
   .then(function(user){
@@ -15,11 +15,20 @@ app.controller('ProfileController', function ($scope, TagFactory, UserFactory, A
   })
   .then(function(fullUser){
     $scope.user = fullUser;
-    return ResourceFactory.getAllByTag(1);
+    $scope.userTags = fullUser.tags;
+    var tags = fullUser.tags.map(function(tag){
+      return tag.id;
+    }).join(',');
+    return ResourceFactory.getAllByTag(tags);
   })
   .then(function(resources){
-    $scope.resources = ResourceFactory.getRecommendations(resources, $scope.user);
+    $scope.resources = RecommendationFactory.get(resources, $scope.user).map(function(obj){
+      return obj.resource;
+    });
   })
   .catch($log.error)
+
+  $scope.like = ResourceFactory.like;
+  $scope.dislike = ResourceFactory.dislike;
 
 });

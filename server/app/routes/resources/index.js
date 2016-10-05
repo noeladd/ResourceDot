@@ -39,7 +39,6 @@ router.get('/', function(req, res, next) {
 }
 });
 
-
 router.get('/:id', function(req, res, next) {
     Resource.findById(req.params.id, {
         include: [
@@ -56,10 +55,32 @@ router.get('/:id', function(req, res, next) {
     .catch(next);
 });
 
+router.put('/:id/like', function(req, res, next){
+    Resource.findById(req.params.id)
+    .then(function(resource){
+        return resource.increment('likes');
+    })
+    .then(function(){
+        res.sendStatus(204);
+    })
+    .catch(next);
+});
+
+router.put('/:id/dislike', function(req, res, next){
+    Resource.findById(req.params.id)
+    .then(function(resource){
+        return resource.increment('dislikes');
+    })
+    .then(function(){
+        res.sendStatus(204);
+    })
+    .catch(next);
+});
+
 router.post('/', function(req, res, next) {
     Resource.create(req.body)
     .then(function(createdResource) {
-        res.status(201).json(createdResource);
+        res.status(204).json(createdResource);
     })
     .catch(next);
 });
