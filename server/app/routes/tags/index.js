@@ -8,19 +8,6 @@ const Tag = db.model('tag');
 const User = db.model('user');
 
 router.get('/', function(req, res, next){
-    if (req.query.tagIds){
-      var tags = req.query.tagIds.split(',');
-
-      Resource.findByTags(tags)
-      .then(function(resources){
-        if (resources.length === 0){
-            res.status(404).send();
-        }
-        res.json(resources);
-        })
-      .catch(next);
-    }
-    else {
         Tag.findAll()
         .then(function(tags){
             if (tags.length === 0){
@@ -29,7 +16,6 @@ router.get('/', function(req, res, next){
             res.json(tags);
         })
         .catch(next);
-    }
 });
 
 router.get('/:id', function(req, res, next){

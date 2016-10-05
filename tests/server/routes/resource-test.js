@@ -99,6 +99,18 @@ describe('Resource Route', function() {
             })
         })
 
+        it('gets back resource by associated tag', function(done){
+            agent
+            .get('/api/resources?tagIds=1')
+            .expect(200)
+            .end(function(err, response){
+                if (err) return done (err)
+                console.log(response.body.netLikes)
+                expect(response.body[0].id).to.equal(resource.id);
+                done();
+            })
+        })
+
         it('gets back an empty array if no resource of that type', function(done){
             agent
             .get('/api/resources?type=podcast')
