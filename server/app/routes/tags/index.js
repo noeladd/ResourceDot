@@ -24,7 +24,7 @@ router.get('/:id', function(req, res, next){
         {model: User}
     ]})
     .then(function(tag){
-        if(!tag){
+        if (!tag){
             res.status(404).send();
         }
         res.json(tag)

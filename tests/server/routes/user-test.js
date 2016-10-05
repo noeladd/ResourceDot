@@ -118,7 +118,7 @@ describe('User Route', function() {
         describe('Association routes', function() {
             beforeEach('Add a friend, resource and tag', function(done) {
                 user.addFriend(friend);
-                user.addResource(resource);
+                user.addLike(resource);
                 user.addTag(tag);
                 done();
             });
@@ -154,8 +154,8 @@ describe('User Route', function() {
                 .expect(200)
                 .end(function(err, res){
                     if (err) return done(err);
-                    expect(res.body.resources).to.be.an('array');
-                    expect(res.body.resources[0].id).to.be.equal(tag.id);
+                    expect(res.body.like).to.be.an('array');
+                    expect(res.body.like[0].id).to.be.equal(tag.id);
                     done();
                 })
             })
