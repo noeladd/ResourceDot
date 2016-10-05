@@ -15,7 +15,7 @@ router.get('/', function(req, res, next){
             }
             res.json(tags);
         })
-        .catch(next);git 
+        .catch(next);
 });
 
 router.get('/:id', function(req, res, next){
