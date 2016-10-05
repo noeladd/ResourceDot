@@ -5,7 +5,6 @@ app.factory('TagFactory', function($http, DataFactory){
         return $http.get('/api/tags')
         .then(DataFactory.getData)
     }
-
     TagFactory.addTag = function(info){
         return $http.post('/api/tags', info)
         .then(DataFactory.getData)
