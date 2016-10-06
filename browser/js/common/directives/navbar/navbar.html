@@ -17,6 +17,9 @@
       <md-button ng-show="!user" ui-sref="signup" class="md-raised">
         Signup
       </md-button>
+      <md-button ng-show="user" ng-click="logout()" class="md-raised">
+        Logout
+      </md-button>
     </div>
 
   </md-toolbar>
