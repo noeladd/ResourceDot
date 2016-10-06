@@ -1,5 +1,5 @@
 'use strict';
-
+var faker = require('faker');
 var passport = require('passport');
 var GitHubStrategy = require('passport-github2').Strategy;
 
@@ -16,7 +16,6 @@ module.exports = function (app, db) {
     };
 
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
-        console.log(profile);
         User.findOne({
                 where: {
                     github_id: profile.id
@@ -28,8 +27,9 @@ module.exports = function (app, db) {
                 } else {
                     return User.create({
                         github_id: profile.id,
+                        name: profile._json.name,
                         email: profile._json.email,
-                        password: 'password'
+                        password: faker.helpers.replaceSymbolWithNumber('########')
                     });
                 }
             })

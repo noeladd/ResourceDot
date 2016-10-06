@@ -1,5 +1,6 @@
 'use strict';
 
+var faker = require('faker');
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
@@ -30,7 +31,7 @@ module.exports = function (app, db) {
                         google_id: profile.id,
                         email: profile._json.email,
                         name: profile._json.name,
-                        password: 'password'
+                        password: faker.helpers.replaceSymbolWithNumber('########')
                     });
                 }
             })
