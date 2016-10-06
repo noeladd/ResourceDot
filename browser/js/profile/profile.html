@@ -1,1 +1,11 @@
-<p ng-repeat="resource in resources">{{resource.id}} {{resource.title}} {{resource.netLikes}}</p>
+<div layout="row">
+  <div layout="column">
+    <h3>Recommended Resources:</h3>
+    <md-content>
+      <resource-card ng-repeat="resource in resources"></resource-card>
+    </md-content>
+  </div>
+  <div>
+    User Profile
+  </div>
+</div>
