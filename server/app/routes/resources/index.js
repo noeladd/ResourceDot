@@ -7,9 +7,8 @@ const Resource = db.model('resource');
 const Tag = db.model('tag');
 const User = db.model('user');
 
-//route would be /api/resources?type=article, /api/resources?tag=javascript
+//route would be /api/resources?type=article, /api/resources?tag=javascript, 'api/resources?author=Jennifer+Bassett', 'api/resources?source=A+List+Apart'
 router.get('/', function(req, res, next) {
-  var reqType = req.query.type
   var reqTagIds = req.query.tagIds
   if (reqTagIds){
       var tags = reqTagIds.split(',');

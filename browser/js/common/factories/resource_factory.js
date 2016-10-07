@@ -29,12 +29,12 @@ app.factory('ResourceFactory', function($http, DataFactory) {
 	};
 
 	ResourceFactory.like = function(id) {
-    	return $http.put('/api/resources/' + id + '/like');
+		return $http.put('/api/resources/' + id + '/like');
 	};
 
 	ResourceFactory.dislike = function(id) {
 		return $http.put('/api/resources/' + id + '/dislike');
 	};
-	
+
 	return ResourceFactory;
 });

@@ -1,11 +1,13 @@
 <div layout="row">
   <div layout="column">
+
     <h3>Recommended Resources:</h3>
     <md-content>
       <resource-card ng-repeat="resource in resources"></resource-card>
     </md-content>
     <h3>Your Guides:</h3>
   </div>
+
   <div>
     <img src="http://loremflickr.com/80/80">
     <h4>{{ user.name }}</h4>
@@ -13,9 +15,11 @@
     <h4>Learning:</h4>
     <tag-chips selected-tags="selectedTags"></tag-chips>
     <h4>Friends</h4>
+
     <div layout="column" ng-repeat="friend in user.friend">
       <img src="{{ friend.picture }}" />
       <p>{{ friend.name }}</p>
     </div>
+
   </div>
 </div>
