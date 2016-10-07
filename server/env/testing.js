@@ -1,6 +1,6 @@
 module.exports = {
   DATABASE_URL: 'postgres://localhost:5432/testing-fsg',
-  SESSION_SECRET: 'The hero of Canton is a man named Jayne',
+  SESSION_SECRET: 'Optimus Prime is my real dad',
   TWITTER: {
     consumerKey: 'INSERT_TWITTER_CONSUMER_KEY_HERE',
     consumerSecret: 'INSERT_TWITTER_CONSUMER_SECRET_HERE',

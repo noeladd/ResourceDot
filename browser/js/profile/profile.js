@@ -8,12 +8,17 @@ app.config(function ($stateProvider) {
 
 app.controller('ProfileCtrl', function ($scope, TagFactory, UserFactory, AuthService, $log, ResourceFactory, RecommendationFactory) {
   $scope.selectedTags = [];
+  var user;
 
   // profile page displays: recommended resources, guides created by the user, user's picture & account settings, & user's friends
   function fetchResources() {
     var tags = $scope.selectedTags.map(function(tag) {
       return tag.id;
     }).join(', ');
+
+    var tagsArr = tags.split(', ');
+
+    UserFactory.setTags(user.id, tagsArr);
 
     return ResourceFactory.getAllByTag(tags)
     .then(function(resources) {
@@ -31,6 +36,7 @@ app.controller('ProfileCtrl', function ($scope, TagFactory, UserFactory, AuthSer
      return UserFactory.getById(user.id);
   })
   .then(function(fullUser){
+    user = fullUser;
     $scope.user = fullUser; // gets current user
     $scope.selectedTags = fullUser.tags; // gets user's tags (topics user is interested in)
     return fetchResources();
