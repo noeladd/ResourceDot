@@ -11,7 +11,7 @@ app.controller('HomeCtrl', function($scope, $filter, TagFactory, ResourceFactory
         return tag.title.includes(search);
       });
       return firstPass.filter(function(tag){
-        for(var i = 0; i < $scope.selectedTags.length; i++){
+        for (var i = 0; i < $scope.selectedTags.length; i++){
           if (tag.title === search) return false;
         }
         return true;
@@ -29,14 +29,11 @@ app.controller('HomeCtrl', function($scope, $filter, TagFactory, ResourceFactory
   .catch($log.error);
 
   $scope.search = function() {
-    var tags = $scope.selectedTags.map(function(tag) {
+    var tags = $scope.selectedTags.map(function(tag) { // tags = [1,2,3]
       return tag.id;
     });
-
-    return ResourceFactory.getAllByTag(tags)
-    .then(function(resources) {
-      $state.go('searchResults', {resources: resources});
-    });
+    tags = tags.join('+'); // tags = 1+2+3
+    $state.go('searchResults', {tagIds: tags});
   };
 
 });

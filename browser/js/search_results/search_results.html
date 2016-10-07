@@ -1,5 +1,5 @@
-<div ng-controller="SearchCtrl" layout="column">
+<div layout="column">
   <md-content>
-    <resource-card ng-repeat="resource in resources"></resource-card>
+    <resource-card ng-repeat="resource in resources | orderBy: 'netLikes' : true"></resource-card>
   </md-content>
 </div>
