@@ -7,7 +7,6 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('ProfileCtrl', function ($scope, TagFactory, UserFactory, AuthService, $log, ResourceFactory, RecommendationFactory) {
-  // profile page displays: recommended resources, guides created by the user, user's picture & account settings, & user's friends
   AuthService.getLoggedInUser()
   .then(function(user){
      return UserFactory.getById(user.id);
@@ -27,7 +26,6 @@ app.controller('ProfileCtrl', function ($scope, TagFactory, UserFactory, AuthSer
   })
   .catch($log.error);
 
-  // $scope.like = ResourceFactory.like; // allows the user to "like" a resource; need to pass in resourceId as param
-  // $scope.dislike = ResourceFactory.dislike; // allows the user to "dislike" a resource; need to pass in resourceId as param
-
+  // $scope.like = ResourceFactory.like;
+  // $scope.dislike = ResourceFactory.dislike;
 });
