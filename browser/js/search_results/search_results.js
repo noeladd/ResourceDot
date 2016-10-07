@@ -4,13 +4,13 @@ app.config(function($stateProvider) {
     templateUrl: 'js/search_results/search_results.html',
     controller: 'SearchCtrl',
     resolve: {
- 	  	resources: function(ResourceFactory, $stateParams) {
- 	  		let tags = $stateParams.tagIds.split('+');
- 	  		tags = tags.map(function(id) {
- 	  			return +id;
-  			});
-  			return ResourceFactory.getAllByTag(tags);
- 		  }
+      resources: function(ResourceFactory, $stateParams) {
+        let tags = $stateParams.tagIds.split('+');
+        tags = tags.map(function(id) {
+          return +id;
+        });
+        return ResourceFactory.getAllByTag(tags);
+      }
     }
   });
 });
