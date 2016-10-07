@@ -12,6 +12,7 @@ var resourceInfo = {
     title: 'Create a Single Page App With Go, Echo and Vue',
     author: 'Ed Zynda',
     link: 'https://scotch.io/tutorials/create-a-single-page-app-with-go-echo-and-vue',
+    source: 'Scotch',
     type: 'article'
 };
 
@@ -99,13 +100,37 @@ describe('Resource Route', function() {
             })
         })
 
+        it('gets back resource by author', function(done){
+            agent
+            .get('/api/resources?author=' + resource.author)
+            .expect(200)
+            .end(function(err, response){
+                if(err) return done(err)
+                expect(response.body[0].id).to.equal(resource.id);
+                done();
+                
+            })
+        })
+
+        it('gets back resource by source', function(done){
+            agent
+            .get('/api/resources?source=' + resource.source)
+            .expect(200)
+            .end(function(err, response){
+                console.log(response.body)
+                if(err) return done(err)
+                expect(response.body[0].title).to.equal(resource.title);
+                done();
+            })
+        })
+
         it('gets back resource by associated tag', function(done){
             agent
             .get('/api/resources?tagIds=1')
             .expect(200)
             .end(function(err, response){
                 if (err) return done (err)
-                console.log(response.body.netLikes)
+                //console.log(response.body.netLikes)
                 expect(response.body[0].id).to.equal(resource.id);
                 done();
             })
