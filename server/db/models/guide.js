@@ -17,7 +17,8 @@ module.exports = db.define('guide', {
   dislikes: {
         type: Sequelize.INTEGER,
         defaultValue: 0
-  }, {
+  }
+}, {
     classMethods: {
       findByTags: function(tagsId) {
         return Promise.map(tagIds, function(tag){
