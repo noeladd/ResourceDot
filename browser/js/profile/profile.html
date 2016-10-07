@@ -1,21 +1,25 @@
 <div layout="row">
   <div layout="column">
+
     <h3>Recommended Resources:</h3>
     <md-content>
       <resource-card ng-repeat="resource in resources"></resource-card>
     </md-content>
+    <h3>Your Guides:</h3>
   </div>
+
   <div>
     <img src="http://loremflickr.com/80/80">
     <h4>{{ user.name }}</h4>
     <p>{{ user.email }}</p>
     <h4>Learning:</h4>
-    <md-chips ng-model="userTags" md-removable="false">
-      <md-chip-template>
-          <span>{{$chip.title}}</span>
-      </md-chip-template>
-    </md-chips>
+    <tag-chips selected-tags="selectedTags"></tag-chips>
     <h4>Friends</h4>
-    <p ng-repeat="friend in user.friend">{{ friend.name }}</p>
+
+    <div layout="column" ng-repeat="friend in user.friend">
+      <img src="{{ friend.picture }}" />
+      <p>{{ friend.name }}</p>
+    </div>
+
   </div>
 </div>
