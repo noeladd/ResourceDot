@@ -1,0 +1,60 @@
+<md-button class="md-fab md-fab-bottom-right"
+           aria-label="add resource"
+           ng-click="showDialog($event)">
+    <i class="fa fa-plus" aria-hidden="true"></i>
+    <md-tooltip md-direction="top">
+      Add a Resource
+    </md-tooltip>
+</md-button>
+
+<div style="visibility: hidden">
+  <div class="md-dialog-container" id="resourceDialog">
+    <md-dialog>
+      <md-dialog-content layout="column" layout-margin layout-align="space-around">
+        <h3>Add a Resource</h3>
+
+       <div layout="row">
+          <md-input-container flex>
+            <label>URL</label>
+            <input type="text" ng-model="resource.link" placeholder="http://...">
+          </md-input-container>
+
+          <md-input-container flex="30">
+            <label>Type</label>
+            <md-select ng-model="resource.type">
+              <md-option ng-value="type" ng-repeat="type in types">{{ type }}</md-option>
+            </md-select>
+          </md-input-container>
+
+        </div>
+        <div layout="row">
+
+          <md-input-container>
+            <label>Source</label>
+            <input type="text" ng-model="resource.source" placeholder="ex. Scotch.io">
+          </md-input-container>
+
+          <md-input-container>
+            <label>Author</label>
+            <input type="text" ng-model="resource.author" placeholder="ex. Harry S. Truman">
+          </md-input-container>
+
+        </div>
+
+        <div layout="row">
+          <md-input-container flex>
+            <label>Title</label>
+            <input type="text" ng-model="resource.title" placeholder="ex. My Fave Framework">
+          </md-input-container>
+        </div>
+
+
+        <div layout="row">
+          <md-button flex ng-click="submitForm()">submit</md-button>
+          <md-button flex ng-click="clearForm()">clear</md-button>
+        </div>
+
+      </md-dialog-content>
+    </md-dialog>
+  </div>
+</div>
