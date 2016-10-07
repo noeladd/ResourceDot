@@ -14,7 +14,7 @@ function makeFakeResource () {
   };
 }
 
-describe('Resource Factory', function() {
+xdescribe('Resource Factory', function() {
 	/*------------------
 		CONFIGURATION
 	/------------------*/

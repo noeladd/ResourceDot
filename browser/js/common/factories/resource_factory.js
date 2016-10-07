@@ -25,7 +25,18 @@ app.factory('ResourceFactory', function($http, DataFactory) {
 
 	ResourceFactory.post = function(data) {
 		return $http.post('/api/resources', data)
-		.then(DataFactory.getData);
+		.then(DataFactory.getData)
+	}
+	ResourceFactory.getRecommendations = function(resources, currentUser) {
+		resources.forEach(function(resource){
+			//Formula for calculating how many friends like each resource.
+			var currentRating = intersect(currentUser.friend, resource.profile).length - intersect(currentUser.friend, resource.user).length;
+			if (currentRating > 0 && (resource.user.indexOf(currentUser.id) === -1) && (resource.profile.indexOf(currentUser.id) === -1)){
+				recommended.push({id: resource.id, rating: currentRating})
+			}
+		})
+		//Uses array.sort to sort the recommended resources numerically by rating
+		return recommended.sort(compare);
 	};
 
 	ResourceFactory.like = function(id) {
