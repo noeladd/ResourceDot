@@ -6,6 +6,16 @@
     </md-content>
   </div>
   <div>
-    User Profile
+    <img src="http://loremflickr.com/80/80">
+    <h4>{{ user.name }}</h4>
+    <p>{{ user.email }}</p>
+    <h4>Learning:</h4>
+    <md-chips ng-model="userTags" md-removable="false">
+      <md-chip-template>
+          <span>{{$chip.title}}</span>
+      </md-chip-template>
+    </md-chips>
+    <h4>Friends</h4>
+    <p ng-repeat="friend in user.friend">{{ friend.name }}</p>
   </div>
 </div>
