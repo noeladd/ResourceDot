@@ -18,6 +18,16 @@ app.factory('ResourceFactory', function($http, DataFactory) {
 		.then(DataFactory.getData);
 	};
 
+	ResourceFactory.getAllByAuthor = function(author){
+		return $http.get('/api/resources?author=' + author)
+		.then(DataFactory.getData);
+	};
+
+	ResourceFactory.getAllBySource = function(source){
+		return $http.get('/api/resources?source=' + source)
+		.then(DataFactory.getData);
+	}
+
 	ResourceFactory.getById = function(id) {
 		return $http.get('/api/resources/' + id)
 		.then(DataFactory.getData);
