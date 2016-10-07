@@ -7,7 +7,7 @@ const Resource = db.model('resource');
 const Tag = db.model('tag');
 const User = db.model('user');
 
-//route would be /api/resources?type=article, /api/resources?tag=javascript
+//route would be /api/resources?type=article, /api/resources?tagIds=1,2,3
 router.get('/', function(req, res, next) {
   var reqType = req.query.type
   var reqTagIds = req.query.tagIds

@@ -5,7 +5,7 @@ module.exports = router;
 router.use('/resources', require('./resources'));
 router.use('/tags', require('./tags'));
 router.use('/users', require('./users'));
-
+router.use('/guides', require('./guides'))
 // Make sure this is after all of
 // the registered routes!
 router.use(function (req, res, next) { //eslint-disable-line

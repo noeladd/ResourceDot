@@ -8,7 +8,7 @@ module.exports = db.define('guide', {
     allowNull: false
   },
   description: {
-    type: Sequelize.STRING
+    type: Sequelize.TEXT
   },
   likes: {
         type: Sequelize.INTEGER,
