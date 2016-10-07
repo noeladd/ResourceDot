@@ -1,7 +1,9 @@
 <md-card>
   <md-card-content>
     <i class="fa fa-thumbs-o-up" aria-hidden="true" ng-click="like(resource.id)"></i>
+    <h5>{{ resource.likes }}</h5>
     <i class="fa fa-thumbs-o-down" aria-hidden="true" ng-click="dislike(resource.id)"></i>
+    <h5>{{ resource.dislikes }}</h5>
     <h2>
       <a href="{{ resource.link }}" target="_blank">{{ resource.title }}</a>
     </h2>
