@@ -72,7 +72,12 @@ module.exports = function (app, db) {
             });
         };
 
-        var tags = req.body.tags.map(tag => tag.id);
+        if (req.body.tags) {
+          var tags = req.body.tags.map(tag => tag.id);
+        } else {
+          var tags = [];
+        }
+
         User.findOrCreate({ where: {email: req.body.email}, defaults: req.body })
         .spread(function(user) {
             console.log('user', user);
