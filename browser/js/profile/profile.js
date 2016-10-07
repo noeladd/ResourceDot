@@ -37,9 +37,6 @@ app.controller('ProfileCtrl', function ($scope, TagFactory, UserFactory, AuthSer
   })
   .catch($log.error);
 
-  // $scope.like = ResourceFactory.like; // allows the user to "like" a resource; need to pass in resourceId as param
-  // $scope.dislike = ResourceFactory.dislike; // allows the user to "dislike" a resource; need to pass in resourceId as param
-
   $scope.$watchCollection('selectedTags', function() {
     debounced();
   });

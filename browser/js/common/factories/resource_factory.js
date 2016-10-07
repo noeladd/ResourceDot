@@ -5,7 +5,6 @@ app.factory('ResourceFactory', function($http, DataFactory) {
 		return $http.get('/api/resources')
 		.then(DataFactory.getData);
 	};
-
 	ResourceFactory.getAllByTag = function() {
 		var tagIds = [...arguments];
 		tagIds = tagIds.join(',');
@@ -29,13 +28,13 @@ app.factory('ResourceFactory', function($http, DataFactory) {
 		.then(DataFactory.getData);
 	};
 
-  ResourceFactory.like = function(id) {
-    return $http.put('/api/resources/' + id + '/like');
-  };
+	ResourceFactory.like = function(id) {
+    	return $http.put('/api/resources/' + id + '/like');
+	};
 
-  ResourceFactory.dislike = function(id) {
-    return $http.put('/api/resources/' + id + '/dislike');
-  };
-
+	ResourceFactory.dislike = function(id) {
+		return $http.put('/api/resources/' + id + '/dislike');
+	};
+	
 	return ResourceFactory;
 });
