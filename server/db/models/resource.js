@@ -45,7 +45,7 @@ module.exports = db.define('resource', {
                 return tag.getResources({include :[
                     {model : User, as: 'likeUser'},
                     {model: User, as: 'dislikeUser'}
-                    ]});
+                ]});
             });
         })
         .then(function(resources){
@@ -55,11 +55,12 @@ module.exports = db.define('resource', {
 
             return allResources;
       });
-    }
-  },
+    },
     getterMethods: {
         netLikes: function(){
+            console.log('netlikes', this.likes - this.dislikes);
             return this.likes - this.dislikes
         }
     }
+}
 });

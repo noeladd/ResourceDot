@@ -46,6 +46,7 @@ app.factory('RecommendationFactory', function() {
   }
 
   RecommendationFactory.get = function(resources, currentUser) {
+    // showing resources for user's page (filters for resources that the user hasn't liked/disliked)
     resources.forEach(function(resource){
       //Formula for calculating how many friends like each resource.
       var currentRating = intersect(currentUser.friend, resource.likeUser).length - intersect(currentUser.friend, resource.dislikeUser).length;
@@ -60,6 +61,5 @@ app.factory('RecommendationFactory', function() {
     //Uses array.sort to sort the recommended resources numerically by rating
     return recommended.sort(compare);
   }
-
   return RecommendationFactory;
 });
