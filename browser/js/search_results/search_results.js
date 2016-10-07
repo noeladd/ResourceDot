@@ -10,11 +10,15 @@ app.config(function($stateProvider) {
  	  			return +id;
   			});
   			return ResourceFactory.getAllByTag(tags);
- 		  }
+ 		  },
+      guides: function(GuideFactory){
+        return GuideFactory.getAll();
+      }
     }
   });
 });
 
-app.controller('SearchCtrl', function($scope, resources) {
+app.controller('SearchCtrl', function($scope, resources, guides) {
   $scope.resources = resources;
+  $scope.guides = guides
 });

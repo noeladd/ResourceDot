@@ -1,4 +1,4 @@
-app.factory('Guide Factory', function($http, DataFactory) {
+app.factory('GuideFactory', function($http, DataFactory) {
     let GuideFactory = {};
 
     GuideFactory.getAll = function() {
