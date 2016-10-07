@@ -26,4 +26,11 @@ app.factory('Guide Factory', function($http, DataFactory) {
    GuideFactory.removeResource = function(id, data){
        return $http.put('/api/guides/' + id + '/delete', data)
    }
+   GuideFactory.like = function(id) {
+       return $http.put('/api/guides/' + id + '/like');
+   }
+   GuideFactory.dislike = function(id){
+       return $http.put('/api/guides/' + id + '/dislike');
+   }
+   return GuideFactory
 })
