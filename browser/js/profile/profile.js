@@ -12,20 +12,17 @@ app.controller('ProfileCtrl', function ($scope, TagFactory, UserFactory, AuthSer
      return UserFactory.getById(user.id);
   })
   .then(function(fullUser){
-    $scope.user = fullUser; // gets current user
-    $scope.userTags = fullUser.tags; // gets user's tags (topics user is interested in)
+    $scope.user = fullUser;
+    $scope.userTags = fullUser.tags;
     var tags = fullUser.tags.map(function(tag){
       return tag.id;
     }).join(',');
-    return ResourceFactory.getAllByTag(tags); // gets all resources with user's tags
+    return ResourceFactory.getAllByTag(tags);
   })
   .then(function(resources){
-    $scope.resources = RecommendationFactory.get(resources, $scope.user).map(function(obj){ // gets an array of recommended resources (many of them!)
+    $scope.resources = RecommendationFactory.get(resources, $scope.user).map(function(obj){
       return obj.resource;
     }).slice(0, 5);
   })
   .catch($log.error);
-
-  // $scope.like = ResourceFactory.like;
-  // $scope.dislike = ResourceFactory.dislike;
 });

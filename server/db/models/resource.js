@@ -45,7 +45,7 @@ module.exports = db.define('resource', {
                 return tag.getResources({include :[
                     {model : User, as: 'likeUser'},
                     {model: User, as: 'dislikeUser'}
-                    ]});
+                ]});
             });
         })
         .then(function(resources){
