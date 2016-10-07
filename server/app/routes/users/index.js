@@ -6,6 +6,7 @@ const db = require('../../../db');
 const Resource = db.model('resource');
 const Tag = db.model('tag');
 const User = db.model('user');
+const Guide = db.model('guide');
 
 router.get('/', function(req, res, next){
     User.findAll()
