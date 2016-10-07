@@ -144,7 +144,7 @@ describe('Guide Route', function() {
 
         it('increments dislikes using a put', function(done){
             agent
-            .put('/api/guides/' + guide.id + '/dislikes')
+            .put('/api/guides/' + guide.id + '/dislike')
             .expect(204)
             .end(function(err){
                 if (err) return done(err);

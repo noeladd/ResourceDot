@@ -42,10 +42,10 @@ module.exports = db.define('resource', {
         })
         .then(function(tagsInstances){
             return Promise.map(tagsInstances, function(tag){
-                return tag.getResources({include :[
-                    {model : User, as: 'likeUser'},
+                return tag.getResources({include: [
+                    {model: User, as: 'likeUser'},
                     {model: User, as: 'dislikeUser'}
-                    ]});
+                ]});
             });
         })
         .then(function(resources){
