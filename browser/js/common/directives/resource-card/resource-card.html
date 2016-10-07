@@ -1,0 +1,11 @@
+<md-card>
+  <md-card-content>
+    <i class="fa fa-thumbs-o-up" aria-hidden="true" ng-click="like(resource.id)"></i>
+    <i class="fa fa-thumbs-o-down" aria-hidden="true" ng-click="dislike(resource.id)"></i>
+    <h2>
+      <a href="{{ resource.link }}" target="_blank">{{ resource.title }}</a>
+    </h2>
+    <h4>{{ resource.author }}</h4>
+    <h4>{{ resource.source }}</h4>
+  </md-card-content>
+</md-card>

@@ -108,7 +108,7 @@ describe('Resource Route', function() {
                 if(err) return done(err)
                 expect(response.body[0].id).to.equal(resource.id);
                 done();
-                
+
             })
         })
 
@@ -130,7 +130,6 @@ describe('Resource Route', function() {
             .expect(200)
             .end(function(err, response){
                 if (err) return done (err)
-                //console.log(response.body.netLikes)
                 expect(response.body[0].id).to.equal(resource.id);
                 done();
             })

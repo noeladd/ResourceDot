@@ -38,19 +38,40 @@ router.get('/', function(req, res, next) {
 }
 });
 
-
 router.get('/:id', function(req, res, next) {
     Resource.findById(req.params.id, {
         include: [
         {model: Tag},
-        {model: User, as: 'user'},
-        {model: User, as: 'profile'}
+        {model: User, as: 'likeUser'},
+        {model: User, as: 'dislikeUser'}
     ]})
     .then(function(resource) {
         if (!resource){
             res.status(404).send();
         }
         res.json(resource);
+    })
+    .catch(next);
+});
+
+router.put('/:id/like', function(req, res, next){
+    Resource.findById(req.params.id)
+    .then(function(resource){
+        return resource.increment('likes');
+    })
+    .then(function(){
+        res.sendStatus(204);
+    })
+    .catch(next);
+});
+
+router.put('/:id/dislike', function(req, res, next){
+    Resource.findById(req.params.id)
+    .then(function(resource){
+        return resource.increment('dislikes');
+    })
+    .then(function(){
+        res.sendStatus(204);
     })
     .catch(next);
 });
