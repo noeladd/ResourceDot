@@ -12,7 +12,12 @@ app.config(function($stateProvider) {
   			return ResourceFactory.getAllByTag(tags);
  		  },
       guides: function(GuideFactory){
-        return GuideFactory.getAll();
+        let tags = $stateParams.tagIds.split('+');
+ 	  		tags = tags.map(function(id) {
+ 	  			return +id;
+  			});
+
+        return GuideFactory.getAllByTag(tags);
       }
     }
   });
@@ -20,5 +25,5 @@ app.config(function($stateProvider) {
 
 app.controller('SearchCtrl', function($scope, resources, guides) {
   $scope.resources = resources;
-  $scope.guides = guides
+  $scope.guides = guides;
 });
