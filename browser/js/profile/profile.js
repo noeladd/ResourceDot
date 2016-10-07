@@ -1,14 +1,12 @@
 app.config(function ($stateProvider) {
   $stateProvider.state('profile', {
       url: '/profile',
-      controller: 'ProfileController',
+      controller: 'ProfileCtrl',
       templateUrl: 'js/profile/profile.html'
   });
-
 });
 
-app.controller('ProfileController', function ($scope, TagFactory, UserFactory, AuthService, $log, ResourceFactory, RecommendationFactory) {
-
+app.controller('ProfileCtrl', function ($scope, TagFactory, UserFactory, AuthService, $log, ResourceFactory, RecommendationFactory) {
   AuthService.getLoggedInUser()
   .then(function(user){
      return UserFactory.getById(user.id);
@@ -24,11 +22,7 @@ app.controller('ProfileController', function ($scope, TagFactory, UserFactory, A
   .then(function(resources){
     $scope.resources = RecommendationFactory.get(resources, $scope.user).map(function(obj){
       return obj.resource;
-    });
+    }).slice(0, 5);
   })
-  .catch($log.error)
-
-  $scope.like = ResourceFactory.like;
-  $scope.dislike = ResourceFactory.dislike;
-
+  .catch($log.error);
 });

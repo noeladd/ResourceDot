@@ -7,3 +7,5 @@ coverage
 process.json
 Procfile
 csv
+bower_components
+server/env/development.js

@@ -60,6 +60,5 @@ app.factory('RecommendationFactory', function() {
     //Uses array.sort to sort the recommended resources numerically by rating
     return recommended.sort(compare);
   }
-
   return RecommendationFactory;
 });
