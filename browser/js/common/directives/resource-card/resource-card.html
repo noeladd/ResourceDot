@@ -12,5 +12,6 @@
     <ul ng-repeat="tag in resource.tags">
     	<p ng-click="searchByTag(tag.id)">{{ tag.title }}</p>
     </ul>
+    <i class="fa fa-trash" aria-hidden="true" ng-show="user.isAdmin()"></i>
   </md-card-content>
 </md-card>
