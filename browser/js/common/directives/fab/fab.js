@@ -1,11 +1,10 @@
-app.directive('fab', function ($mdDialog, AuthService, $log, UserFactory, $rootScope, AUTH_EVENTS) {
+app.directive('fab', function ($mdDialog, AuthService, $log, UserFactory, $rootScope, AUTH_EVENTS, ResourceFactory, $mdToast) {
 return {
     restrict: 'E',
     templateUrl: 'js/common/directives/fab/fab.html',
     scope: true,
     link: function(scope) {
       scope.resource = {tags: []};
-
       scope.types = [
         'article',
         'book',
@@ -13,6 +12,11 @@ return {
         'podcast',
         'website'
       ];
+
+      scope.openToast = function() {
+        $mdToast.show($mdToast.simple()
+                      .textContent('Resource created!'));
+      };
 
       var getGuides = function(){
         AuthService.getLoggedInUser()
@@ -27,7 +31,6 @@ return {
           }
         })
         .then(function(fullUser){
-          console.log('full user', fullUser);
           scope.guides = fullUser.guides;
         })
         .catch($log.error);
@@ -48,13 +51,22 @@ return {
       };
 
       scope.clearForm = function(){
+        scope.resourceForm.$setPristine();
+        scope.resourceForm.$setUntouched();
         scope.resource = {tags: []};
       }
 
       scope.submitForm = function(){
         if (scope.resource.tags.length === 0){
-          scope.resourceForm.tags.$invalid = true;
-          scope.resourceForm.$setSubmitted();
+            scope.resourceForm.tags.$invalid = true;
+        }
+        else if (scope.resourceForm.$valid) {
+          ResourceFactory.post(scope.resource)
+          .then(function(){
+            scope.clearForm();
+            $mdDialog.hide();
+            scope.openToast();
+          })
         }
       }
 
