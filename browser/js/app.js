@@ -1,17 +1,19 @@
 'use strict';
 window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'ngMaterial', 'ngTagsInput']);
 
-app.config(function ($urlRouterProvider, $locationProvider) {
-    // This turns off hashbang urls (/#about) and changes it to something normal (/about)
-    $locationProvider.html5Mode(true);
-    // If we go to a URL that ui-router doesn't have registered, go to the "/" url.
-    $urlRouterProvider.otherwise('/');
-    // Trigger page refresh when accessing an OAuth route
-    $urlRouterProvider.when('/auth/:provider', function () {
-        window.location.reload();
+if (!window.TESTING) {
+    // Why we don't want this block to run if we're in the testing mode: this block makes re-routes the page to home page ($urlRouterProvider.otherwise('/')); this additional request doesn't get handled in the front-end testing files--the front-end tests will think that they failed
+    app.config(function ($urlRouterProvider, $locationProvider) {
+        // This turns off hashbang urls (/#about) and changes it to something normal (/about)
+        $locationProvider.html5Mode(true);
+        // If we go to a URL that ui-router doesn't have registered, go to the "/" url.
+        $urlRouterProvider.otherwise('/');
+        // Trigger page refresh when accessing an OAuth route
+        $urlRouterProvider.when('/auth/:provider', function () {
+            window.location.reload();
+        });
     });
-});
-
+}
 // This app.run is for listening to errors broadcasted by ui-router, usually originating from resolves
 app.run(function ($rootScope) {
     $rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, thrownError) {
@@ -31,7 +33,6 @@ app.run(function ($rootScope, AuthService, $state) {
     // $stateChangeStart is an event fired
     // whenever the process of changing a state begins.
     $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
-
         if (!destinationStateRequiresAuth(toState)) {
             // The destination state does not require authentication
             // Short circuit with return.

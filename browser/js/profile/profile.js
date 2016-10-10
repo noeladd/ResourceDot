@@ -6,11 +6,9 @@ app.config(function ($stateProvider) {
   });
 });
 
-app.controller('ProfileCtrl', function ($scope, TagFactory, UserFactory, AuthService, $log, ResourceFactory, RecommendationFactory) {
+app.controller('ProfileCtrl', function ($scope, $state, TagFactory, UserFactory, AuthService, $log, ResourceFactory, RecommendationFactory) {
   $scope.selectedTags = [];
   var user;
-
-  // profile page displays: recommended resources, guides created by the user, user's picture & account settings, & user's friends
   function fetchResources() {
     var tags = $scope.selectedTags.map(function(tag) {
       return tag.id;
@@ -22,11 +20,15 @@ app.controller('ProfileCtrl', function ($scope, TagFactory, UserFactory, AuthSer
 
     return ResourceFactory.getAllByTag(tags)
     .then(function(resources) {
-      $scope.resources = RecommendationFactory.get(resources, $scope.user).map(function(obj){ // gets an array of recommended resources (many of them!)
+      $scope.resources = RecommendationFactory.get(resources, $scope.user).map(function(obj){
         return obj.resource;
       }).slice(0, 5);
     })
     .catch($log.error);
+  }
+
+  $scope.viewLikedResources = function() {
+    $state.go('likedResources', {userId: $scope.user.id});
   }
 
   var debounced = _.debounce(fetchResources, 1000);
@@ -37,8 +39,8 @@ app.controller('ProfileCtrl', function ($scope, TagFactory, UserFactory, AuthSer
   })
   .then(function(fullUser){
     user = fullUser;
-    $scope.user = fullUser; // gets current user
-    $scope.selectedTags = fullUser.tags; // gets user's tags (topics user is interested in)
+    $scope.user = fullUser;
+    $scope.selectedTags = fullUser.tags;
     return fetchResources();
   })
   .catch($log.error);
