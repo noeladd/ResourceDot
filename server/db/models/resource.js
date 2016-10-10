@@ -44,7 +44,8 @@ module.exports = db.define('resource', {
             return Promise.map(tagsInstances, function(tag){
                 return tag.getResources({include: [
                     {model: User, as: 'likeUser'},
-                    {model: User, as: 'dislikeUser'}
+                    {model: User, as: 'dislikeUser'},
+                    {model: Tag}
                 ]});
             });
         })
