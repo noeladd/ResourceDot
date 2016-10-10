@@ -20,7 +20,7 @@ app.factory('GuideFactory', function($http, DataFactory) {
        return $http.post('/api/guides', data)
        .then(DataFactory.getData);
    }
-   GuideFactory.addResource= function(id, data){
+   GuideFactory.addResource = function(id, data){
        return $http.put('/api/guides/' + id + '/add', data)
    }
    GuideFactory.removeResource = function(id, data){

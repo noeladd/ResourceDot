@@ -1,6 +1,8 @@
 'use strict';
 const Sequelize = require('sequelize');
 const db = require('../_db');
+const Tag = db.model('tag');
+const User = db.model('user');
 
 module.exports = db.define('guide', {
   title: {
@@ -17,11 +19,14 @@ module.exports = db.define('guide', {
   dislikes: {
         type: Sequelize.INTEGER,
         defaultValue: 0
+  },
+  resources: {
+    type: Sequelize.ARRAY(Sequelize.JSON) // eslint-disable-line
   }
 }, {
     classMethods: {
-      findByTags: function(tagsId) {
-        return Promise.map(tagIds, function(tag){
+      findByTags: function(tagsIds) {
+        return Promise.map(tagsIds, function(tag){
           return Tag.findById(+tag);
         })
         .then(function(tagsInstances){
@@ -32,8 +37,8 @@ module.exports = db.define('guide', {
             ]});
           });
         })
-        .then(function(resource){
-          var allResources = resources.reduce(function(a,b){
+        .then(function(resources){
+          var allResources = resources.reduce(function(a, b){
             return a.concat(b);
           });
 
@@ -42,7 +47,7 @@ module.exports = db.define('guide', {
       }
     },
     getterMethods: {
-      netLikes : function(){
+      netLikes: function(){
         return this.likes - this.dislikes
       }
   }

@@ -79,6 +79,7 @@ router.put('/:id/dislike', function(req, res, next){
 
 
 router.put('/:id/add', function(req, res, next){
+     req.guideById.resources.push({id: req.body.id, position: req.body.position})
      req.guideById.addResource(req.body.id)
     .then(function(){
         res.sendStatus(204);
@@ -86,8 +87,10 @@ router.put('/:id/add', function(req, res, next){
     .catch(next);
 })
 
-router.put('/:id/delete', function(req, res, next){
-    req.guideById.removeResource(req.body.id)
+
+
+router.put('/:id/delete/', function(req, res, next){
+    req.guideById.removeResource(req.params.resourceId)
     .then(function(){
         res.sendStatus(204);
     })
