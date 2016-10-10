@@ -6,7 +6,7 @@ app.config(function ($stateProvider) {
   });
 });
 
-app.controller('ProfileCtrl', function ($scope, TagFactory, UserFactory, AuthService, $log, ResourceFactory, RecommendationFactory) {
+app.controller('ProfileCtrl', function ($scope, $state, TagFactory, UserFactory, AuthService, $log, ResourceFactory, RecommendationFactory) {
   $scope.selectedTags = [];
   var user;
 
@@ -46,4 +46,8 @@ app.controller('ProfileCtrl', function ($scope, TagFactory, UserFactory, AuthSer
   $scope.$watchCollection('selectedTags', function() {
     debounced();
   });
+
+  $scope.findFriend = function(friendId) {
+    $state.go('friend', {friendId: friendId});
+  };
 });

@@ -17,8 +17,10 @@
     <h4>Friends</h4>
 
     <div layout="column" ng-repeat="friend in user.friend">
-      <img src="{{ friend.picture }}" />
-      <p>{{ friend.name }}</p>
+      <div class="friend" ng-click="findFriend(friend.id)">
+        <img src="{{ friend.picture }}" />
+        <p>{{ friend.name }}</p>
+      </div>
     </div>
 
   </div>
