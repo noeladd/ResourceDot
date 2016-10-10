@@ -34,9 +34,6 @@ router.get('/', function (req, res, next){
  // need to make this method on the model
         Guide.findByTags(tags)
         .then(function(guides){
-            if (guides.length === 0){
-                res.status(404).send();
-            }
             res.json(guides);
         })
         .catch(next);
@@ -79,7 +76,7 @@ router.put('/:id/dislike', function(req, res, next){
 
 
 router.put('/:id/add', function(req, res, next){
-     req.guideById.resources.push({id: req.body.id, position: req.body.position})
+     req.guideById.resourcePositions.push({id: req.body.id, position: req.body.position})
      req.guideById.addResource(req.body.id)
     .then(function(){
         res.sendStatus(204);

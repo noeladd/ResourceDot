@@ -1,5 +1,6 @@
 'use strict';
 const Sequelize = require('sequelize');
+const Promise = require('bluebird');
 const db = require('../_db');
 const Tag = db.model('tag');
 const User = db.model('user');
@@ -20,29 +21,30 @@ module.exports = db.define('guide', {
         type: Sequelize.INTEGER,
         defaultValue: 0
   },
-  resources: {
+  resourcePositions: {
     type: Sequelize.ARRAY(Sequelize.JSON) // eslint-disable-line
   }
 }, {
     classMethods: {
-      findByTags: function(tagsIds) {
-        return Promise.map(tagsIds, function(tag){
+      findByTags: function(tagIds) {
+        return Promise.map(tagIds, function(tag){
           return Tag.findById(+tag);
         })
         .then(function(tagsInstances){
           return Promise.map(tagsInstances, function(tag){
-            return tag.getResources({include: [
+            return tag.getGuides({include: [
               {model: User, as: 'likeUser'},
-              {mode: User, as: 'dislikeUser'}
+              {model: User, as: 'dislikeUser'},
+              {model: Tag}
             ]});
           });
         })
-        .then(function(resources){
-          var allResources = resources.reduce(function(a, b){
+        .then(function(guides){
+          var allGuides = guides.reduce(function(a, b){
             return a.concat(b);
           });
 
-          return allResources;
+          return allGuides;
         });
       }
     },

@@ -11,12 +11,11 @@ app.config(function($stateProvider) {
   			});
   			return ResourceFactory.getAllByTag(tags);
  		  },
-      guides: function(GuideFactory){
+      guides: function(GuideFactory, $stateParams){
         let tags = $stateParams.tagIds.split('+');
  	  		tags = tags.map(function(id) {
  	  			return +id;
   			});
-
         return GuideFactory.getAllByTag(tags);
       }
     }
