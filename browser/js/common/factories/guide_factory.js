@@ -6,10 +6,10 @@ app.factory('GuideFactory', function($http, DataFactory) {
         .then(DataFactory.getData);
     }
     GuideFactory.getAllByTag = function() {
-        var tagsIds = [...arguments]
-        tagsIds = tagsIds.join(',');
+        var tagIds = [...arguments]
+        tagIds = tagIds.join(',');
         // 'api/guides?tagIds=1,2,3'
-        return $http.get('/api/guides?tagIds=' + tagsIds)
+        return $http.get('/api/guides?tagIds=' + tagIds)
         .then(DataFactory.getData);
     }
    GuideFactory.getById = function(id){
@@ -20,7 +20,7 @@ app.factory('GuideFactory', function($http, DataFactory) {
        return $http.post('/api/guides', data)
        .then(DataFactory.getData);
    }
-   GuideFactory.addResource= function(id, data){
+   GuideFactory.addResource = function(id, data){
        return $http.put('/api/guides/' + id + '/add', data)
    }
    GuideFactory.removeResource = function(id, data){

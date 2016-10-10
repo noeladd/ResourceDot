@@ -39,6 +39,10 @@ module.exports = db.define('user', {
     picture: {
         type: Sequelize.STRING,
         defaultValue: 'http://lorempixel.com/150/150/abstract'
+    },
+    isAdmin: {
+        type: Sequelize.BOOLEAN,
+        defaultValue: false
     }
 }, {
     instanceMethods: {

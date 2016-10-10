@@ -16,7 +16,6 @@ app.config(function($stateProvider) {
  	  		tags = tags.map(function(id) {
  	  			return +id;
   			});
-
         return GuideFactory.getAllByTag(tags);
       }
     }
@@ -25,5 +24,5 @@ app.config(function($stateProvider) {
 
 app.controller('SearchCtrl', function($scope, resources, guides) {
   $scope.resources = resources;
-  $scope.guides = guides;
+  $scope.guides = guides
 });
