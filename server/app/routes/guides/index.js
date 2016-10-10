@@ -20,6 +20,7 @@ router.param('id', function(req, res, next, id){
     })
     .then(function(guide) {
         if (!guide) res.status(404).send();
+        Guide.orderResources(guide);
         req.guideById = guide;
         next();
     })
@@ -57,6 +58,14 @@ router.get('/', function (req, res, next){
     }
 });
 
+router.post('/', function(req, res, next){
+    Guide.create(req.body)
+    .then(function(createdResource){
+        res.status(201).json(createdResource);
+    })
+    .catch(next);
+});
+
 router.get('/:id', function(req, res, next){
     res.send(req.guideById);
 })
@@ -79,24 +88,19 @@ router.put('/:id/dislike', function(req, res, next){
 
 
 router.put('/:id/add', function(req, res, next){
-     req.guideById.addResource(req.body.id)
+     req.guideById.addOrderedResource(req.body)
     .then(function(){
+        console.log('successfully added resource');
         res.sendStatus(204);
     })
     .catch(next);
 })
 
 router.put('/:id/delete', function(req, res, next){
-    req.guideById.removeResource(req.body.id)
+    req.guideById.removeOrderedResource(req.body)
     .then(function(){
         res.sendStatus(204);
     })
-})
-
-router.post('/', function(req, res, next){
-    Guide.create(req.body)
-    .then(function(createdResource){
-        res.status(201).json(createdResource);
-    })
     .catch(next);
-})
+});
+

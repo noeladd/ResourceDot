@@ -1,4 +1,4 @@
-app.directive('fab', function ($mdDialog, AuthService, $log, UserFactory, $rootScope, AUTH_EVENTS, ResourceFactory, $mdToast) {
+app.directive('fab', function ($mdDialog, AuthService, $log, UserFactory, $rootScope, AUTH_EVENTS, ResourceFactory, $mdToast, GuideFactory) {
 return {
     restrict: 'E',
     templateUrl: 'js/common/directives/fab/fab.html',
@@ -62,13 +62,21 @@ return {
         }
         else if (scope.resourceForm.$valid) {
           ResourceFactory.post(scope.resource)
+          .then(function(newResource){
+            if (scope.resource.guide) {
+              var guideId = scope.resource.guide;
+              return GuideFactory.addResource(guideId, newResource)
+            }
+            else return;
+          })
           .then(function(){
             scope.clearForm();
             $mdDialog.hide();
             scope.openToast();
           })
+          .catch($log.error);
         }
-      }
+      };
 
       getGuides();
 
