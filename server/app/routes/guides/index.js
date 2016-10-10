@@ -34,9 +34,6 @@ router.get('/', function (req, res, next){
  // need to make this method on the model
         Guide.findByTags(tags)
         .then(function(guides){
-            if (guides.length === 0){
-                res.status(404).send();
-            }
             res.json(guides);
         })
         .catch(next);
