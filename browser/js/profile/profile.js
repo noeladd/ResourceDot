@@ -10,6 +10,16 @@ app.controller('ProfileCtrl', function ($scope, $state, TagFactory, UserFactory,
   $scope.selectedTags = [];
   var user;
 
+  function shuffleArray(array) {
+    for (var i = array.length - 1; i > 0; i--) {
+        var j = Math.floor(Math.random() * (i + 1));
+        var temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
+    }
+    return array;
+  }
+
   // profile page displays: recommended resources, guides created by the user, user's picture & account settings, & user's friends
   function fetchResources() {
     var tags = $scope.selectedTags.map(function(tag) {
@@ -39,7 +49,7 @@ app.controller('ProfileCtrl', function ($scope, $state, TagFactory, UserFactory,
     user = fullUser;
     $scope.user = fullUser; // gets current user
     $scope.selectedTags = fullUser.tags; // gets user's tags (topics user is interested in)
-    //$scope.guides
+    $scope.friends = shuffleArray(user.friend).slice(0, 4);
     GuideFactory.getByAuthor(user.id)
     .then(function(guides) {
       $scope.guides = guides;

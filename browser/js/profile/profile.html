@@ -19,7 +19,7 @@
     <tag-chips selected-tags="selectedTags"></tag-chips>
     <h4>Friends</h4>
     <p ng-click="findFriends(user.id)">See All</p>
-    <div layout="column" ng-repeat="friend in user.friend">
+    <div layout="column" ng-repeat="friend in friends">
       <div class="friend" ng-click="findFriend(friend.id)">
         <img src="{{ friend.picture }}" />
         <p>{{ friend.name }}</p>
