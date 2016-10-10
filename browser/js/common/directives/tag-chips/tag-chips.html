@@ -1,11 +1,12 @@
-<md-chips ng-model="selectedTags" md-autocomplete-snap md-require-match="true">
+<md-chips ng-model="selectedTags" md-autocomplete-snap
+                                  md-require-match="match"
+                                  md-transform-chip="transformChip($chip)">
+
   <md-autocomplete
                    md-search-text="searchText"
                    md-items="item in queryTags(searchText)"
                    md-item-text="item.title"
-                   md-autoselect="true"
                    md-no-cache="true"
-                   md-require-match="true"
                    placeholder="Add a topic">
       <span md-highlight-text="searchText">{{item.title}}</span>
   </md-autocomplete>
@@ -13,3 +14,5 @@
       <span>{{$chip.title}}</span>
   </md-chip-template>
 </md-chips>
+
+

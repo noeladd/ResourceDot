@@ -4,6 +4,9 @@ return {
     templateUrl: 'js/common/directives/fab/fab.html',
     scope: true,
     link: function(scope) {
+      scope.resource = {};
+      scope.resource.tags = [];
+
       scope.types = [
         'article',
         'book',
