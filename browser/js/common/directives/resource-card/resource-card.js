@@ -1,5 +1,4 @@
-let liked = false;
-let disliked = false;
+
 
 app.directive('resourceCard', function ($state, ResourceFactory, GuideFactory) {
     return {
@@ -7,6 +6,8 @@ app.directive('resourceCard', function ($state, ResourceFactory, GuideFactory) {
         templateUrl: 'js/common/directives/resource-card/resource-card.html',
         scope: true,
         link: function(scope) {
+			let liked = false;
+			let disliked = false;
 			scope.like = function(id, data) {
 				if (scope.user.resourceLike.filter(function(resource){
 					return resource.id === id

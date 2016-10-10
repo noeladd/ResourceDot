@@ -59,7 +59,9 @@ router.get('/:id', function(req, res, next){
 })
 
 router.put('/:id/like', function(req, res, next){
+    console.log("In Route!")
     req.guideById.increment('likes')
+    req.guideById.addLikeUser(req.body.user)
     .then(function(){
         res.sendStatus(204);
     })
@@ -68,6 +70,7 @@ router.put('/:id/like', function(req, res, next){
 
 router.put('/:id/dislike', function(req, res, next){
     req.guideById.increment('dislikes')
+    req.guideById.addDislikeUser(req.body.user)
     .then(function(){
         res.sendStatus(204);
     })

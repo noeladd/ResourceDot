@@ -27,6 +27,7 @@ app.factory('GuideFactory', function($http, DataFactory) {
        return $http.put('/api/guides/' + id + '/delete', data)
    }
    GuideFactory.like = function(id, data) {
+       console.log("In guide factory!");
        return $http.put('/api/guides/' + id + '/like', data);
    }
    GuideFactory.dislike = function(id, data){
