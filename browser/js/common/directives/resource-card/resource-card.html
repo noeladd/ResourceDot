@@ -1,9 +1,13 @@
 <md-card>
   <md-card-content>
-    <i class="fa fa-thumbs-o-up" aria-hidden="true" ng-click="like(resource.id)"></i>
-    <h5>{{ resource.likes }}</h5>
-    <i class="fa fa-thumbs-o-down" aria-hidden="true" ng-click="dislike(resource.id)"></i>
-    <h5>{{ resource.dislikes }}</h5>
+    <md-button class="md-primary md-raised">
+      <i class="fa fa-thumbs-o-up" aria-hidden="true" ng-click="like(resource.id, {user: user.id})"></i>
+      <h5>{{ resource.likes }}</h5>
+    </md-button>
+    <md-button class="md-primary md-raised">
+      <i class="fa fa-thumbs-o-down" aria-hidden="true" ng-click="dislike(resource.id, {user: user.id})"></i>
+      <h5>{{ resource.dislikes }}</h5>
+    </md-button>
     <h2>
       <a href="{{ resource.link }}" target="_blank">{{ resource.title }}</a>
     </h2>
@@ -12,6 +16,13 @@
     <ul ng-repeat="tag in resource.tags">
     	<p ng-click="searchByTag(tag.id)">{{ tag.title }}</p>
     </ul>
-    <i class="fa fa-trash" aria-hidden="true" ng-show="user.isAdmin()"></i>
+    <md-button class="md-fab md-accent" aria-label="Delete Resource" >
+      <md-tooltip>Delete Resource</md-tooltip>
+      <i class="fa fa-trash" aria-hidden="true"  ng-click="delete(resource.id)" ng-show="user.isAdmin"></i>
+    </md-button>
+    <md-button class="md-fab md-accent" aria-label="Remove" ng-show="user.id === author.id">
+      <md-tooltip>Remove From Guide</md-tooltip>
+        <i class="fa fa-minus-circle" aria-hidden="true" ng-click="remove(resource.id)" ng-show="user.id === author.id"></i>
+    </md-button>
   </md-card-content>
 </md-card>

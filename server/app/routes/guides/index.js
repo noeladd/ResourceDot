@@ -87,7 +87,7 @@ router.put('/:id/add', function(req, res, next){
 
 
 router.put('/:id/delete/', function(req, res, next){
-    req.guideById.removeResource(req.params.resourceId)
+    req.guideById.removeResource(req.body.id)
     .then(function(){
         res.sendStatus(204);
     })

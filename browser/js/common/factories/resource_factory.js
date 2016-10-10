@@ -38,13 +38,17 @@ app.factory('ResourceFactory', function($http, DataFactory) {
 		.then(DataFactory.getData);
 	};
 
-	ResourceFactory.like = function(id) {
-		return $http.put('/api/resources/' + id + '/like');
+	ResourceFactory.like = function(id, data) {
+		return $http.put('/api/resources/' + id + '/like', data);
 	};
 
-	ResourceFactory.dislike = function(id) {
-		return $http.put('/api/resources/' + id + '/dislike');
+	ResourceFactory.dislike = function(id, data) {
+		return $http.put('/api/resources/' + id + '/dislike', data);
 	};
+
+	ResourceFactory.delete = function(id) {
+		return $http.delete('api/resources/' + id);
+	}
 
 	return ResourceFactory;
 });

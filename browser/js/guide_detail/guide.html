@@ -4,6 +4,5 @@
         <h3>Curated by: {{guide.author.name}}</h3>
         <h3>About: {{ guide.description }}</h3>
         <resource-card ng-repeat="resource in resources"></resource-card>
-        <i class="fa fa-trash" aria-hidden="true" ng-show="user.isAdmin()"></i>
     </div>
 </div>
