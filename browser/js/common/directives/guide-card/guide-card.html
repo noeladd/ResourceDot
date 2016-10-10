@@ -1,7 +1,7 @@
 <md-card>
     <md-card-content>
-        <i class="fa fa-thumbs-o-up" aria-hidden="true" ng-click="like(guide.id)"></i>
-        <i class="fa fa-thumbs-o-down" aria-hidden="true" ng-click="dislike(guide.id)"></i>
+        <i class="fa fa-thumbs-o-up" aria-hidden="true" ng-click="like(guide.id, {user: user.id})"></i>
+        <i class="fa fa-thumbs-o-down" aria-hidden="true" ng-click="dislike(guide.id, {user: user.id})"></i>
         <h2>
             <!--place a ui sref to this guide's detail state-->
             <a ui-sref="guideDetail({id: guide.id})">{{ guide.title }}</a>

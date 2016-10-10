@@ -8,20 +8,20 @@ app.config(function($stateProvider) {
                 let id = $stateParams.id
                 return GuideFactory.getById(id);
             },
-            user: function(AuthService){
+            function(AuthService, UserFactory){
                 return AuthService.getLoggedInUser()
+                .then(function(user){
+                return UserFactory.getById(user.id);
+                })
             }
         }
-    });
+    })
 });
 
-app.controller('GuideCtrl', function($scope, guide, user, UserFactory) {
+app.controller('GuideCtrl', function($scope, guide, user) {
 
     $scope.guide = guide;
     $scope.resources = guide.resources;
     $scope.author = guide.author;
-    UserFactory.getById(user.id)
-    .then(function(user){
-        $scope.user = user;
-    })
+    $scope.user = user
 })

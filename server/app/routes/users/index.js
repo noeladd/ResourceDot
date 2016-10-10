@@ -25,7 +25,9 @@ router.get('/:id', function(req, res, next){
         {model: Resource, as: 'resourceDislike'},
         {model: Tag},
         {model: User, as: 'friend'},
-        {model: Guide}
+        {model: Guide},
+        {model: Guide, as: 'guideLike'},
+        {model: Guide, as: 'guideDislike'}
     ]})
     .then(function(user){
         if (!user){
