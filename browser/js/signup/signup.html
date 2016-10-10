@@ -1,0 +1,56 @@
+
+<form name="signup" class="md-inline-form" ng-cloak layout="column"
+      id="signup" ng-submit="sendSignUp(user)">
+
+  <div layout="row" layout-align="space-between">
+    <md-input-container flex="50">
+      <label>Name</label>
+      <input type="text" ng-model="user.name" required md-maxlength="20">
+    </md-input-container>
+
+    <md-input-container flex="50">
+      <label>Email</label>
+      <input type="text" ng-model="user.email" required md-maxlength="40">
+    </md-input-container>
+  </div>
+  <div layout="row" layout-align="space-between">
+    <md-input-container flex="50">
+      <label>Password</label>
+      <input type="password" ng-model="user.password" required md-minlength="8" flex-gt-sm>
+    </md-input-container>
+
+    <md-input-container flex="50">
+      <label>Confirm Password</label>
+      <input type="password" ng-model="user.passwordConfirm" required md-minlength="8" flex-gt-sm>
+    </md-input-container>
+    <div class="signup-error" ng-show=error>{{ error }}</div>
+  </div>
+
+
+  <md-input-container>
+    <label>Bio</label>
+    <textarea ng-model="user.description" md-maxlength="50" rows="5"></textarea>
+  </md-input-container>
+
+    <md-chips ng-model="user.tags" md-autocomplete-snap md-require-match="true">
+    <md-autocomplete
+                     md-search-text="searchText"
+                     md-items="item in queryTags(searchText)"
+                     md-item-text="item.title"
+                     md-autoselect="true"
+                     md-no-cache="true"
+                     md-require-match="true"
+                     placeholder="What are you learning?">
+        <span md-highlight-text="searchText">{{item.title}}</span>
+    </md-autocomplete>
+    <md-chip-template>
+        <span>{{$chip.title}}</span>
+    </md-chip-template>
+  </md-chips>
+  <div layout="row">
+    <md-button type="submit" flex="10"  class="md-raised md-primary">Submit</md-button>
+    <a href="/auth/google"><md-button class="md-raised md-primary">Signup with Google!</md-button></a>
+    <a href="/auth/github"><md-button class="md-raised md-primary">Signup with Github!</md-button> </a>
+  </div>
+
+</form>

@@ -42,8 +42,8 @@ module.exports = db.define('resource', {
         })
         .then(function(tagsInstances){
             return Promise.map(tagsInstances, function(tag){
-                return tag.getResources({include :[
-                    {model : User, as: 'likeUser'},
+                return tag.getResources({include: [
+                    {model: User, as: 'likeUser'},
                     {model: User, as: 'dislikeUser'}
                 ]});
             });
@@ -56,11 +56,31 @@ module.exports = db.define('resource', {
             return allResources;
       });
     },
+    createWithTags: function(resourceData){
+        var resource;
+        var Resource = this;
+
+        return Resource.create(resourceData)
+        .then(function(createdResource) {
+            resource = createdResource;
+            return Promise.map(resourceData.tags, function(tag){
+                return Tag.findOrCreate({where: {title: tag.title}})
+            });
+        })
+        .then(function(tags){
+            tags = tags.map(function(tagToSpread){
+                return tagToSpread[0];
+            });
+            return resource.setTags(tags);
+        })
+        .then(function(){
+            return Resource.findById(resource.id, {include: [{model: Tag}]});
+        });
+    }
+  },
     getterMethods: {
         netLikes: function(){
-            console.log('netlikes', this.likes - this.dislikes);
             return this.likes - this.dislikes
         }
     }
-}
 });

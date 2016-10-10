@@ -101,6 +101,14 @@
             });
         };
 
+        this.signup = function(signUpInfo){
+            return $http.post('/signup', signUpInfo)
+                .then(onSuccessfulLogin)
+                .catch(function () {
+                    return $q.reject({ message: 'Invalid signup credentials.' });
+            });
+        };
+
     });
 
     app.service('Session', function ($rootScope, AUTH_EVENTS) {

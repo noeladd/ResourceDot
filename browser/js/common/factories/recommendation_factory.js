@@ -1,8 +1,6 @@
 app.factory('RecommendationFactory', function() {
   var RecommendationFactory = {};
 
-  let recommended = [];
-  let shuffleGroup = [];
   let intersect = function(a, b){
     let ai = 0, bi = 0;
     let result = [];
@@ -46,7 +44,9 @@ app.factory('RecommendationFactory', function() {
   }
 
   RecommendationFactory.get = function(resources, currentUser) {
-    // showing resources for user's page (filters for resources that the user hasn't liked/disliked)
+    let recommended = [];
+    let shuffleGroup = [];
+    
     resources.forEach(function(resource){
       //Formula for calculating how many friends like each resource.
       var currentRating = intersect(currentUser.friend, resource.likeUser).length - intersect(currentUser.friend, resource.dislikeUser).length;

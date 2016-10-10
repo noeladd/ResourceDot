@@ -10,13 +10,11 @@ app.config(function($stateProvider) {
  	  			return +id;
   			});
   			return ResourceFactory.getAllByTag(tags);
- 		}
+ 		  }
     }
-   });
+  });
 });
 
 app.controller('SearchCtrl', function($scope, resources) {
   $scope.resources = resources;
 });
-
-
