@@ -1,4 +1,4 @@
-<div layout="row">
+<div layout="row" layout-wrap>
   <div layout="column">
 
     <h3>Recommended Resources:</h3>
@@ -18,9 +18,11 @@
     <h4>Learning:</h4>
     <tag-chips selected-tags="selectedTags"></tag-chips>
     <h4>Friends</h4>
+
     <p ng-click="findFriends(user.id)">See All</p>
-    <div layout="column" ng-repeat="friend in friends">
-      <div class="friend" ng-click="findFriend(friend.id)">
+    <div layout="row" layout-align="center center" layout-wrap>
+      <div class="friend" ng-repeat="friend in friends" layout="column" layout-align="center center"
+      ng-click="findFriend(friend.id)" flex="50">
         <img src="{{ friend.picture }}" />
         <p>{{ friend.name }}</p>
       </div>
