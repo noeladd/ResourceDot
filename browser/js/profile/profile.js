@@ -56,4 +56,8 @@ app.controller('ProfileCtrl', function ($scope, $state, TagFactory, UserFactory,
   $scope.findFriend = function(friendId) {
     $state.go('friend', {friendId: friendId});
   };
+
+  $scope.findFriends = function(userId) {
+    $state.go('friends', {userId: userId});
+  }
 });

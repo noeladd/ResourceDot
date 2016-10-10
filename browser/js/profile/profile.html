@@ -18,7 +18,7 @@
     <h4>Learning:</h4>
     <tag-chips selected-tags="selectedTags"></tag-chips>
     <h4>Friends</h4>
-
+    <p ng-click="findFriends(user.id)">See All</p>
     <div layout="column" ng-repeat="friend in user.friend">
       <div class="friend" ng-click="findFriend(friend.id)">
         <img src="{{ friend.picture }}" />
