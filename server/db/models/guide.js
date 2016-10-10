@@ -20,7 +20,7 @@ module.exports = db.define('guide', {
         type: Sequelize.INTEGER,
         defaultValue: 0
   },
-  resources: {
+  resourcePositions: {
     type: Sequelize.ARRAY(Sequelize.JSON) // eslint-disable-line
   }
 }, {
