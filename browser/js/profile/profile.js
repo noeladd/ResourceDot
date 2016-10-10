@@ -6,7 +6,7 @@ app.config(function ($stateProvider) {
   });
 });
 
-app.controller('ProfileCtrl', function ($scope, $state, TagFactory, UserFactory, AuthService, $log, ResourceFactory, RecommendationFactory) {
+app.controller('ProfileCtrl', function ($scope, $state, TagFactory, UserFactory, AuthService, $log, ResourceFactory, RecommendationFactory, GuideFactory) {
   $scope.selectedTags = [];
   var user;
 
@@ -39,6 +39,12 @@ app.controller('ProfileCtrl', function ($scope, $state, TagFactory, UserFactory,
     user = fullUser;
     $scope.user = fullUser; // gets current user
     $scope.selectedTags = fullUser.tags; // gets user's tags (topics user is interested in)
+    //$scope.guides
+    GuideFactory.getByAuthor(user.id)
+    .then(function(guides) {
+      $scope.guides = guides;
+    })
+    .catch($log.error);
     return fetchResources();
   })
   .catch($log.error);

@@ -6,4 +6,7 @@
     <md-chip ng-click="search(tag.id)">{{ tag.title }}</md-chip>
   </md-chips>
   <h4>Guides:</h4>
+  <md-content ng-repeat="guide in guides">
+    <guide-card></guide-card>
+  </md-content>
 </div>

@@ -28,13 +28,20 @@ router.param('id', function(req, res, next, id){
 
 //query routes would be /api/guides?tagIds=1,23
 router.get('/', function (req, res, next){
-    var reqTagIds = req.query.tagIds
+    var reqTagIds = req.query.tagIds;
+    var reqAuthorId = +req.query.authorId;
     if (reqTagIds){
         var tags = reqTagIds.split(',');
  // need to make this method on the model
         Guide.findByTags(tags)
         .then(function(guides){
             res.json(guides);
+        })
+        .catch(next);
+    } else if (reqAuthorId) {
+        Guide.findAll({where: {authorId: reqAuthorId}})
+        .then(function(guide) {
+          res.json(guide);
         })
         .catch(next);
     } else {
