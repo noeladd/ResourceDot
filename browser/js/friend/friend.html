@@ -2,6 +2,8 @@
   <img src="{{ friend.picture }}">
   <h4>{{ friend.name }}</h4>
   <h4>Learning:</h4>
-  <!-- <tag-chips selected-tags="selectedTags"></tag-chips> -->
+  <md-chips ng-repeat="tag in friend.tags">
+      <md-chip>{{ tag.title }}</md-chip>
+  </md-chips>
   <h4>Guides:</h4>
 </div>
