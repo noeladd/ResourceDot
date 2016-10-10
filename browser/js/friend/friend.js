@@ -11,6 +11,10 @@ app.config(function ($stateProvider) {
   });
 });
 
-app.controller('friendCtrl', function($scope, friend) {
+app.controller('friendCtrl', function($scope, $state, friend) {
   $scope.friend = friend;
+
+  $scope.search = function(tagId) {
+    $state.go('searchResults', {tagIds: tagId});
+  };
 });
