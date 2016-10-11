@@ -13,9 +13,9 @@ return {
         'website'
       ];
 
-      scope.openToast = function() {
+      scope.openToast = function(message) {
         $mdToast.show($mdToast.simple()
-                      .textContent('Resource created!'));
+                      .textContent(message));
       };
 
       var getGuides = function(){
@@ -57,22 +57,26 @@ return {
       }
 
       scope.submitForm = function(){
+        var created;
         if (scope.resource.tags.length === 0){
             scope.resourceForm.tags.$invalid = true;
         }
         else if (scope.resourceForm.$valid) {
           ResourceFactory.post(scope.resource)
-          .then(function(newResource){
+          .then(function(result){
+            created = result.created;
             if (scope.resource.guide) {
               var guideId = scope.resource.guide;
-              return GuideFactory.addResource(guideId, newResource)
+              return GuideFactory.addResource(guideId, result.data);
             }
             else return;
           })
           .then(function(){
+            var message = created ? 'Resource created!' : 'Resource already exists!';
+            if (scope.resource.guide) message += ' Added to guide.'
             scope.clearForm();
             $mdDialog.hide();
-            scope.openToast();
+            scope.openToast(message);
           })
           .catch($log.error);
         }

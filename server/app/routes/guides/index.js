@@ -20,8 +20,7 @@ router.param('id', function(req, res, next, id){
     })
     .then(function(guide) {
         if (!guide) res.status(404).send();
-        Guide.orderResources(guide);
-        req.guideById = guide;
+        req.guideById = Guide.orderResources(guide);
         next();
     })
     .catch(next)

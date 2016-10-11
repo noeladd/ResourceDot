@@ -79,8 +79,8 @@ router.put('/:id/dislike', function(req, res, next){
 
 router.post('/', function(req, res, next) {
     Resource.createWithTags(req.body)
-    .then(function(resource){
-        res.status(201).json(resource);
+    .then(function(data){
+        res.status(201).json(data);
     })
     .catch(next);
 });
