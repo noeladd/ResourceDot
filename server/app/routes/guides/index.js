@@ -20,8 +20,7 @@ router.param('id', function(req, res, next, id){
     })
     .then(function(guide) {
         if (!guide) res.status(404).send();
-        Guide.orderResources(guide);
-        req.guideById = guide;
+        req.guideById = Guide.orderResources(guide);
         next();
     })
     .catch(next)
@@ -87,7 +86,6 @@ router.put('/:id/dislike', function(req, res, next){
 router.put('/:id/add', function(req, res, next){
      req.guideById.addOrderedResource(req.body)
     .then(function(){
-        console.log('successfully added resource');
         res.sendStatus(204);
     })
     .catch(next);
