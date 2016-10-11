@@ -44,7 +44,6 @@ module.exports = db.define('guide', {
           var allGuides = guides.reduce(function(a, b){
             return a.concat(b);
           });
-
           return allGuides;
         });
       },
@@ -73,7 +72,7 @@ module.exports = db.define('guide', {
 
       orderResources: function(guide){
         guide.resources = guide.resources.map(function(resource){
-          resource.order = guide.order.indexOf(resource.id) + 1;
+          resource.dataValues.order = guide.order.indexOf(resource.id) + 1;
           return resource;
         });
         return guide;
@@ -84,12 +83,13 @@ module.exports = db.define('guide', {
         var guide = this;
         return guide.addResource(resource.id)
         .then(function(){
-          if (resource.position) {
+          if (guide.order.indexOf(resource.id) !== -1) return;
+          else if (resource.position) {
               var index = resource.position - 1;
               guide.order.splice(index, 0, resource.id);
           }
           else guide.order.push(resource.id);
-          return guide.save();
+          return guide.update({order: guide.order});
         });
       },
       removeOrderedResource: function(resource){
@@ -97,8 +97,9 @@ module.exports = db.define('guide', {
         return guide.removeResource(resource.id)
         .then(function(){
           var index = guide.order.indexOf(resource.id);
+          if (index === -1) return;
           guide.order.splice(index, 1);
-          return guide.save();
+          return guide.update({order: guide.order});
         });
       }
     },

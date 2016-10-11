@@ -12,31 +12,30 @@ const User = db.model('user');
 router.get('/', function(req, res, next) {
   var reqTagIds = req.query.tagIds
   if (reqTagIds){
-      var tags = reqTagIds.split(',');
-
-      Resource.findByTags(tags)
-      .then(function(resources){
-        if (resources.length === 0){
-            res.status(404).send();
-        }
-        res.json(resources);
-        })
-      .catch(next);
-    } else {
-    Resource.findAll({
-        where: req.query,
-        include: [
-        {model: Tag}
-        ]
-    })
+    var tags = reqTagIds.split(',');
+    Resource.findByTags(tags)
     .then(function(resources){
-        if (resources.length === 0){
-            res.status(404).send();
-        }
-        res.json(resources);
+      if (resources.length === 0){
+          res.status(404).send();
+      }
+      res.json(resources);
     })
     .catch(next);
-}
+  } else {
+    Resource.findAll({
+      where: req.query,
+      include: [
+      {model: Tag}
+      ]
+  })
+  .then(function(resources){
+    if (resources.length === 0){
+      res.status(404).send();
+    }
+    res.json(resources);
+  })
+  .catch(next);
+  }
 });
 
 router.get('/:id', function(req, res, next) {
@@ -90,8 +89,8 @@ router.delete('/:id', function(req, res, next){
 
 router.post('/', function(req, res, next) {
     Resource.createWithTags(req.body)
-    .then(function(resource){
-        res.status(201).json(resource);
+    .then(function(data){
+        res.status(201).json(data);
     })
     .catch(next);
 });

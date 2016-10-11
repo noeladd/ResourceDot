@@ -20,8 +20,7 @@ router.param('id', function(req, res, next, id){
     })
     .then(function(guide) {
         if (!guide) res.status(404).send();
-        Guide.orderResources(guide);
-        req.guideById = guide;
+        req.guideById = Guide.orderResources(guide);
         next();
     })
     .catch(next)
@@ -29,13 +28,20 @@ router.param('id', function(req, res, next, id){
 
 //query routes would be /api/guides?tagIds=1,23
 router.get('/', function (req, res, next){
-    var reqTagIds = req.query.tagIds
+    var reqTagIds = req.query.tagIds;
+    var reqAuthorId = +req.query.authorId;
     if (reqTagIds){
         var tags = reqTagIds.split(',');
  // need to make this method on the model
         Guide.findByTags(tags)
         .then(function(guides){
             res.json(guides);
+        })
+        .catch(next);
+    } else if (reqAuthorId) {
+        Guide.findAll({where: {authorId: reqAuthorId}})
+        .then(function(guide) {
+          res.json(guide);
         })
         .catch(next);
     } else {
@@ -90,11 +96,10 @@ router.put('/:id/dislike', function(req, res, next){
 router.put('/:id/add', function(req, res, next){
      req.guideById.addOrderedResource(req.body)
     .then(function(){
-        console.log('successfully added resource');
         res.sendStatus(204);
     })
     .catch(next);
-})
+});
 
 router.put('/:id/delete', function(req, res, next){
     req.guideById.removeOrderedResource(req.body)

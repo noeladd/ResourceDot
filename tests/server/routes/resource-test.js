@@ -66,7 +66,7 @@ describe('Resource Route', function() {
             })
             .expect(201)
             .then(function (res) {
-                var createdResource = res.body;
+                var createdResource = res.body.data;
                 return Resource.findById(createdResource.id)
             })
             .then(function (foundResource) {

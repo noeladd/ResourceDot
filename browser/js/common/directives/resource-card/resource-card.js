@@ -1,5 +1,4 @@
 
-
 app.directive('resourceCard', function ($state, ResourceFactory, GuideFactory) {
     return {
         restrict: 'E',
@@ -34,6 +33,14 @@ app.directive('resourceCard', function ($state, ResourceFactory, GuideFactory) {
 
 			scope.searchByTag = function(id) {
 				$state.go('searchResults', {tagIds: id});
+			}
+
+			scope.searchByAuthor = function(authorName) {
+				$state.go('searchAuthorResults', {authorName: authorName});
+			}
+
+			scope.searchBySource = function(source) {
+				$state.go('searchSourceResults', {source: source})
 			}
 
 			scope.delete = function(id){

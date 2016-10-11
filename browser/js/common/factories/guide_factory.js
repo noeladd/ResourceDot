@@ -12,6 +12,10 @@ app.factory('GuideFactory', function($http, DataFactory) {
         return $http.get('/api/guides?tagIds=' + tagIds)
         .then(DataFactory.getData);
     }
+    GuideFactory.getByAuthor = function(authorId) {
+      return $http.get('/api/guides?authorId=' + authorId)
+      .then(DataFactory.getData);
+    }
    GuideFactory.getById = function(id){
        return $http.get('/api/guides/' + id)
        .then(DataFactory.getData);

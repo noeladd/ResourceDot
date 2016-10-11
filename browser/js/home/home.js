@@ -1,5 +1,5 @@
 app.controller('HomeCtrl', function($scope, $filter, TagFactory, ResourceFactory, $state, $log) {
-  $scope.selectedTags =[];
+  $scope.selectedTags = [];
 
   $scope.search = function() {
     var tags = $scope.selectedTags.map(function(tag) {

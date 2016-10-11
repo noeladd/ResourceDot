@@ -59,11 +59,14 @@ module.exports = db.define('resource', {
     },
     createWithTags: function(resourceData){
         var resource;
+        var created;
         var Resource = this;
 
-        return Resource.create(resourceData)
-        .then(function(createdResource) {
-            resource = createdResource;
+        return Resource.findOrCreate({where: {link: resourceData.link},
+                                              defaults: resourceData})
+        .spread(function(dbResource, wasCreated) {
+            created = wasCreated;
+            resource = dbResource;
             return Promise.map(resourceData.tags, function(tag){
                 return Tag.findOrCreate({where: {title: tag.title}})
             });
@@ -72,10 +75,13 @@ module.exports = db.define('resource', {
             tags = tags.map(function(tagToSpread){
                 return tagToSpread[0];
             });
-            return resource.setTags(tags);
+            return resource.addTags(tags);
         })
         .then(function(){
             return Resource.findById(resource.id, {include: [{model: Tag}]});
+        })
+        .then(function(fullResource){
+            return {data: fullResource, created: created};
         });
     }
   },

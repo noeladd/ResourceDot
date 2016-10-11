@@ -9,6 +9,7 @@ app.config(function($stateProvider) {
                 let id = $stateParams.id
                 return GuideFactory.getById(id);
             },
+
            user: function(AuthService, UserFactory){
                 return AuthService.getLoggedInUser()
                 .then(function(user){
@@ -20,10 +21,8 @@ app.config(function($stateProvider) {
 });
 
 app.controller('GuideCtrl', function($scope, guide, user) {
-
     $scope.guide = guide;
     $scope.resources = guide.resources;
     $scope.author = guide.author;
     $scope.user = user
-
 })

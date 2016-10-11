@@ -1,4 +1,4 @@
-<div layout="row">
+<div layout="row" layout-wrap>
   <div layout="column">
 
     <h3>Recommended Resources:</h3>
@@ -6,6 +6,9 @@
       <resource-card ng-repeat="resource in resources"></resource-card>
     </md-content>
     <h3>Your Guides:</h3>
+    <md-content>
+      <guide-card ng-repeat="guide in guides"></guide-card>
+    </md-content>
   </div>
 
   <div>
@@ -14,11 +17,16 @@
     <p>{{ user.email }}</p>
     <h4>Learning:</h4>
     <tag-chips selected-tags="selectedTags"></tag-chips>
+    <md-button md-no-ink class="md-primary" ng-click="viewLikedResources()">Liked Resources</md-button>
     <h4>Friends</h4>
 
-    <div layout="column" ng-repeat="friend in user.friend">
-      <img src="{{ friend.picture }}" />
-      <p>{{ friend.name }}</p>
+    <p ng-click="findFriends(user.id)">See All</p>
+    <div layout="row" layout-align="center center" layout-wrap>
+      <div class="friend" ng-repeat="friend in friends" layout="column" layout-align="center center"
+      ng-click="findFriend(friend.id)" flex="50">
+        <img src="{{ friend.picture }}" />
+        <p>{{ friend.name }}</p>
+      </div>
     </div>
 
   </div>
