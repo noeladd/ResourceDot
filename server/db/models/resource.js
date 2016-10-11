@@ -56,6 +56,27 @@ module.exports = db.define('resource', {
 
             return allResources;
       });
+    },
+    createWithTags: function(resourceData){
+        var resource;
+        var Resource = this;
+
+        return Resource.create(resourceData)
+        .then(function(createdResource) {
+            resource = createdResource;
+            return Promise.map(resourceData.tags, function(tag){
+                return Tag.findOrCreate({where: {title: tag.title}})
+            });
+        })
+        .then(function(tags){
+            tags = tags.map(function(tagToSpread){
+                return tagToSpread[0];
+            });
+            return resource.setTags(tags);
+        })
+        .then(function(){
+            return Resource.findById(resource.id, {include: [{model: Tag}]});
+        });
     }
   },
     getterMethods: {

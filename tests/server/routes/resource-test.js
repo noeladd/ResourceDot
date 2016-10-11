@@ -61,7 +61,8 @@ describe('Resource Route', function() {
             .post('/api/resources/')
             .send({
                 title: 'ABCD',
-                link: 'EFG'
+                link: 'EFG',
+                tags: [{title: 'javascript'}]
             })
             .expect(201)
             .then(function (res) {
