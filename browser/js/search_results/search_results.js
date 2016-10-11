@@ -49,4 +49,6 @@ app.controller('SearchCtrl', function($scope, resources, guides, user) {
     $scope.data = $scope.resources.slice(0, $scope.data.length + 5);
   }
 
+  $scope.guides = guides;
+  $scope.user = user;
 });

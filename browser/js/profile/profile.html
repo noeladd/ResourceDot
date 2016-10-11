@@ -17,6 +17,7 @@
     <p>{{ user.email }}</p>
     <h4>Learning:</h4>
     <tag-chips selected-tags="selectedTags"></tag-chips>
+    <md-button md-no-ink class="md-primary" ng-click="viewLikedResources()">Liked Resources</md-button>
     <h4>Friends</h4>
 
     <p ng-click="findFriends(user.id)">See All</p>

@@ -19,10 +19,8 @@ app.config(function($stateProvider) {
 });
 
 app.controller('GuideCtrl', function($scope, guide, user) {
-
     $scope.guide = guide;
     $scope.resources = guide.resources;
     $scope.author = guide.author;
     $scope.user = user
-
 })
