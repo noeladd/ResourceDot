@@ -24,4 +24,5 @@ app.controller('GuideCtrl', function($scope, guide, user) {
     $scope.resources = guide.resources;
     $scope.author = guide.author;
     $scope.user = user
+
 })
