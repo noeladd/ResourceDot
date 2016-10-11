@@ -7,13 +7,22 @@ app.config(function($stateProvider) {
             guide: function(GuideFactory, $stateParams){
                 let id = $stateParams.id
                 return GuideFactory.getById(id);
+            },
+            function(AuthService, UserFactory){
+                return AuthService.getLoggedInUser()
+                .then(function(user){
+                return UserFactory.getById(user.id);
+                })
             }
         }
-    });
+    })
 });
 
-app.controller('GuideCtrl', function($scope, guide) {
-    console.log(guide.resources)
+app.controller('GuideCtrl', function($scope, guide, user) {
+
     $scope.guide = guide;
-    $scope.resources = guide.resources
+    $scope.resources = guide.resources;
+    $scope.author = guide.author;
+    $scope.user = user
+
 })

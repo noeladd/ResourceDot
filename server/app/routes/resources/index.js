@@ -58,7 +58,8 @@ router.get('/:id', function(req, res, next) {
 router.put('/:id/like', function(req, res, next){
     Resource.findById(req.params.id)
     .then(function(resource){
-        return resource.increment('likes');
+        resource.increment('likes');
+       return resource.addLikeUser(req.body.user)
     })
     .then(function(){
         res.sendStatus(204);
@@ -69,13 +70,23 @@ router.put('/:id/like', function(req, res, next){
 router.put('/:id/dislike', function(req, res, next){
     Resource.findById(req.params.id)
     .then(function(resource){
-        return resource.increment('dislikes');
+        resource.increment('dislikes');
+        return resource.addDislikeUser(req.body.user)
     })
     .then(function(){
         res.sendStatus(204);
     })
     .catch(next);
 });
+
+router.delete('/:id', function(req, res, next){
+    Resource.findById(req.params.id)
+    .then(function(resource){
+        return resource.destroy();
+    }).then(function(){
+        res.sendStatus(200);
+    })
+})
 
 router.post('/', function(req, res, next) {
     Resource.createWithTags(req.body)
