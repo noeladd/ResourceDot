@@ -1,5 +1,5 @@
 'use strict';
-window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'ngMaterial', 'ngTagsInput']);
+window.app = angular.module('FullstackGeneratedApp', ['fsaPreBuilt', 'ui.router', 'ui.bootstrap', 'ngAnimate', 'ngMaterial', 'infinite-scroll']);
 
 if (!window.TESTING) {
     // Why we don't want this block to run if we're in the testing mode: this block makes re-routes the page to home page ($urlRouterProvider.otherwise('/')); this additional request doesn't get handled in the front-end testing files--the front-end tests will think that they failed
