@@ -21,7 +21,6 @@ router.get('/', function(req, res, next) {
     })
     .catch(next);
   } else {
-    //console.log('\n\n\n\n\n\n\n\n\n\n\nreq.query', req.query);
     Resource.findAll({
       where: req.query,
       include: [
