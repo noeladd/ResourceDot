@@ -23,6 +23,10 @@ body {
   overflow-x: hidden;
 }
 
+img.avatar{
+  width: 150px;
+}
+
 @import 'directives/main';
 @import 'home/main';
 @import 'about/main';
