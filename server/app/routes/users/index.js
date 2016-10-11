@@ -50,3 +50,12 @@ router.post('/', function(req, res, next){
     })
     .catch(next);
 });
+
+router.put('/:id/addtags', function(req, res, next) {
+  User.findById(req.params.id)
+  .then(function(user) {
+
+    user.setTags(req.body);
+  })
+  .catch(next);
+});
