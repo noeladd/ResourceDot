@@ -44,7 +44,6 @@ module.exports = db.define('guide', {
           var allGuides = guides.reduce(function(a, b){
             return a.concat(b);
           });
-
           return allGuides;
         });
       },
