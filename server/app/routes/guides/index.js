@@ -35,9 +35,6 @@ router.get('/', function (req, res, next){
  // need to make this method on the model
         Guide.findByTags(tags)
         .then(function(guides){
-            if (guides.length === 0){
-                res.status(404).send();
-            }
             res.json(guides);
         })
         .catch(next);
@@ -98,6 +95,7 @@ router.put('/:id/add', function(req, res, next){
 
 router.put('/:id/delete', function(req, res, next){
     req.guideById.removeOrderedResource(req.body)
+
     .then(function(){
         res.sendStatus(204);
     })
