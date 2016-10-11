@@ -24,5 +24,5 @@ app.config(function($stateProvider) {
 
 app.controller('SearchCtrl', function($scope, resources, guides) {
   $scope.resources = resources;
-  $scope.guides = guides;
+  $scope.guides = guides
 });

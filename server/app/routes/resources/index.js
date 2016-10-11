@@ -2,6 +2,7 @@
 var router = require('express').Router(); // eslint-disable-line new-cap
 module.exports = router;
 
+const Promise = require('bluebird');
 const db = require('../../../db');
 const Resource = db.model('resource');
 const Tag = db.model('tag');
@@ -77,9 +78,9 @@ router.put('/:id/dislike', function(req, res, next){
 });
 
 router.post('/', function(req, res, next) {
-    Resource.create(req.body)
-    .then(function(createdResource) {
-        res.status(201).json(createdResource);
+    Resource.createWithTags(req.body)
+    .then(function(resource){
+        res.status(201).json(resource);
     })
     .catch(next);
 });
