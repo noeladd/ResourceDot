@@ -5,10 +5,11 @@ app.config(function($stateProvider) {
         controller: 'GuideCtrl',
         resolve: {
             guide: function(GuideFactory, $stateParams){
+                console.log("In guide resolve!")
                 let id = $stateParams.id
                 return GuideFactory.getById(id);
             },
-            function(AuthService, UserFactory){
+           user: function(AuthService, UserFactory){
                 return AuthService.getLoggedInUser()
                 .then(function(user){
                 return UserFactory.getById(user.id);
