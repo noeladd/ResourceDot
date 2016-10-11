@@ -32,11 +32,15 @@ app.controller('ProfileCtrl', function ($scope, $state, TagFactory, UserFactory,
 
     return ResourceFactory.getAllByTag(tags)
     .then(function(resources) {
-      $scope.resources = RecommendationFactory.get(resources, $scope.user).map(function(obj){ // gets an array of recommended resources (many of them!)
+      $scope.resources = RecommendationFactory.get(resources, $scope.user).map(function(obj){
         return obj.resource;
       }).slice(0, 5);
     })
     .catch($log.error);
+  }
+
+  $scope.viewLikedResources = function() {
+    $state.go('likedResources', {userId: $scope.user.id});
   }
 
   var debounced = _.debounce(fetchResources, 1000);

@@ -3,24 +3,24 @@
 var expect = chai.expect;
 
 function randomNum (upperBound) {
-  return Math.floor(Math.random() * upperBound);
+	return Math.floor(Math.random() * upperBound);
 }
 
 // generate fake resources
 function makeFakeResource () {
-  return {
-    id: 'xyz' + randomNum(1000),
-    title: 'Thing' + randomNum(1000)
-  };
+	return {
+		id: 'xyz' + randomNum(1000),
+		title: 'Thing' + randomNum(1000)
+	};
 }
 
-xdescribe('Resource Factory', function() {
+describe('Resource Factory', function() {
 	/*------------------
 		CONFIGURATION
 	/------------------*/
 
 	//load our Angular app from scratch
-	beforeEach(module('app'));
+	beforeEach(module('FullstackGeneratedApp'));
 
 	// need to load Resource Factory before each test?
 	var ResourceFactory, $httpBackend;
@@ -44,17 +44,17 @@ xdescribe('Resource Factory', function() {
 	/------------------*/
 
 	it('`.getAll` fetches all resources', function (done) {
-    var fakeResource = makeFakeResource();
-    $httpBackend
-      .expect('GET', '/api/resources')
-      .respond(200, fakeResource);
-    ResourceFactory.getAll()
-      .then(function (todos) {
-        expect(todos).to.deep.equal(fakeResource);
-      })
-      .catch(done);
-    $httpBackend.flush();
-    done();
-  });
+		var fakeResource = makeFakeResource();
+		$httpBackend
+		.expect('GET', '/api/resources')
+		.respond(200, fakeResource);
+		ResourceFactory.getAll()
+		.then(function (todos) {
+			expect(todos).to.deep.equal(fakeResource);
+		})
+		.catch(done);
+		$httpBackend.flush();
+		done();
+	});
 
 })

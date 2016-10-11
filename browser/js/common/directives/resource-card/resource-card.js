@@ -1,5 +1,3 @@
-
-
 app.directive('resourceCard', function ($state, ResourceFactory, GuideFactory) {
     return {
         restrict: 'E',
@@ -36,6 +34,14 @@ app.directive('resourceCard', function ($state, ResourceFactory, GuideFactory) {
 				$state.go('searchResults', {tagIds: id});
 			}
 
+			scope.searchByAuthor = function(authorName) {
+				$state.go('searchAuthorResults', {authorName: authorName});
+			}
+
+			scope.searchBySource = function(source) {
+				$state.go('searchSourceResults', {source: source})
+			}
+
 			scope.delete = function(id){
 				if (scope.user.isAdmin){
 					ResourceFactory.delete(id)
@@ -48,6 +54,6 @@ app.directive('resourceCard', function ($state, ResourceFactory, GuideFactory) {
 					GuideFactory.removeResource(scope.guide.id, {id: id});
 				}
 			}
-        }
+		}
 	}
 });

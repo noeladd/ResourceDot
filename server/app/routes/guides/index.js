@@ -101,7 +101,6 @@ router.put('/:id/add', function(req, res, next){
     .catch(next);
 });
 
-
 router.put('/:id/delete', function(req, res, next){
     req.guideById.removeOrderedResource(req.body)
     .then(function(){

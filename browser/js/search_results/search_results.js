@@ -32,5 +32,4 @@ app.controller('SearchCtrl', function($scope, resources, guides, user) {
   $scope.resources = resources;
   $scope.guides = guides;
   $scope.user = user;
-
 });

@@ -28,8 +28,8 @@ router.get('/', function(req, res, next){
 
 router.get('/:id', function(req, res, next){
     User.findById(req.params.id, {include: [
-        {model: Resource, as: 'resourceLike'},
-        {model: Resource, as: 'resourceDislike'},
+        {model: Resource, as: 'resourceLike', include: [ Tag ]},
+        {model: Resource, as: 'resourceDislike', include: [ Tag ]},
         {model: Tag},
         {model: User, as: 'friend'},
         {model: Guide},
