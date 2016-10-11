@@ -1,6 +1,7 @@
 'use strict';
 var passport = require('passport');
 var LocalStrategy = require('passport-local').Strategy;
+var Promise = require('bluebird');
 
 module.exports = function (app, db) {
 
@@ -30,9 +31,29 @@ module.exports = function (app, db) {
 
     // A POST /login route is created to handle login.
     app.post('/login', function (req, res, next) {
-
         var authCb = function (err, user) {
+        if (err) return next(err);
 
+        if (!user) {
+            var error = new Error('Invalid login credentials.');
+            error.status = 401;
+            return next(error);
+        }
+
+        // req.logIn will establish our session.
+        req.logIn(user, function (loginErr) {
+            if (loginErr) return next(loginErr);
+            // We respond with a response object that has user with _id and email.
+            res.status(200).send({
+                user: user.sanitize()
+            });
+        });
+    };
+        passport.authenticate('local', authCb)(req, res, next);
+    });
+
+    app.post('/signup', function(req, res, next) {
+        var authCb = function (err, user) {
             if (err) return next(err);
 
             if (!user) {
@@ -49,11 +70,22 @@ module.exports = function (app, db) {
                     user: user.sanitize()
                 });
             });
-
         };
 
-        passport.authenticate('local', authCb)(req, res, next);
+        if (req.body.tags) {
+          var tags = req.body.tags.map(tag => tag.id);
+        } else {
+          var tags = [];
+        }
 
+        User.findOrCreate({ where: {email: req.body.email}, defaults: req.body })
+        .spread(function(user) {
+            console.log('user', user);
+            return user.addTags(tags);
+        })
+        .then(function(){
+            passport.authenticate('local', authCb)(req, res, next);
+        })
+        .catch(next);
     });
-
 };

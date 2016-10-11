@@ -1,5 +1,9 @@
 <div layout="column">
   <md-content>
+    <h2>Guides: </h2>
+    <h3 ng-show="guides.length === 0"> No Guides Found</h3>
+    <guide-card ng-repeat="guide in guides"></guide-card>
+    <h2>Resources: </h2>
     <resource-card ng-repeat="resource in resources | orderBy: 'netLikes' : true"></resource-card>
   </md-content>
 </div>

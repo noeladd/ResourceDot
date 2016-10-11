@@ -42,9 +42,10 @@ module.exports = db.define('resource', {
         })
         .then(function(tagsInstances){
             return Promise.map(tagsInstances, function(tag){
-                return tag.getResources({include :[
-                    {model : User, as: 'likeUser'},
-                    {model: User, as: 'dislikeUser'}
+                return tag.getResources({include: [
+                    {model: User, as: 'likeUser'},
+                    {model: User, as: 'dislikeUser'},
+                    {model: Tag}
                 ]});
             });
         })
@@ -55,12 +56,11 @@ module.exports = db.define('resource', {
 
             return allResources;
       });
-    },
+    }
+  },
     getterMethods: {
         netLikes: function(){
-            console.log('netlikes', this.likes - this.dislikes);
             return this.likes - this.dislikes
         }
     }
-}
 });

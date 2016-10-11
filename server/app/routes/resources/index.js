@@ -7,36 +7,34 @@ const Resource = db.model('resource');
 const Tag = db.model('tag');
 const User = db.model('user');
 
-//route would be /api/resources?type=article, /api/resources?tag=javascript
+//route would be /api/resources?type=article, /api/resources?tag=javascript, 'api/resources?author=Jennifer+Bassett', 'api/resources?source=A+List+Apart'
 router.get('/', function(req, res, next) {
-  var reqType = req.query.type
   var reqTagIds = req.query.tagIds
   if (reqTagIds){
-      var tags = reqTagIds.split(',');
-
-      Resource.findByTags(tags)
-      .then(function(resources){
-        if (resources.length === 0){
-            res.status(404).send();
-        }
-        res.json(resources);
-        })
-      .catch(next);
-    } else {
-    Resource.findAll({
-        where: req.query,
-        include: [
-        {model: Tag}
-        ]
-    })
+    var tags = reqTagIds.split(',');
+    Resource.findByTags(tags)
     .then(function(resources){
-        if (resources.length === 0){
-            res.status(404).send();
-        }
-        res.json(resources);
+      if (resources.length === 0){
+          res.status(404).send();
+      }
+      res.json(resources);
     })
     .catch(next);
-}
+  } else {
+    Resource.findAll({
+      where: req.query,
+      include: [
+      {model: Tag}
+      ]
+  })
+  .then(function(resources){
+    if (resources.length === 0){
+      res.status(404).send();
+    }
+    res.json(resources);
+  })
+  .catch(next);
+  }
 });
 
 router.get('/:id', function(req, res, next) {
