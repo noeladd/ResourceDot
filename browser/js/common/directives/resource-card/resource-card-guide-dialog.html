@@ -1,0 +1,12 @@
+<md-dialog>
+    <form>
+        <md-input-container class = "md-block" flex-gt-sm>
+            <label>Guide</label>
+            <md-select ng-model="guide.title">
+                <md-option ng-repeat = "guide in userGuides" value="{{guide.title}}">
+                    {{guide.title}}
+                </md-option>
+            </md-select>
+        </md-input-container>
+    </form>
+</md-dialog>
