@@ -51,7 +51,6 @@ app.directive('resourceCard', function ($state, ResourceFactory, GuideFactory) {
 
 			scope.remove = function(id){
 				if (scope.user.id === scope.author.id){
-					console.log(scope.guide);
 					GuideFactory.removeResource(scope.guide.id, {id: id});
 				}
 			}
