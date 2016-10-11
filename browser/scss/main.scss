@@ -4,6 +4,7 @@
 
 body {
   background: #fdfdfd;
+  overflow-y: scroll;
 }
 
 @mixin clearfix {
@@ -17,6 +18,9 @@ body {
 #main {
   padding-top: 60px;
   margin: 0 auto;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 @import 'directives/main';
@@ -25,3 +29,4 @@ body {
 @import 'tutorial/main';
 @import 'login/main';
 @import 'signup/main';
+@import 'search_results/main';
