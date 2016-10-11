@@ -29,6 +29,11 @@ app.directive('addToGuide', function($mdDialog, $mdToast, GuideFactory, $log){
 			scope.submitForm = function(){
 				if (scope.guide.id){
 					return GuideFactory.addResource(scope.guide.id, scope.resource)
+					.then(function(){
+						scope.clearForm();
+						$mdDialog.hide();
+						scope.openToast();
+					})
 				}
 				else if (scope.guide.title){
 					return GuideFactory.addNewGuide({title: scope.guide.title, author: scope.user, tags: scope.guide.tags})
