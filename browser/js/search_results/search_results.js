@@ -51,4 +51,5 @@ app.controller('SearchCtrl', function($scope, resources, guides, user) {
 
   $scope.guides = guides;
   $scope.user = user;
+  $scope.userGuides = user.guides
 });

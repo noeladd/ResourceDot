@@ -10,7 +10,7 @@ var supertest = require('supertest-as-promised');
 
 let guideInfo = {
     title: 'Rachel\'s guide to React',
-    description: 'Some great resources for learning React!'
+    description: 'Some great resources for learning React!', 
 };
 
 var resourceInfo = {
@@ -87,23 +87,6 @@ describe('Guide Route', function() {
     })
 
     describe('Guide Routes', function(){
-        it('adds a new guide on POST, responding with 201 and created guide', function (){
-            return agent
-            .post('/api/guides')
-            .send({
-                title: 'Mack\'s guide to Angular',
-                description: 'A cool Angular guide'
-            })
-            .expect(201)
-            .then(function(res) {
-                var createdGuide = res.body;
-                return Guide.findById(createdGuide.id)
-            })
-            .then(function (foundGuide) {
-                expect(foundGuide.title).to.be.equal('Mack\'s guide to Angular')
-            });
-        });
-
         it('gets back all guides', function(done){
             agent
             .get('/api/guides')
