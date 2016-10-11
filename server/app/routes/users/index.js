@@ -8,6 +8,13 @@ const Tag = db.model('tag');
 const User = db.model('user');
 const Guide = db.model('guide');
 
+function sanitize(user){
+    var userObj = user.dataValues;
+    delete userObj.password;
+    delete userObj.salt;
+    return userObj;
+}
+
 router.get('/', function(req, res, next){
     User.findAll()
     .then(function(users){
@@ -25,13 +32,15 @@ router.get('/:id', function(req, res, next){
         {model: Resource, as: 'resourceDislike', include: [ Tag ]},
         {model: Tag},
         {model: User, as: 'friend'},
-        {model: Guide}
+        {model: Guide},
+        {model: Guide, as: 'guideLike'},
+        {model: Guide, as: 'guideDislike'}
     ]})
     .then(function(user){
         if (!user){
             res.status(404).send();
         }
-        res.json(user);
+        res.json(sanitize(user));
     })
     .catch(next);
 });

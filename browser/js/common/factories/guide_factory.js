@@ -12,6 +12,10 @@ app.factory('GuideFactory', function($http, DataFactory) {
         return $http.get('/api/guides?tagIds=' + tagIds)
         .then(DataFactory.getData);
     }
+    GuideFactory.getByAuthor = function(authorId) {
+      return $http.get('/api/guides?authorId=' + authorId)
+      .then(DataFactory.getData);
+    }
    GuideFactory.getById = function(id){
        return $http.get('/api/guides/' + id)
        .then(DataFactory.getData);
@@ -26,11 +30,12 @@ app.factory('GuideFactory', function($http, DataFactory) {
    GuideFactory.removeResource = function(id, data){
        return $http.put('/api/guides/' + id + '/delete', data)
    }
+
    GuideFactory.like = function(id) {
        return $http.put('/api/guides/' + id + '/like');
    }
-   GuideFactory.dislike = function(id){
-       return $http.put('/api/guides/' + id + '/dislike');
+   GuideFactory.dislike = function(id, data){
+       return $http.put('/api/guides/' + id + '/dislike', data);
    }
    return GuideFactory
 })

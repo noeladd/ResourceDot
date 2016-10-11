@@ -61,11 +61,12 @@ describe('Resource Route', function() {
             .post('/api/resources/')
             .send({
                 title: 'ABCD',
-                link: 'EFG'
+                link: 'EFG',
+                tags: [{title: 'javascript'}]
             })
             .expect(201)
             .then(function (res) {
-                var createdResource = res.body;
+                var createdResource = res.body.data;
                 return Resource.findById(createdResource.id)
             })
             .then(function (foundResource) {

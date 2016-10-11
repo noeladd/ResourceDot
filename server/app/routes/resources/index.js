@@ -2,6 +2,7 @@
 var router = require('express').Router(); // eslint-disable-line new-cap
 module.exports = router;
 
+const Promise = require('bluebird');
 const db = require('../../../db');
 const Resource = db.model('resource');
 const Tag = db.model('tag');
@@ -56,7 +57,8 @@ router.get('/:id', function(req, res, next) {
 router.put('/:id/like', function(req, res, next){
     Resource.findById(req.params.id)
     .then(function(resource){
-        return resource.increment('likes');
+        resource.increment('likes');
+       return resource.addLikeUser(req.body.user)
     })
     .then(function(){
         res.sendStatus(204);
@@ -67,7 +69,8 @@ router.put('/:id/like', function(req, res, next){
 router.put('/:id/dislike', function(req, res, next){
     Resource.findById(req.params.id)
     .then(function(resource){
-        return resource.increment('dislikes');
+        resource.increment('dislikes');
+        return resource.addDislikeUser(req.body.user)
     })
     .then(function(){
         res.sendStatus(204);
@@ -75,10 +78,19 @@ router.put('/:id/dislike', function(req, res, next){
     .catch(next);
 });
 
+router.delete('/:id', function(req, res, next){
+    Resource.findById(req.params.id)
+    .then(function(resource){
+        return resource.destroy();
+    }).then(function(){
+        res.sendStatus(200);
+    })
+})
+
 router.post('/', function(req, res, next) {
-    Resource.create(req.body)
-    .then(function(createdResource) {
-        res.status(201).json(createdResource);
+    Resource.createWithTags(req.body)
+    .then(function(data){
+        res.status(201).json(data);
     })
     .catch(next);
 });

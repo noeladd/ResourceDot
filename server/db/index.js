@@ -25,9 +25,8 @@ Tag.belongsToMany(Resource, {through: 'resource_tag'});
 Tag.belongsToMany(User, {through: 'user_tag'});
 User.belongsToMany(Tag, {through: 'user_tag'});
 
-User.hasMany(Guide)
+User.hasMany(Guide, {foreignKey: 'authorId'});
 Guide.belongsTo(User, {as: 'author'});
-
 
 Resource.belongsToMany(Guide, {through: 'guide_resource'});
 Guide.belongsToMany(Resource, {through: 'guide_resource'});
