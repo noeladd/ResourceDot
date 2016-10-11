@@ -60,18 +60,18 @@ router.get('/', function (req, res, next){
             .catch(next)
     }
 });
-
 router.post('/', function(req, res, next){
-    Guide.create(req.body)
-    .then(function(createdResource){
-        res.status(201).json(createdResource);
-    })
-    .catch(next);
+    Guide.createWithTags(req.body)
+		.then(function(guide){
+			res.status(201).json(guide);
+		})
+		.catch(next);
 });
 
 router.get('/:id', function(req, res, next){
     res.send(req.guideById);
 })
+
 
 router.put('/:id/like', function(req, res, next){
     console.log("In Route!")

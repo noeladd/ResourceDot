@@ -47,6 +47,29 @@ module.exports = db.define('guide', {
           return allGuides;
         });
       },
+      createWithTags: function(guideData){
+        var guide;
+        var Guide = this;
+
+        return Guide.create(guideData)
+        .then(function(createdGuide){
+          createdGuide.setAuthor(guideData.author.id)
+          guide = createdGuide;
+          return Promise.map(guideData.tags, function(tag){
+            return Tag.findOrCreate({where: {title: tag.title}})
+          });
+        })
+        .then(function(tags){
+          tags = tags.map(function(tagToSpread){
+            return tagToSpread[0];
+          });
+          return guide.setTags(tags);
+        })
+        .then(function(){
+          return Guide.findById(guide.id);
+        });
+      },
+
       orderResources: function(guide){
         guide.resources = guide.resources.map(function(resource){
           resource.dataValues.order = guide.order.indexOf(resource.id) + 1;
