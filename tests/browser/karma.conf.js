@@ -16,6 +16,7 @@ module.exports = function (config) {
         'node_modules//ng-tags-input/build/ng-tags-input.min.js',
         'node_modules/sinon/pkg/sinon.js',
         'node_modules/angular-mocks/angular-mocks.js',
+        'node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min.js',
         'public/main.js',
         'tests/browser/**/*.js'
     ];
