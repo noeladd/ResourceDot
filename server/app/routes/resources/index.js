@@ -11,31 +11,31 @@ const User = db.model('user');
 router.get('/', function(req, res, next) {
   var reqTagIds = req.query.tagIds
   if (reqTagIds){
-      var tags = reqTagIds.split(',');
-
-      Resource.findByTags(tags)
-      .then(function(resources){
-        if (resources.length === 0){
-            res.status(404).send();
-        }
-        res.json(resources);
-        })
-      .catch(next);
-    } else {
-    Resource.findAll({
-        where: req.query,
-        include: [
-        {model: Tag}
-        ]
-    })
+    var tags = reqTagIds.split(',');
+    Resource.findByTags(tags)
     .then(function(resources){
-        if (resources.length === 0){
-            res.status(404).send();
-        }
-        res.json(resources);
+      if (resources.length === 0){
+          res.status(404).send();
+      }
+      res.json(resources);
     })
     .catch(next);
-}
+  } else {
+    //console.log('\n\n\n\n\n\n\n\n\n\n\nreq.query', req.query);
+    Resource.findAll({
+      where: req.query,
+      include: [
+      {model: Tag}
+      ]
+  })
+  .then(function(resources){
+    if (resources.length === 0){
+      res.status(404).send();
+    }
+    res.json(resources);
+  })
+  .catch(next);
+  }
 });
 
 router.get('/:id', function(req, res, next) {

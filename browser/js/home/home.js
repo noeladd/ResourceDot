@@ -1,8 +1,7 @@
 app.controller('HomeCtrl', function($scope, $filter, TagFactory, ResourceFactory, $state, $log) {
   $scope.selectedTags = [];
-  
+
   $scope.search = function() {
-    console.log('called search!');
     var tags = $scope.selectedTags.map(function(tag) {
       return tag.id;
     });
