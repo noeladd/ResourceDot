@@ -48,19 +48,6 @@ app.directive('resourceCard', function ($state, ResourceFactory, GuideFactory) {
 					GuideFactory.removeResource(scope.guide.id, {id: id});
 				}
 			}
-
-			scope.showAdvanced = function(ev) {
-				$mdDialog.show({
-					controller: GuideChoiceCtrl,
-					templateUrl: 'js/common/directives/resource-card/resource-card-guide-dialog.html',
-					parent: angular.element(document.body),
-					targetEvent: ev,
-					clickOutsideToClose: true,
-				})
-				.then(function(guide){
-					$scope.guideToAdd = guide;
-				})
-			}
         }
 	}
 });
