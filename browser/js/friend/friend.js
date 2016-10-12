@@ -18,7 +18,7 @@ app.controller('friendCtrl', function($scope, $state, friend, guides) {
   $scope.friend = friend;
   $scope.guides = guides;
 
-  $scope.search = function(tagId) {
-    $state.go('searchResults', {tagIds: tagId});
+  $scope.search = function(tagId, tagTitle) {
+    $state.go('searchResults', {tagIds: tagId, tagTitles: tagTitle});
   };
 });
