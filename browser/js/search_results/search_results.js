@@ -1,6 +1,6 @@
 app.config(function($stateProvider) {
   $stateProvider.state('searchResults', {
-    url: '/search_results/:tagIds',
+    url: '/search_results/:tagIds/:tagTitles',
     templateUrl: 'js/search_results/search_results.html',
     controller: 'SearchCtrl',
     resolve: {
@@ -39,13 +39,13 @@ app.config(function($stateProvider) {
   });
 });
 
-app.controller('SearchCtrl', function($scope, resources, guides, user) {
+app.controller('SearchCtrl', function($scope, $stateParams, resources, guides, user) {
+  $scope.tags = $stateParams.tagTitles.split('+');
 
   $scope.resources = resources;
 
   $scope.data = $scope.resources.slice(0, 5);
   $scope.getMoreData = function () {
-    console.log('here!!1');
     $scope.data = $scope.resources.slice(0, $scope.data.length + 5);
   }
 
