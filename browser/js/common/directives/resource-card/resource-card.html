@@ -18,6 +18,7 @@
         <md-chip ng-click="searchByTag(tag.id)">{{ tag.title }}</md-chip>
       </md-chips>
     </div>
+    <pre>User Id: {{user.id}} Author Id: {{author.id}}</pre>
     <add-to-guide ng-show="user.id !== author.id"></add-to-guide>
     <md-button class="md-fab md-accent" aria-label="Delete Resource" ng-show="user.isAdmin" >
       <md-tooltip>Delete Resource</md-tooltip>
