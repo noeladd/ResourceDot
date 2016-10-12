@@ -1,11 +1,17 @@
 <div layout="column" id="something">
   <md-content>
-    <div ng-show="author">
+    <h2>You searched for:</h2>
+
+      <div ng-show="author">
         <h1>{{author}}</h1>
     </div>
     <div ng-show="source">
       <h1>{{source}}</h1>
     </div>
+    <div ng-show="tags">
+      <h2 ng-repeat="tag in tags">{{ tag }}</h2>
+    </div>
+
     <h2 ng-hide="author || source">Guides: </h2>
     <h3 ng-show="guides.length === 0"> No Guides Found</h3>
     <guide-card ng-repeat="guide in guides"></guide-card>

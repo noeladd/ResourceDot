@@ -1,12 +1,12 @@
-<md-button class = "md-fab md-accent" aria-label="Add to Guide" ng-click="showAdvanced()">
+<md-button class = "md-fab md-primary" aria-label="Add to Guide" ng-click="showAdvanced()">
     <md-tooltip>Add Resource to Guide</md-tooltip>
-    <i class = "fa fa-plus" aria-hidden = "true"></i>
+    <i class = "fa fa-plus-circle" aria-hidden = "true"></i>
 </md-button>
 
 <div style="visibility: hidden">
     <div class="md-dialog-container" id="addToGuide">
         <md-dialog id="add-box">
-            <md-dialog-content layout="column">
+            <md-dialog-content layout="column" layout-margin>
                 <h3>Pick Your Guide</h3>
                 <form name = "guideForm">
                     <md-input-container class = "md-block" flex-gt-sm>
@@ -18,29 +18,34 @@
                         </md-select>
                     </md-input-container>
 
-                    <h4>Or create a new one!</h4>
-                    
-                    <div layout="row">
+                    <h4>Or create a new one!
+                        <i ng-show="!openPanel" class="fa fa-caret-down" aria-hidden="true" ng-click="openPanel = !openPanel"></i>
+                        <i ng-show="openPanel" class="fa fa-caret-up" aria-hidden="true" ng-click="openPanel = !openPanel"></i>
+                    </h4>
+
+                    <div ng-show="openPanel" class="slider">
+                        <div layout="row">
+                            <md-input-container>
+                                <label>Title</label>
+                                <input type="text" ng-model="guide.title">
+                            </md-input-container>
+                        </div>
+
+                        <div layout="row">
                         <md-input-container>
-                            <label>Title</label>
-                            <input type="text" ng-model="guide.title">
+                            <label>Guide Description</label>
+                            <textarea md-maxlength="50" rows="3" ng-model="guide.description"></textarea>
                         </md-input-container>
-                    </div>
+                        </div>
 
-                    <div layout="row">
-                    <md-input-container>
-                        <label>Guide Description</label>
-                        <textarea md-maxlength="50" rows="3" ng-model="guide.description"></textarea>
-                    </md-input-container>
-                    </div>
-
-                    <div layout="row">
-                        <md-input-container flex>
-                            <label>Tags</label>
-                            <tag-chips selected-tags="guide.tags" match="false">
-                            </tag-chips>
-                            <p class="warning" ng-show="!guide.tags.length && resourceForm.tags.$invalid">Please apply at least one tag.</p>
-                        </md-input-container>
+                        <div layout="row">
+                            <md-input-container flex>
+                                <label>Tags</label>
+                                <tag-chips selected-tags="guide.tags" match="false">
+                                </tag-chips>
+                                <p class="warning" ng-show="!guide.tags.length && resourceForm.tags.$invalid">Please apply at least one tag.</p>
+                            </md-input-container>
+                        </div>
                     </div>
 
                     <md-button type="submit" ng-click="submitForm()">submit</md-button>

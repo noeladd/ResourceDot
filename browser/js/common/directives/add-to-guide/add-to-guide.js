@@ -5,6 +5,7 @@ app.directive('addToGuide', function($mdDialog, $mdToast, GuideFactory, $log){
 		scope: true,
 		link: function(scope) {
 			scope.guide = {tags: []}
+      scope.openPanel = false;
 
 			scope.newGuide = false;
 			scope.openToast = function(){
