@@ -6,14 +6,14 @@ app.config(function($stateProvider) {
     resolve: {
       resources: function(ResourceFactory) {
         return ResourceFactory.getAll();
-      }
-    },
+      },
     user: function(AuthService, UserFactory){
         return AuthService.getLoggedInUser()
         .then(function(user){
           return UserFactory.getById(user.id);
         })
       }
+    }
   });
 });
 

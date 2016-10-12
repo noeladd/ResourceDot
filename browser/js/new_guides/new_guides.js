@@ -6,18 +6,18 @@ app.config(function($stateProvider) {
     resolve: {
       guides: function(GuideFactory) {
         return GuideFactory.getAll();
-      }
-    },
+      },
     user: function(AuthService, UserFactory){
         return AuthService.getLoggedInUser()
         .then(function(user){
           return UserFactory.getById(user.id);
         })
       }
+    }
   });
 });
 
-app.controller('newResourcesCtrl', function($scope, guides, user) {
+app.controller('newGuidesCtrl', function($scope, guides, user) {
   $scope.user = user;
   $scope.guides = guides.sort(function(a, b) {
     var dateA = new Date(a.createdAt);
