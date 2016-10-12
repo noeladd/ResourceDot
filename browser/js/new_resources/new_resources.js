@@ -7,11 +7,17 @@ app.config(function($stateProvider) {
       resources: function(ResourceFactory) {
         return ResourceFactory.getAll();
       }
-    }
+    },
+    user: function(AuthService, UserFactory){
+        return AuthService.getLoggedInUser()
+        .then(function(user){
+          return UserFactory.getById(user.id);
+        })
+      }
   });
 });
 
-app.controller('newResourcesCtrl', function($scope, resources) {
+app.controller('newResourcesCtrl', function($scope, resources, user) {
   $scope.resources = resources.sort(function(a, b) {
     var dateA = new Date(a.createdAt);
     dateA = Number(dateA);
@@ -19,4 +25,5 @@ app.controller('newResourcesCtrl', function($scope, resources) {
     dateB = Number(dateB);
     return dateB - dateA;
   }).slice(0, 10);
+  $scope.user = user;
 });
