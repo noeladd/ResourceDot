@@ -1,21 +1,21 @@
 
 app.directive('resourceCard', function ($state, ResourceFactory, GuideFactory) {
     return {
-        restrict: 'E',
-        templateUrl: 'js/common/directives/resource-card/resource-card.html',
-        scope: true,
-        link: function(scope) {
-			let liked = false;
-			let disliked = false;
-			scope.like = function(id, data) {
-				if (scope.user.resourceLike.filter(function(resource){
-					return resource.id === id
-				}).length === 0 && !liked){
-					ResourceFactory.like(id, data)
-					.then(function() {
-						liked = true
-						scope.resource.likes += 1;
-					})
+			restrict: 'E',
+			templateUrl: 'js/common/directives/resource-card/resource-card.html',
+			scope: true,
+			link: function(scope, element) {
+				let liked = false;
+				let disliked = false;
+				scope.like = function(id, data) {
+					if (scope.user.resourceLike.filter(function(resource){
+						return resource.id === id
+					}).length === 0 && !liked){
+						ResourceFactory.like(id, data)
+						.then(function() {
+							liked = true
+							scope.resource.likes += 1;
+						})
 				}
 			}
 
@@ -51,9 +51,12 @@ app.directive('resourceCard', function ($state, ResourceFactory, GuideFactory) {
 
 			scope.remove = function(id){
 				if (scope.user.id === scope.author.id){
-					GuideFactory.removeResource(scope.guide.id, {id: id});
+					GuideFactory.removeResource(scope.guide.id, {id: id})
+					.then(function() {
+						element.html('');
+					})
 				}
 			}
-        }
+		}
 	}
 });
