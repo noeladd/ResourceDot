@@ -1,5 +1,5 @@
 <div layout="row" layout-wrap>
-  <div layout="column">
+  <div layout="column" flex="70">
 
     <h3>Recommended Resources:</h3>
     <md-content>
@@ -11,8 +11,8 @@
     </md-content>
   </div>
 
-  <div>
-    <img src="{{ user.picture }}">
+  <div flex>
+    <img class="avatar" src="{{ user.picture }}">
     <h4>{{ user.name }}</h4>
     <p>{{ user.email }}</p>
     <h4>Learning:</h4>
@@ -24,7 +24,7 @@
     <div layout="row" layout-align="center center" layout-wrap>
       <div class="friend" ng-repeat="friend in friends" layout="column" layout-align="center center"
       ng-click="findFriend(friend.id)" flex="50">
-        <img src="{{ friend.picture }}" />
+        <img class="avatar" src="{{ friend.picture }}" />
         <p>{{ friend.name }}</p>
       </div>
     </div>
