@@ -2,8 +2,7 @@
   <md-content>
     <h2>You searched for:</h2>
     <h2 ng-repeat="tag in tags">{{ tag }}</h2>
-
-    <h2>Guides: </h2>
+    <h2 ng-hide="author || source">Guides: </h2>
     <h3 ng-show="guides.length === 0"> No Guides Found</h3>
     <guide-card ng-repeat="guide in guides"></guide-card>
     <h2>Resources: </h2>

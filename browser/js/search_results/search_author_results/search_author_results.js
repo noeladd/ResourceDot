@@ -20,7 +20,8 @@ app.config(function($stateProvider) {
   });
 });
 
-app.controller('SearchAuthorCtrl', function($scope, resources, user) {
+app.controller('SearchAuthorCtrl', function($scope, resources, user, $stateParams) {
+  $scope.author = $stateParams.authorName;
   $scope.user = user;
   $scope.data = resources;
 });

@@ -44,7 +44,6 @@ app.config(function($stateProvider) {
 
 app.controller('SearchCtrl', function($scope, $stateParams, resources, guides, user) {
   $scope.tags = $stateParams.tagTitles.split('+');
-
   $scope.user = user
   $scope.resources = resources;
 

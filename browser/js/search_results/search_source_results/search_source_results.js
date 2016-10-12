@@ -20,7 +20,8 @@ app.config(function($stateProvider) {
   });
 });
 
-app.controller('SearchSourceCtrl', function($scope, resources, user) {
+app.controller('SearchSourceCtrl', function($scope, resources, user, $stateParams) {
+  $scope.source = $stateParams.source
   $scope.user = user
   $scope.data = resources.splice(0, 100);
 });
