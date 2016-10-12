@@ -1,22 +1,30 @@
-<md-toolbar layout="row" class="md-medium-tall">
-    <div class="md-toolbar-tools container">
-      <span>
-        <a ui-sref="home">
-          <img src="http://loremflickr.com/80/80">
-        </a>
-      </span>
-        <md-button ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
-            <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
-        </md-button>
-      <!-- fill up the space between left and right area -->
-      <span flex></span>
+<md-toolbar class="md-tall" layout="row" layout-align="center center">
 
-      <md-button ng-show="!user" ui-sref="login" class="md-raised">
-        Login
-      </md-button>
-      <md-button ng-show="!user" ui-sref="signup" class="md-raised">
-        Signup
-      </md-button>
-    </div>
+  <div layout-padding layout-margin>
+    <a ui-sref="home">
+      <img id="logo" src="/img/logo.png">
+    </a>
+  </div>
 
-  </md-toolbar>
+  <div class="md-toolbar-tools container" layout="row" layout-align="center start">
+      <md-button ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
+          <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
+      </md-button>
+    <!-- fill up the space between left and right area -->
+    <span flex></span>
+
+    <md-button ng-show="!user" ui-sref="login" class="md-raised">
+      Login
+    </md-button>
+    <md-button ng-show="!user" ui-sref="signup" class="md-raised">
+      Signup
+    </md-button>
+    <md-button ng-show="user">
+      <a ui-sref-active="active" ui-sref="profile">Welcome, {{user.name}}!</a>
+    </md-button>
+    <md-button ng-show="user" ng-click="logout()" class="md-raised">
+      Logout
+    </md-button>
+  </div>
+
+</md-toolbar>

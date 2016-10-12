@@ -1,11 +1,43 @@
-<md-card>
+<md-card flex>
   <md-card-content>
-    <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
-    <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
-    <h2>
-      <a href="{{ resource.link }}" target="_blank">{{ resource.title }}</a>
-    </h2>
-    <h4>{{ resource.author }}</h4>
-    <h4>{{ resource.source }}</h4>
+    <div layout="row" layout-padding>
+
+      <div layout="column" layout-align="center center">
+        <md-button class="md-raised" ng-click="like(resource.id, {user: user.id})">
+          <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
+          <h5>{{ resource.likes }}</h5>
+        </md-button>
+        <md-button class="md-raised" ng-click="dislike(resource.id, {user: user.id})">
+          <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
+          <h5>{{ resource.dislikes }}</h5>
+        </md-button>
+      </div>
+
+      <div flex="80" layout="column" layout-align="">
+        <h2>
+          <a href="{{ resource.link }}" target="_blank">{{ resource.title }}</a>
+        </h2>
+        <h4 ng-click="searchByAuthor(resource.author)">{{ resource.author }}</h4>
+        <h4 ng-click="searchBySource(resource.source)">{{ resource.source }}</h4>
+        <div layout="row">
+          <md-chips ng-repeat="tag in resource.tags">
+            <md-chip ng-click="searchByTag(tag.id)">{{ tag.title }}</md-chip>
+          </md-chips>
+        </div>
+      </div>
+
+      <div layout="column" layout-align="center end" flex>
+        <add-to-guide ng-show="user.id !== author.id && user.id!==0"></add-to-guide>
+        <md-button class="md-fab md-accent" aria-label="Delete Resource" ng-click="delete(resource.id)" ng-show="user.isAdmin" >
+         <md-tooltip>Delete Resource</md-tooltip>
+         <i class="fa fa-trash" aria-hidden="true" ng-show="user.isAdmin"></i>
+       </md-button>
+       <md-button class="md-fab md-accent" aria-label="Remove" ng-click="remove(resource.id, $event)" ng-show="user.id === author.id">
+         <md-tooltip>Remove From Guide</md-tooltip>
+          <i class="fa fa-minus-circle" aria-hidden="true" ng-show="user.id === author.id"></i>
+      </md-button>
+      </div>
+
+    </div>
   </md-card-content>
 </md-card>

@@ -11,11 +11,20 @@ module.exports = function (config) {
         'node_modules/angular-ui-bootstrap/ui-bootstrap.js',
         'node_modules/angular-ui-bootstrap/ui-bootstrap-tpls.js',
         'node_modules/socket.io-client/socket.io.js',
-        'public/main.js',
+        'node_modules/angular-aria/angular-aria.min.js',
+        'node_modules/angular-material/angular-material.min.js',
+        'node_modules//ng-tags-input/build/ng-tags-input.min.js',
         'node_modules/sinon/pkg/sinon.js',
         'node_modules/angular-mocks/angular-mocks.js',
+        'node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min.js',
+        'public/main.js',
         'tests/browser/**/*.js'
     ];
+
+    if (process.env.NODE_ENV === 'testing') {
+        // declares global variable window.TESTING to true
+        filesCollection.unshift('tests/browser/globals.js');
+    }
 
     var excludeFiles = [
         'tests/browser/karma.conf.js'

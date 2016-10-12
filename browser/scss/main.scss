@@ -4,6 +4,7 @@
 
 body {
   background: #fdfdfd;
+  overflow-y: scroll;
 }
 
 @mixin clearfix {
@@ -17,6 +18,13 @@ body {
 #main {
   padding-top: 60px;
   margin: 0 auto;
+  height: 100%;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+img.avatar{
+  width: 150px;
 }
 
 @import 'directives/main';
@@ -24,3 +32,6 @@ body {
 @import 'about/main';
 @import 'tutorial/main';
 @import 'login/main';
+@import 'signup/main';
+@import 'search_results/main';
+@import 'profile/main';

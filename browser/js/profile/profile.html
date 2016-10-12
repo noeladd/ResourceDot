@@ -1,1 +1,33 @@
-<p ng-repeat="resource in resources">{{resource.id}} {{resource.title}} {{resource.netLikes}}</p>
+<div layout-gt-sm="row" layout-sm="column" layout-padding layout-margin>
+
+    <div layout="column" flex>
+      <h3 class="header">Recommended Resources:</h3>
+      <md-content>
+        <resource-card ng-repeat="resource in resources"></resource-card>
+      </md-content>
+      <h3>Your Guides:</h3>
+      <md-content>
+        <guide-card ng-repeat="guide in guides"></guide-card>
+      </md-content>
+    </div>
+
+    <div flex="30" layout="column">
+      <img class="avatar" src="{{ user.picture }}">
+      <h4>{{ user.name }}</h4>
+      <p>{{ user.email }}</p>
+      <h4>Learning:</h4>
+      <tag-chips selected-tags="selectedTags"></tag-chips>
+      <md-button md-no-ink class="md-primary" ng-click="viewLikedResources()">Liked Resources</md-button>
+      <h4>Friends</h4>
+
+      <p ng-click="findFriends(user.id)">See All</p>
+      <div layout="row" layout-align="center center" layout-wrap>
+        <div class="friend" ng-repeat="friend in friends" layout="column" layout-align="center center"
+        ng-click="findFriend(friend.id)" flex="50">
+          <img class="avatar" src="{{ friend.picture }}" />
+          <p>{{ friend.name }}</p>
+        </div>
+      </div>
+    </div>
+
+</div>

@@ -1,5 +1,6 @@
 'use strict';
 
+var faker = require('faker');
 var passport = require('passport');
 var GoogleStrategy = require('passport-google-oauth').OAuth2Strategy;
 
@@ -16,7 +17,7 @@ module.exports = function (app, db) {
     };
 
     var verifyCallback = function (accessToken, refreshToken, profile, done) {
-
+        console.log(profile);
         User.findOne({
                 where: {
                     google_id: profile.id
@@ -27,7 +28,10 @@ module.exports = function (app, db) {
                     return user;
                 } else {
                     return User.create({
-                        google_id: profile.id
+                        google_id: profile.id,
+                        email: profile._json.email,
+                        name: profile._json.name,
+                        password: faker.helpers.replaceSymbolWithNumber('########')
                     });
                 }
             })

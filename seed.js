@@ -50,11 +50,17 @@ function seedResources(jsonArray){
     });
 }
 
+function randomNum(){
+    return Math.floor(Math.random() * 16) + 1;
+}
+
 function writeUser(){
     var user = {};
     user.name = faker.name.findName();
     user.email = faker.internet.email();
     user.password = 'password';
+    user.picture = '/img/avatars/avatar' + randomNum() + '.png';
+
     return user;
 }
 
