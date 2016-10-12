@@ -6,11 +6,18 @@ app.config(function($stateProvider) {
     resolve: {
       resources: function(ResourceFactory, $stateParams) {
         return ResourceFactory.getAllByAuthor($stateParams.authorName);
+      },
+      user: function(AuthService, UserFactory){
+        return AuthService.getLoggedInUser()
+        .then(function(user){
+          return UserFactory.getById(user.id);
+        })
       }
     }
   });
 });
 
-app.controller('SearchAuthorCtrl', function($scope, resources) {
+app.controller('SearchAuthorCtrl', function($scope, resources, user) {
+  $scope.user = user;
   $scope.resources = resources;
 });
