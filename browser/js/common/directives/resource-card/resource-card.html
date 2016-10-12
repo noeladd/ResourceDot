@@ -27,15 +27,15 @@
       </div>
 
       <div layout="column" layout-align="center end" flex>
-        <add-to-guide ng-show="user.id !== author.id"></add-to-guide>
-        <md-button class="md-fab md-accent" aria-label="Delete Resource" ng-show="user.isAdmin" >
-          <md-tooltip>Delete Resource</md-tooltip>
-          <i class="fa fa-trash" aria-hidden="true"  ng-click="delete(resource.id)" ng-show="user.isAdmin"></i>
-        </md-button>
-        <md-button class="md-fab md-primary" aria-label="Remove" ng-show="user.id === author.id">
-          <md-tooltip>Remove From Guide</md-tooltip>
-            <i class="fa fa-minus-circle" aria-hidden="true" ng-click="remove(resource.id)" ng-show="user.id === author.id"></i>
-        </md-button>
+        <add-to-guide ng-show="user.id !== author.id && user.id!==0"></add-to-guide>
+        <md-button class="md-fab md-accent" aria-label="Delete Resource" ng-click="delete(resource.id)" ng-show="user.isAdmin" >
+         <md-tooltip>Delete Resource</md-tooltip>
+         <i class="fa fa-trash" aria-hidden="true" ng-show="user.isAdmin"></i>
+       </md-button>
+       <md-button class="md-fab md-accent" aria-label="Remove" ng-click="remove(resource.id, $event)" ng-show="user.id === author.id">
+         <md-tooltip>Remove From Guide</md-tooltip>
+          <i class="fa fa-minus-circle" aria-hidden="true" ng-show="user.id === author.id"></i>
+      </md-button>
       </div>
 
     </div>
