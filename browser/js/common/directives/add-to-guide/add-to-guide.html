@@ -19,8 +19,8 @@
                     </md-input-container>
 
                     <h4>Or create a new one!
-                        <i ng-show="!openPanel" class="fa fa-caret-down" aria-hidden="true" ng-click="toggleOpen()"></i>
-                        <i ng-show="openPanel" class="fa fa-caret-up" aria-hidden="true" ng-click="toggleOpen()"></i>
+                        <i ng-show="!openPanel" class="fa fa-caret-down" aria-hidden="true" ng-click="openPanel = !openPanel"></i>
+                        <i ng-show="openPanel" class="fa fa-caret-up" aria-hidden="true" ng-click="openPanel = !openPanel"></i>
                     </h4>
 
                     <div ng-show="openPanel" class="slider">
