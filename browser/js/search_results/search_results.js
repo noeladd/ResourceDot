@@ -43,13 +43,11 @@ app.config(function($stateProvider) {
 });
 
 app.controller('SearchCtrl', function($scope, resources, guides, user) {
-
   $scope.user = user
   $scope.resources = resources;
 
   $scope.data = $scope.resources.slice(0, 5);
   $scope.getMoreData = function () {
-    console.log('here!!1');
     $scope.data = $scope.resources.slice(0, $scope.data.length + 5);
   }
 
