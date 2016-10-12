@@ -13,7 +13,10 @@ app.config(function($stateProvider) {
            user: function(AuthService, UserFactory){
                 return AuthService.getLoggedInUser()
                 .then(function(user){
-                return UserFactory.getById(user.id);
+                    if (!user){
+                        return {id: 0, name: 'Guest'}
+                    }
+                    return UserFactory.getById(user.id);
                 })
             }
         }
