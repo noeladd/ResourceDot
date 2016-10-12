@@ -21,6 +21,7 @@ app.config(function($stateProvider) {
 });
 
 app.controller('newGuidesCtrl', function($scope, guides, user) {
+  console.log(guides);
   $scope.user = user;
   $scope.guides = guides.sort(function(a, b) {
     var dateA = new Date(a.createdAt);

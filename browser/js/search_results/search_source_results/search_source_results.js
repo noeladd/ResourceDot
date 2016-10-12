@@ -1,6 +1,6 @@
 app.config(function($stateProvider) {
   $stateProvider.state('searchSourceResults', {
-    url: '/search_results/:source',
+    url: '/search_results/source/:source',
     templateUrl: 'js/search_results/search_results.html',
     controller: 'SearchSourceCtrl',
     resolve: {
@@ -22,5 +22,5 @@ app.config(function($stateProvider) {
 
 app.controller('SearchSourceCtrl', function($scope, resources, user) {
   $scope.user = user
-  $scope.resources = resources.splice(0, 100);
+  $scope.data = resources.splice(0, 100);
 });

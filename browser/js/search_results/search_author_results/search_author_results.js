@@ -1,6 +1,6 @@
 app.config(function($stateProvider) {
   $stateProvider.state('searchAuthorResults', {
-    url: '/search_results/:authorName',
+    url: '/search_results/author/:authorName',
     templateUrl: 'js/search_results/search_results.html',
     controller: 'SearchAuthorCtrl',
     resolve: {
@@ -22,5 +22,5 @@ app.config(function($stateProvider) {
 
 app.controller('SearchAuthorCtrl', function($scope, resources, user) {
   $scope.user = user;
-  $scope.resources = resources;
+  $scope.data = resources;
 });
