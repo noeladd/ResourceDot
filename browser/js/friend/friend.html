@@ -1,10 +1,9 @@
 <div>
   <img class="avatar" src="{{ friend.picture }}">
   <h4>{{ friend.name }}</h4>
-  <pre>{{userFriends}}</pre>
   <md-button class="md-raised md-primary" ng-click="follow(friend.id)" ng-show="userFriendsIds.indexOf(friend.id) === -1">Follow {{friend.name}}</md-button>
   <h4>Learning:</h4>
-  <md-button class="md-raised md-primary" ng-show ="userFriendsIds.indexOf(friend.id) !== -1">You Follow {{friend.name}}</md-button>
+  <md-button class="md-raised md-primary" ng-diabled=true ng-show ="userFriendsIds.indexOf(friend.id) !== -1">You Follow {{friend.name}}</md-button>
   <md-chips ng-repeat="tag in friend.tags">
     <md-chip ng-click="search(tag.id)">{{ tag.title }}</md-chip>
   </md-chips>
