@@ -67,7 +67,7 @@ app.controller('ProfileCtrl', function ($scope, $state, TagFactory, UserFactory,
     .catch($log.error);
     return fetchResources();
     })
-    .then(function{
+    .then(function() {
       $scope.loaded = true;
     })
     .catch($log.error);
