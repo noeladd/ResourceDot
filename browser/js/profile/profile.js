@@ -7,6 +7,7 @@ app.config(function ($stateProvider) {
 });
 
 app.controller('ProfileCtrl', function ($scope, $state, TagFactory, UserFactory, AuthService, $log, ResourceFactory, RecommendationFactory, GuideFactory) {
+  $scope.loaded = false;
   $scope.selectedTags = [];
   var user;
 
@@ -46,7 +47,7 @@ app.controller('ProfileCtrl', function ($scope, $state, TagFactory, UserFactory,
     $state.go('likedResources', {userId: $scope.user.id});
   }
 
-  var debounced = _.debounce(fetchResources, 1000);
+  var debounced = _.debounce(fetchResources, 500);
 
   AuthService.getLoggedInUser()
   .then(function(user){
@@ -65,8 +66,11 @@ app.controller('ProfileCtrl', function ($scope, $state, TagFactory, UserFactory,
     })
     .catch($log.error);
     return fetchResources();
-  })
-  .catch($log.error);
+    })
+    .then(function{
+      $scope.loaded = true;
+    })
+    .catch($log.error);
 
   $scope.$watchCollection('selectedTags', function() {
     debounced();
