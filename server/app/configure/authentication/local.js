@@ -80,7 +80,6 @@ module.exports = function (app, db) {
 
         User.findOrCreate({ where: {email: req.body.email}, defaults: req.body })
         .spread(function(user) {
-            console.log('user', user);
             return user.addTags(tags);
         })
         .then(function(){

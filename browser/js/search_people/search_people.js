@@ -13,7 +13,7 @@ app.config(function ($stateProvider) {
       //   return UserFactory.getByTags(tags)
       // },
       users: function(UserFactory) {
-      	return UserFactory.getAll()
+        return UserFactory.getAll()
       }
       }
   });
@@ -23,6 +23,6 @@ app.controller('searchPeopleCtrl', function($scope, $state, users) {
   //$scope.usersbyTag = usersByTag;
   $scope.users = users
   $scope.findFriend = function(userId){
-  	$state.go('friend', {friendId: userId})
+    $state.go('friend', {friendId: userId})
   }
 });

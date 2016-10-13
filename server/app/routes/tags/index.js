@@ -1,7 +1,6 @@
 'use strict';
 const router = require('express').Router(); //eslint-disable-line new-cap
 module.exports = router;
-const Promise = require('bluebird');
 const db = require('../../../db');
 const Resource = db.model('resource');
 const Tag = db.model('tag');

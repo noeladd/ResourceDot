@@ -28,8 +28,13 @@ app.factory('UserFactory', function($http, DataFactory){
     }
 
     UserFactory.addFriend = function(userId, friendId) {
-      return $http.put('/api/users/' + userId + '/addFriend', friendId)
-      .then(DataFactory.getData);
+      return $http.put('/api/users/' + userId + '/addFriend', friendId);
     }
+
+    UserFactory.deleteFriend = function(userId, friendId) {
+      console.log('friendId', friendId);
+      return $http.delete('/api/users/' + userId + '/deleteFriend/' + friendId);
+    }
+
     return UserFactory;
 })

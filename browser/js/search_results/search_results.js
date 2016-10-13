@@ -47,13 +47,10 @@ app.controller('SearchCtrl', function($scope, $stateParams, resources, guides, u
   $scope.tags = $stateParams.tagTitles.split('+');
   $scope.user = user
   $scope.resources = resources;
-
   $scope.data = $scope.resources.slice(0, 5);
   $scope.getMoreData = function () {
     $scope.data = $scope.resources.slice(0, $scope.data.length + 5);
   }
-
   $scope.guides = guides;
   $scope.userGuides = user.guides;
-
 });
