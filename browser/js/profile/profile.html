@@ -1,14 +1,28 @@
 <div layout-gt-sm="row" layout-sm="column" layout-padding layout-margin>
 
     <div layout="column" flex>
-      <h3 class="header">Recommended Resources:</h3>
-      <md-content>
-        <resource-card ng-repeat="resource in resources"></resource-card>
-      </md-content>
-      <h3>Your Guides:</h3>
-      <md-content>
-        <guide-card ng-repeat="guide in guides"></guide-card>
-      </md-content>
+      <div ng-if="loaded">
+        <div ng-hide="noTags">
+          <h3 class="header">Recommended Resources:</h3>
+          <md-content>
+            <resource-card ng-repeat="resource in resources"></resource-card>
+          </md-content>
+        </div>
+        <div ng-show="noTags">
+          <h3>Add topics to your profile to get recommended resources!</h3>
+        </div>
+
+        <div ng-show="noGuides">
+          <h3>You don't have any guides yet!</h3>
+        </div>
+
+        <div ng-hide="noGuides">
+          <h3>Your Guides:</h3>
+          <md-content>
+            <guide-card ng-repeat="guide in guides"></guide-card>
+          </md-content>
+        </div>
+      </div>
     </div>
 
     <div flex="30" layout="column">
@@ -24,7 +38,7 @@
       <div layout="row" layout-align="center center" layout-wrap>
         <div class="friend" ng-repeat="friend in friends" layout="column" layout-align="center center"
         ng-click="findFriend(friend.id)" flex="50">
-          <img class="avatar" src="{{ friend.picture }}" />
+          <img class="avatar" ng-src="{{ friend.picture }}" />
           <p>{{ friend.name }}</p>
         </div>
       </div>
