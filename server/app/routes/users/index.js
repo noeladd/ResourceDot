@@ -17,6 +17,16 @@ function sanitize(user){
 }
 
 router.get('/', function(req, res, next){
+  if (req.query.tagIds) {
+    var tags = req.query.tagIds.split(',');
+    User.findByTag(tags)
+    .then(function(users) {
+      if (users.length === 0){
+        res.status(404).send();
+      }
+      res.json(users);
+    })
+} else {
     User.findAll()
     .then(function(users){
         if (users.length === 0){
@@ -25,6 +35,7 @@ router.get('/', function(req, res, next){
         res.json(users);
     })
     .catch(next);
+  }
 });
 
 router.get('/:id', function(req, res, next){
@@ -75,3 +86,25 @@ router.put('/:id/settags', function(req, res, next) {
     })
     .catch(next);
 });
+
+router.put('/:id/addFriend', function(req, res, next) {
+    User.findById(req.params.id)
+    .then(function(user) {
+        user.addFriend(req.body.friendId);
+    })
+    .then(function() {
+        res.sendStatus(201);
+    })
+    .catch(next);
+})
+
+router.delete('/:userId/deleteFriend/:friendId', function(req, res, next) {
+    User.findById(req.params.userId)
+    .then(function(user) {
+      user.removeFriend(req.params.friendId);
+    })
+    .then(function() {
+      res.sendStatus(204);
+    })
+    .catch(next);
+})

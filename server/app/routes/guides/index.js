@@ -74,7 +74,6 @@ router.get('/:id', function(req, res, next){
 
 
 router.put('/:id/like', function(req, res, next){
-    console.log("In Route!")
     req.guideById.increment('likes')
     req.guideById.addLikeUser(req.body.user)
     .then(function(){
