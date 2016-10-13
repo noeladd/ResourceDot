@@ -2,7 +2,11 @@ app.directive('addToGuide', function($mdDialog, $mdToast, GuideFactory, $log){
 	return {
 		restrict: 'E',
 		templateUrl: 'js/common/directives/add-to-guide/add-to-guide.html',
-		scope: true,
+		scope: {
+      resource: '=',
+      userGuides: '=',
+      user: '='
+    },
 		link: function(scope) {
 			scope.guide = {tags: []}
       scope.openPanel = false;
@@ -15,7 +19,9 @@ app.directive('addToGuide', function($mdDialog, $mdToast, GuideFactory, $log){
 
 			scope.showAdvanced = function(){
 				$mdDialog.show({
-					contentElement: '#addToGuide',
+          scope: scope,
+          preserveScope: true,
+					templateUrl: 'js/common/directives/add-to-guide/dialog-template.html',
 					clickOutsideToClose: true,
 					escapeToClose: true,
 				});
