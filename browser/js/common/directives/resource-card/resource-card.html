@@ -27,7 +27,9 @@
       </div>
 
       <div layout="column" layout-align="center end" flex>
-        <add-to-guide ng-show="user.id !== author.id && user.id!==0"></add-to-guide>
+
+        <add-to-guide user="user" resource="resource" user-guides="userGuides" ng-show="user.id !== author.id && user.id!==0"></add-to-guide>
+
         <md-button class="md-fab md-accent" aria-label="Delete Resource" ng-click="delete(resource.id)" ng-show="user.isAdmin" >
          <md-tooltip>Delete Resource</md-tooltip>
          <i class="fa fa-trash" aria-hidden="true" ng-show="user.isAdmin"></i>

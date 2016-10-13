@@ -1,5 +1,6 @@
 'use strict';
 const router = require('express').Router(); //eslint-disable-line new-cap
+const Promise = require('bluebird');
 module.exports = router;
 
 const db = require('../../../db');
@@ -64,12 +65,26 @@ router.post('/', function(req, res, next){
     .catch(next);
 });
 
-router.put('/:id/addtags', function(req, res, next) {
+router.put('/:id/settags', function(req, res, next) {
+  var user;
+  var allTags;
   User.findById(req.params.id)
-  .then(function(user) {
-    user.setTags(req.body);
-  })
-  .catch(next);
+  .then(function(foundUser) {
+    user = foundUser;
+    return Promise.map(req.body, function(tag){
+            return Tag.findOrCreate({where: {title: tag}})
+        });
+    })
+    .then(function(tags){
+        allTags = tags.map(function(tagToSpread){
+            return tagToSpread[0];
+        });
+        return user.setTags(allTags);
+    })
+    .then(function(){
+        res.json(allTags);
+    })
+    .catch(next);
 });
 
 router.put('/:id/addFriend', function(req, res, next) {
