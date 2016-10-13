@@ -1,17 +1,18 @@
 <div layout="row" layout-align="center" layout-padding layout margin>
 
-  <div layout="column" id="something" flex="80">
+  <div layout="column" flex="80">
     <md-content>
-      <h2>You searched for:
-      <span ng-show="author">{{author}}</span>
-      <span ng-show="source">{{source}}</span>
-      <span ng-show="tags">
-        <span ng-repeat="tag in tags">{{ tag }}</span>
-      </span>
-      </h2>
+    <div class="header">
+      <h1><span class="header" ng-hide="author || source">You searched for: </span>
+        <span class="header" ng-show="author">{{author}}</span>
+        <span class="header" ng-show="source">{{source}}</span>
+        <span ng-show="tags">
+          <span ng-repeat="tag in tags">{{ tag }}{{$last ? '' : ', '}}</span>
+        </span>
+      </h1>
+    </div>
 
-      <h2 ng-hide="author || source">Guides: </h2>
-      <h3 ng-show="guides.length === 0"> No Guides Found</h3>
+      <h2 ng-show="guides.length !== 0">Guides: </h2>
       <guide-card ng-repeat="guide in guides"></guide-card>
       <h2>Resources: </h2>
      <div infinite-scroll='getMoreData()' infinite-scroll-container='"#main"'>

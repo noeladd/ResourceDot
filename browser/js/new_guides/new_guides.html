@@ -1,7 +1,12 @@
-<div layout="column">
-  <md-content>
+<div layout="row" layout-align="center" layout-padding layout margin>
 
-    <h2>Newest Guides: </h2>
-    <guide-card ng-repeat="guide in guides"></guide-card>
-  </md-content>
+  <div layout="column" flex="80">
+    <md-content>
+      <div class="header">
+        <h1><span class="header">Newest Guides</span></h1>
+      </div>
+      <guide-card ng-repeat="guide in guides"></guide-card>
+    </md-content>
+  </div>
+
 </div>

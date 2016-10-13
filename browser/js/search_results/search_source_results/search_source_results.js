@@ -24,4 +24,5 @@ app.controller('SearchSourceCtrl', function($scope, resources, user, $stateParam
   $scope.source = $stateParams.source
   $scope.user = user
   $scope.data = resources.splice(0, 100);
+  $scope.guides = [];
 });

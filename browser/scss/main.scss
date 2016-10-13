@@ -7,6 +7,18 @@ body {
   overflow-y: scroll;
 }
 
+h4:focus {
+  outline: 0;
+}
+
+span:focus {
+  outline: 0;
+}
+
+md-chips:hover {
+  cursor: pointer;
+}
+
 @mixin clearfix {
   &:after {
     content: "";

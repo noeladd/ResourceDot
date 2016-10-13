@@ -24,4 +24,5 @@ app.controller('SearchAuthorCtrl', function($scope, resources, user, $stateParam
   $scope.author = $stateParams.authorName;
   $scope.user = user;
   $scope.data = resources;
+  $scope.guides = [];
 });

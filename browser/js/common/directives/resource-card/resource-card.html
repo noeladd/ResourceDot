@@ -21,7 +21,7 @@
         <h4 ng-click="searchBySource(resource.source)">{{ resource.source }}</h4>
         <div layout="row">
           <md-chips ng-repeat="tag in resource.tags">
-            <md-chip ng-click="searchByTag(tag.id)">{{ tag.title }}</md-chip>
+            <md-chip><span ng-click="searchByTag(tag.id, tag.title)">{{ tag.title }}</span></md-chip>
           </md-chips>
         </div>
       </div>
