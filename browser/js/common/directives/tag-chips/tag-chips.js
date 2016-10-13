@@ -30,7 +30,9 @@ app.directive('tagChips', function (TagFactory, ResourceFactory, $log) {
               if (angular.isObject(chip)) {
                 return chip;
               }
-              return { title: chip.toLowerCase(), type: 'new' }
+              else if (chip) {
+                return { title: chip.toLowerCase(), type: 'new' };
+              }
             }
 
             scope.$watchCollection('selectedTags', function() {
