@@ -17,7 +17,8 @@ app.factory('UserFactory', function($http, DataFactory){
     }
 
     UserFactory.setTags = function(id, tags) {
-      return $http.put('/api/users/' + id + '/addtags', tags);
+      return $http.put('/api/users/' + id + '/settags', tags)
+      .then(DataFactory.getData);
     }
 
     UserFactory.getByTags = function() {
