@@ -14,4 +14,6 @@ app.config(function($stateProvider) {
 
 app.controller('LikedResourcesCtrl', function($scope, user) {
     $scope.likedResources = user.resourceLike;
-})
+    $scope.user = user;
+    $scope.guides = user.guides;
+});

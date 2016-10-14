@@ -20,7 +20,7 @@
         <h4 ng-click="searchByAuthor(resource.author)">{{ resource.author }}</h4>
         <h4 ng-click="searchBySource(resource.source)">{{ resource.source }}</h4>
         <div layout="row">
-          <md-chips ng-repeat="tag in resource.tags">
+          <md-chips ng-repeat="tag in resource.tags.slice(0,4)">
             <md-chip><span ng-click="searchByTag(tag.id, tag.title)">{{ tag.title }}</span></md-chip>
           </md-chips>
         </div>
@@ -30,11 +30,11 @@
 
         <add-to-guide user="user" resource="resource" user-guides="userGuides" ng-show="user.id !== author.id && user.id!==0"></add-to-guide>
 
-        <md-button class="md-fab md-accent" aria-label="Delete Resource" ng-click="delete(resource.id)" ng-show="user.isAdmin" >
+        <md-button class="md-fab md-primary" aria-label="Delete Resource" ng-click="delete(resource.id)" ng-show="user.isAdmin" >
          <md-tooltip>Delete Resource</md-tooltip>
          <i class="fa fa-trash" aria-hidden="true" ng-show="user.isAdmin"></i>
        </md-button>
-       <md-button class="md-fab md-accent" aria-label="Remove" ng-click="remove(resource.id, $event)" ng-show="user.id === author.id">
+       <md-button class="md-fab md-primary" aria-label="Remove" ng-click="remove(resource.id, $event)" ng-show="user.id === author.id">
          <md-tooltip>Remove From Guide</md-tooltip>
           <i class="fa fa-minus-circle" aria-hidden="true" ng-show="user.id === author.id"></i>
       </md-button>
