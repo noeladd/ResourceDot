@@ -12,7 +12,7 @@ app.config(function($stateProvider) {
         return AuthService.getLoggedInUser()
         .then(function(user){
           if (!user){
-            return {id: 0, name: 'Guest'}
+            return {id: 0, name: 'Guest', friend: [], resourceLike: [], resourceDislike: [], guideLike: [], guideDislike: []}
           }
           return UserFactory.getById(user.id);
         })
