@@ -18,7 +18,7 @@ app.directive('resourceCard', function ($state, ResourceFactory, GuideFactory) {
 						})
 				}
 			}
-
+      scope.userGuides = scope.user.guides;
 			scope.dislike = function(id, data) {
 				if (scope.user.resourceDislike.filter(function(resource){
 					return resource.id === id
