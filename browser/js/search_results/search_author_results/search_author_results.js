@@ -11,7 +11,7 @@ app.config(function($stateProvider) {
         return AuthService.getLoggedInUser()
         .then(function(user){
           if (!user){
-            return {id: 0, name: 'Guest'}
+            return {id: 0, name: 'Guest', friend: [], resourceLike: [], resourceDislike: [], guideLike: [], guideDislike: []}
           }
           return UserFactory.getById(user.id);
         })
@@ -23,5 +23,9 @@ app.config(function($stateProvider) {
 app.controller('SearchAuthorCtrl', function($scope, resources, user, $stateParams) {
   $scope.author = $stateParams.authorName;
   $scope.user = user;
-  $scope.data = resources;
+  $scope.guides = [];
+  $scope.data = resources.slice(0, 5);
+  $scope.getMoreData = function(){
+    $scope.data = resources.slice(0, $scope.data.length + 5);
+  };
 });

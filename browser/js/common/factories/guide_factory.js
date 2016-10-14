@@ -33,8 +33,22 @@ app.factory('GuideFactory', function($http, DataFactory) {
    GuideFactory.like = function(id) {
        return $http.put('/api/guides/' + id + '/like');
    }
-   GuideFactory.dislike = function(id, data){
-       return $http.put('/api/guides/' + id + '/dislike', data);
+   GuideFactory.dislike = function(id){
+       return $http.put('/api/guides/' + id + '/dislike');
    }
+   GuideFactory.delete = function(id){
+       return $http.delete('/api/guides/' + id +'/deleteguide');
+   }
+
+   GuideFactory.updateOrder = function(id, data){
+    return $http.put('/api/guides/' + id + '/order', data);
+   }
+   GuideFactory.removeLike = function(id, userId) {
+    return $http.delete('/api/guides/' + id + '/like/users/' + userId);
+  };
+  GuideFactory.removeDislike = function(id, userId) {
+    return $http.delete('/api/guides/' + id + '/dislike/users/' + userId);
+  };
    return GuideFactory
-})
+});
+

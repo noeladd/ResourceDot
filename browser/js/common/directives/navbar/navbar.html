@@ -1,14 +1,14 @@
 <md-toolbar class="md-tall" layout="row" layout-align="center center">
-
   <div layout-padding layout-margin>
     <a ui-sref="home">
       <img id="logo" src="/img/logo.png">
     </a>
   </div>
-
   <div class="md-toolbar-tools container" layout="row" layout-align="center start">
-      <md-button ng-repeat="item in items" ng-show="!item.auth || isLoggedIn()">
-          <a ui-sref-active="active" ui-sref="{{ item.state }}">{{ item.label }}</a>
+      <md-button ng-repeat="item in items"
+                 ng-if="!item.auth || isLoggedIn()"
+                 ui-sref-active="active" ui-sref="{{ item.state }}">
+          <a style="letter-spacing: 2px;">{{ item.label }}</a>
       </md-button>
     <!-- fill up the space between left and right area -->
     <span flex></span>
@@ -19,8 +19,8 @@
     <md-button ng-show="!user" ui-sref="signup" class="md-raised">
       Signup
     </md-button>
-    <md-button ng-show="user">
-      <a ui-sref-active="active" ui-sref="profile">Welcome, {{user.name}}!</a>
+    <md-button ng-show="user" ui-sref-active="active" ui-sref="profile">
+      <a>Welcome, {{user.name}}!</a>
     </md-button>
     <md-button ng-show="user" ng-click="logout()" class="md-raised">
       Logout

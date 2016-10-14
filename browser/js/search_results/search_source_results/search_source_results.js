@@ -11,7 +11,7 @@ app.config(function($stateProvider) {
         return AuthService.getLoggedInUser()
         .then(function(user){
           if (!user){
-            return {id: 0, name: 'Guest'}
+            return {id: 0, name: 'Guest', friend: [], resourceLike: [], resourceDislike: [], guideLike: [], guideDislike: []}
           }
           return UserFactory.getById(user.id);
         })
@@ -23,5 +23,10 @@ app.config(function($stateProvider) {
 app.controller('SearchSourceCtrl', function($scope, resources, user, $stateParams) {
   $scope.source = $stateParams.source
   $scope.user = user
-  $scope.data = resources.splice(0, 100);
+  $scope.guides = [];
+  $scope.resources = resources
+  $scope.data = $scope.resources.slice(0, 5);
+  $scope.getMoreData = function(){
+    $scope.data = $scope.resources.slice(0, $scope.data.length + 5);
+  }
 });

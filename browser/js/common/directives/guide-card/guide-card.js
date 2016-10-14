@@ -1,38 +1,62 @@
-app.directive('guideCard', function(GuideFactory) {
-    return {
-        restrict: 'E',
-        templateUrl: 'js/common/directives/guide-card/guide-card.html',
-        scope: true,
-        link: function(scope) {
-            let liked = false;
-            let disliked = false;
-            console.log("Link Function")
-            scope.like = function(id, data){
-                console.log( "In scope.like!!!");
-                if (scope.user.guideLike.filter(function(guide){
-                    return guide.id === id
-                }).length === 0 && !liked){
-                    GuideFactory.like(id, data)
-                    .then(function() {
-                        console.log("I'm LINE 16")
-                        liked = true
-                        console.log("After Switch:", liked);
-                        scope.guide.likes += 1;
-                        console.log('\n\n\n\n\n omgggg');
-                    })
-                }
+app.directive('guideCard', function(GuideFactory, $state, $log) {
+  return {
+    restrict: 'E',
+    templateUrl: 'js/common/directives/guide-card/guide-card.html',
+    scope: true,
+    link: function(scope) {
+      if (scope.user.id !== 0){
+        let liked = scope.user.guideLike.filter(function(item) {
+                    return item.id === scope.guide.id;
+                    }).length === 1;
+
+      let disliked = scope.user.guideDislike.filter(function(item) {
+                      return item.id === scope.guide.id;
+                      }).length === 1;
+
+      scope.like = function(id) {
+        if (scope.user.guideLike.filter(function(guide) {
+          return guide.id === id;
+        }).length === 0 && !liked){
+          GuideFactory.like(id)
+          .then(function() {
+            liked = true;
+            scope.guide.likes += 1;
+
+            if (disliked) {
+              disliked = false;
+              scope.guide.dislikes -= 1;
+              return GuideFactory.removeDislike(id, scope.user.id);
             }
-            scope.dislike = function(id, data) {
-				if (scope.user.guideDislike.filter(function(guide){
-					return guide.id === id
-				}).length === 0 && !disliked){
-					GuideFactory.dislike(id, data)
-					.then(function() {
-                        disliked = true;
-						scope.guide.dislikes += 1;
-					})
-				}
-			}
+          })
+          .catch($log.error);
         }
+      };
+
+      scope.dislike = function(id) {
+        if (scope.user.guideDislike.filter(function(guide){
+          return guide.id === id;
+        }).length === 0 && !disliked){
+          GuideFactory.dislike(id)
+          .then(function() {
+            disliked = true;
+            scope.guide.dislikes += 1;
+
+            if (liked) {
+              liked = false;
+              scope.guide.likes -= 1;
+              return GuideFactory.removeLike(id, scope.user.id);
+            }
+          })
+          .catch($log.error);
+        }
+      };
+      }
+      
+
+      scope.findFriend = function(friendId) {
+          $state.go('friend', {friendId: friendId});
+      };
     }
-})
+  };
+});
+

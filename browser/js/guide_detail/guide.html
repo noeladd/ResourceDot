@@ -1,8 +1,17 @@
-<div layout="row">
-  <div layout="column">
+<<<<<<< HEAD
+<div layout="row" layout-align="center" layout-padding layout margin>
+  <div layout="column" flex="80">
     <h2>{{guide.title}}</h2>
     <h3>Curated by: {{guide.author.name}}</h3>
     <h3>About: {{ guide.description }}</h3>
-    <resource-card ng-repeat="resource in resources"></resource-card>
+    <div layout="row" ng-if="user.id === guide.author.id">
+      <h3>Drag and drop to reorder the resources
+        <md-button class="md-raised" ng-click="updateOrder()" ng-if="user.id === author.id">Save Order</md-button>
+        <md-button class="md-raised md-primary" ng-if="user.id === author.id" ng-click="deleteGuide(guide.id)">DELETE GUIDE</md-button>
+      </h3>
+    </div>
+    <div ui-sortable="sortableOptions" ng-model="resources">
+      <resource-card ng-repeat="resource in resources"></resource-card>
+    </div>
   </div>
 </div>

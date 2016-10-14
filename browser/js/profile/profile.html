@@ -1,31 +1,57 @@
 <div layout-gt-sm="row" layout-sm="column" layout-padding layout-margin>
 
     <div layout="column" flex>
-      <h3 class="header">Recommended Resources:</h3>
-      <md-content>
-        <resource-card ng-repeat="resource in resources"></resource-card>
-      </md-content>
-      <h3>Your Guides:</h3>
-      <md-content>
-        <guide-card ng-repeat="guide in guides"></guide-card>
-      </md-content>
+
+      <div ng-if="loaded">
+        <div ng-hide="noTags">
+          <h3 class="header" style="font-family: 'Questrial';">Recommended Resources:</h3>
+          <md-content>
+            <resource-card ng-repeat="resource in resources"></resource-card>
+          </md-content>
+        </div>
+        <div ng-show="noTags">
+          <h3>Add topics to your profile to get recommended resources!</h3>
+        </div>
+
+        <div ng-show="noGuides">
+          <h3>You don't have any guides yet!</h3>
+        </div>
+
+        <div ng-hide="noGuides">
+          <h3 style="font-family: 'Questrial';">Your Guides:</h3>
+          <md-content>
+            <guide-card ng-repeat="guide in guides"></guide-card>
+          </md-content>
+        </div>
+      </div>
     </div>
 
     <div flex="30" layout="column">
-      <img class="avatar" src="{{ user.picture }}">
-      <h4>{{ user.name }}</h4>
-      <p>{{ user.email }}</p>
-      <h4>Learning:</h4>
-      <tag-chips selected-tags="selectedTags" match="true"></tag-chips>
-      <md-button md-no-ink class="md-primary" ng-click="viewLikedResources()">Liked Resources</md-button>
-      <h4>Friends</h4>
 
+      <img class="avatar" ng-src="{{ user.picture }}">
+      <h4 style="font-family: 'Montserrat';">{{ user.name }}</h4>
+      <p style="font-family: 'Montserrat';">{{ user.email }}</p>
+      <h4 style="font-family: 'Questrial';">Learning:</h4>
+      <tag-chips selected-tags="selectedTags"></tag-chips>
+      <md-button md-no-ink class="md-primary" ng-click="viewLikedResources()">Liked Resources</md-button>
+      <h4 style="font-family: 'Questrial';">Friends</h4>
       <p ng-click="findFriends(user.id)">See All</p>
       <div layout="row" layout-align="center center" layout-wrap>
         <div class="friend" ng-repeat="friend in friends" layout="column" layout-align="center center"
         ng-click="findFriend(friend.id)" flex="50">
-          <img class="avatar" src="{{ friend.picture }}" />
+          <img class="avatar" ng-src="{{ friend.picture }}" />
           <p>{{ friend.name }}</p>
+        </div>
+      </div>
+      <div ng-show="suggestedFriends">
+        <h4 style="font-family: 'Questrial';">Suggested Friends</h4>
+
+        <div layout="row" layout-align="center center" layout-wrap>
+          <div class="friend" ng-repeat="suggestion in suggestedFriends" layout="column" layout-align="center center" 
+          ng-click="findFriend(suggestion.id)" flex="50">
+            <img class="avatar" ng-src="{{ suggestion.picture }}" />
+            <p>{{ suggestion.name }}</p>
+          </div>
         </div>
       </div>
     </div>

@@ -1,3 +1,29 @@
+#home h1 {
+  font-family: 'Questrial'
+}
+
+.searchResults {
+  font-family: 'Montserrat'
+}
+
+.guide {
+  font-family: 'Montserrat'
+}
+
+.resource {
+  font-family: 'Montserrat'
+}
+
+.email {
+  font-family: 'Questrial';
+  font-size: 200%;
+}
+
+.password {
+  font-family: 'Questrial';
+  font-size: 200%;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -5,6 +31,23 @@
 body {
   background: #fdfdfd;
   overflow-y: scroll;
+}
+
+div:focus {
+  outline: 0;
+}
+
+h4:focus {
+  outline: 0;
+}
+
+span:focus {
+  outline: 0;
+}
+
+md-chips:hover {
+  cursor: pointer;
+
 }
 
 @mixin clearfix {
@@ -25,6 +68,10 @@ body {
 
 img.avatar{
   width: 150px;
+}
+
+#searchBar {
+  width: 50%;
 }
 
 @import 'directives/main';

@@ -24,6 +24,7 @@ app.factory('ResourceFactory', function($http, DataFactory) {
 	};
 
 	ResourceFactory.getAllBySource = function(source){
+		source = source.replace('+', '%2B');
 		return $http.get('/api/resources?source=' + source)
 		.then(DataFactory.getData);
 	}
@@ -38,17 +39,24 @@ app.factory('ResourceFactory', function($http, DataFactory) {
 		.then(DataFactory.getData);
 	};
 
-	ResourceFactory.like = function(id, data) {
-		return $http.put('/api/resources/' + id + '/like', data);
+	ResourceFactory.like = function(id) {
+		return $http.put('/api/resources/' + id + '/like');
 	};
 
-	ResourceFactory.dislike = function(id, data) {
-		return $http.put('/api/resources/' + id + '/dislike', data);
+	ResourceFactory.dislike = function(id) {
+		return $http.put('/api/resources/' + id + '/dislike');
 	};
 
-	ResourceFactory.delete = function(id) {
+	ResourceFactory.removeLike = function(id, userId) {
+		return $http.delete('/api/resources/' + id + '/like/users/' + userId);
+	};
+
+	ResourceFactory.removeDislike = function(id, userId) {
+		return $http.delete('/api/resources/' + id + '/dislike/users/' + userId);
+	};
+
+ResourceFactory.delete = function(id) {
 		return $http.delete('api/resources/' + id);
-	}
-
+};
 	return ResourceFactory;
 });
