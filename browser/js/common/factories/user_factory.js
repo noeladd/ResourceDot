@@ -22,6 +22,7 @@ app.factory('UserFactory', function($http, DataFactory){
     }
 
     UserFactory.getByTags = function() {
+      console.log("In get by tags!!!");
       var tagIds = [...arguments];
       tagIds = tagIds.join(',');
       return $http.get('/api/users?tagIds=' + tagIds)

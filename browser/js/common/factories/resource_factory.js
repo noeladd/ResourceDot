@@ -24,6 +24,8 @@ app.factory('ResourceFactory', function($http, DataFactory) {
 	};
 
 	ResourceFactory.getAllBySource = function(source){
+		source = source.replace('+', '%2B');
+		console.log("Source after Replace!", source)
 		return $http.get('/api/resources?source=' + source)
 		.then(DataFactory.getData);
 	}
