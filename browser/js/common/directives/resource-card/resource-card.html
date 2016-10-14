@@ -3,11 +3,11 @@
     <div layout="row" layout-padding>
 
       <div layout="column" layout-align="center center">
-        <md-button class="md-raised" ng-click="like(resource.id)">
+        <md-button class="md-raised" ng-click="like(resource.id)" ng-show="user.id !== 0">
           <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
           <h5>{{ resource.likes }}</h5>
         </md-button>
-        <md-button class="md-raised" ng-click="dislike(resource.id)">
+        <md-button class="md-raised" ng-click="dislike(resource.id)" ng-show="user.id !== 0">
           <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
           <h5>{{ resource.dislikes }}</h5>
         </md-button>
