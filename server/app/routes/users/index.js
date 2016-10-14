@@ -92,5 +92,20 @@ router.put('/:id/addFriend', function(req, res, next) {
     .then(function(user) {
         user.addFriend(req.body.friendId);
     })
+
+    .then(function() {
+        res.sendStatus(201);
+    })
+    .catch(next);
+})
+
+router.delete('/:userId/deleteFriend/:friendId', function(req, res, next) {
+    User.findById(req.params.userId)
+    .then(function(user) {
+      user.removeFriend(req.params.friendId);
+    })
+    .then(function() {
+      res.sendStatus(204);
+    })
     .catch(next);
 })

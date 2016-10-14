@@ -26,21 +26,30 @@ app.config(function ($stateProvider) {
 app.controller('friendCtrl', function($scope, $state, UserFactory, friend, guides, user) {
   $scope.user = user;
   $scope.userFriends = $scope.user.friend;
-  // generate array of userFriends' id's
-  $scope.userFriendsIds = $scope.userFriends.map(function(friend) {
-    return friend.id;
+  $scope.userFriendsIds = $scope.userFriends.map(function(userFriend) {
+    return userFriend.id;
   })
   $scope.friend = friend;
   $scope.guides = guides;
 
   $scope.follow = function(friendId) {
-    UserFactory.addFriend($scope.user.id, {friendId: friendId})
+    return UserFactory.addFriend($scope.user.id, {friendId: friendId})
     .then(function() {
-      console.log('friend added');
+      $scope.userFriendsIds.push(friendId);
     })
   }
 
   $scope.search = function(tagId) {
     $state.go('searchResults', {tagIds: tagId});
   };
+
+  $scope.unfollow = function(friendId) {
+    return UserFactory.deleteFriend($scope.user.id, friendId)
+    .then(function() {
+      var index = $scope.userFriendsIds.indexOf(friendId);
+      if (index > -1) {
+        $scope.userFriendsIds.splice(index, 1);
+      }
+    })
+  }
 });

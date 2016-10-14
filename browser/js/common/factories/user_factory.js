@@ -22,7 +22,6 @@ app.factory('UserFactory', function($http, DataFactory){
     }
 
     UserFactory.getByTags = function() {
-      console.log("In get by tags!!!");
       var tagIds = [...arguments];
       tagIds = tagIds.join(',');
       return $http.get('/api/users?tagIds=' + tagIds)
@@ -30,8 +29,13 @@ app.factory('UserFactory', function($http, DataFactory){
     }
 
     UserFactory.addFriend = function(userId, friendId) {
-      return $http.put('/api/users/' + userId + '/addFriend', friendId)
-      .then(DataFactory.getData);
+      return $http.put('/api/users/' + userId + '/addFriend', friendId);
     }
+
+    UserFactory.deleteFriend = function(userId, friendId) {
+      console.log('friendId', friendId);
+      return $http.delete('/api/users/' + userId + '/deleteFriend/' + friendId);
+    }
+
     return UserFactory;
 })

@@ -27,6 +27,10 @@ img.avatar{
   width: 150px;
 }
 
+#searchBar {
+  width: 50%;
+}
+
 @import 'directives/main';
 @import 'home/main';
 @import 'about/main';
