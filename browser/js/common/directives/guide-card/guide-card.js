@@ -1,4 +1,4 @@
-app.directive('guideCard', function(GuideFactory) {
+app.directive('guideCard', function(GuideFactory, $state) {
     return {
         restrict: 'E',
         templateUrl: 'js/common/directives/guide-card/guide-card.html',
@@ -12,11 +12,11 @@ app.directive('guideCard', function(GuideFactory) {
                 }).length === 0 && !liked){
                     GuideFactory.like(id, data)
                     .then(function() {
-                        liked = true;
+                        liked = true
                         scope.guide.likes += 1;
                     })
                 }
-            }
+            };
             scope.dislike = function(id, data) {
 				if (scope.user.guideDislike.filter(function(guide){
 					return guide.id === id
@@ -27,7 +27,10 @@ app.directive('guideCard', function(GuideFactory) {
 						scope.guide.dislikes += 1;
 					})
 				}
-			}
+			};
+            scope.findFriend = function(friendId) {
+                $state.go('friend', {friendId: friendId});
+            };
         }
     }
 })

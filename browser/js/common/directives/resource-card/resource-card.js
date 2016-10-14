@@ -18,7 +18,7 @@ app.directive('resourceCard', function ($state, ResourceFactory, GuideFactory) {
 						})
 				}
 			}
-
+      scope.userGuides = scope.user.guides;
 			scope.dislike = function(id, data) {
 				if (scope.user.resourceDislike.filter(function(resource){
 					return resource.id === id
@@ -31,8 +31,8 @@ app.directive('resourceCard', function ($state, ResourceFactory, GuideFactory) {
 				}
 			}
 
-			scope.searchByTag = function(id) {
-				$state.go('searchResults', {tagIds: id});
+			scope.searchByTag = function(id, title) {
+				$state.go('searchResults', {tagIds: id, tagTitles: title});
 			}
 
 			scope.searchByAuthor = function(authorName) {
