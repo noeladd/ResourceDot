@@ -76,7 +76,7 @@ router.get('/:id', function(req, res, next){
 router.put('/:id/like', function(req, res, next){
     console.log("HELLO From IN LIKE!", req.body)
     req.guideById.increment('likes')
-    req.guideById.addLikeUser(req.body.user)
+    req.guideById.addLikeUser(req.user)
     .then(function(){
         res.sendStatus(204);
     })
@@ -85,13 +85,30 @@ router.put('/:id/like', function(req, res, next){
 
 router.put('/:id/dislike', function(req, res, next){
     req.guideById.increment('dislikes')
-    req.guideById.addDislikeUser(req.body.user)
+    req.guideById.addDislikeUser(req.user)
     .then(function(){
         res.sendStatus(204);
     })
     .catch(next);
 });
 
+router.delete('/:id/like/users/:userId', function(req, res, next) {
+  req.guideById.decrement('likes');
+  req.guideById.removeLikeUser(req.user)
+  .then(function() {
+    res.sendStatus(204);
+  })
+  .catch(next);
+});
+
+router.delete('/:id/dislike/users/:userId', function(req, res, next) {
+  req.guideById.decrement('dislikes');
+  req.guideById.removeDislikeUser(req.user)
+  .then(function() {
+    res.sendStatus(204);
+  })
+  .catch(next);
+  });
 
 router.put('/:id/add', function(req, res, next){
      req.guideById.addOrderedResource(req.body)
@@ -109,7 +126,7 @@ router.put('/:id/delete', function(req, res, next){
     .catch(next);
 });
 
-router.delete('/:id', function(req, res, next){
+router.delete('/:id/deleteguide', function(req, res, next){
     req.guideById.destroy()
     .then(function(){
         res.sendStatus(204);
