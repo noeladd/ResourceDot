@@ -13,18 +13,6 @@ app.directive('resourceCard', function ($state, $log, ResourceFactory, GuideFact
                         return item.id === scope.resource.id;
                         }).length === 1;
 
-      //   scope.like = function(id, data) {
-			// 		if (scope.user.resourceLike.filter(function(resource){
-			// 			return resource.id === id
-			// 		}).length === 0 && !liked){
-			// 			ResourceFactory.like(id, data)
-			// 			.then(function() {
-			// 				liked = true
-			// 				scope.resource.likes += 1;
-			// 			})
-			// 	}
-			// }
-
       scope.like = function(id) {
         if (scope.user.resourceLike.filter(function(resource){
           return resource.id === id;
@@ -43,18 +31,6 @@ app.directive('resourceCard', function ($state, $log, ResourceFactory, GuideFact
           .catch($log.error);
       }
     };
-
-    // scope.dislike = function(id, data) {
-    // 	if (scope.user.resourceDislike.filter(function(resource){
-    // 		return resource.id === id
-    // 	}).length === 0 && !disliked){
-    // 		ResourceFactory.dislike(id, data)
-    // 		.then(function() {
-    // 			disliked = true
-    // 			scope.resource.dislikes += 1;
-    // 		})
-    // 	}
-    // }
 
     scope.dislike = function(id) {
       if (scope.user.resourceDislike.filter(function(resource){
