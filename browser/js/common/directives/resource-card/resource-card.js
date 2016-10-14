@@ -62,11 +62,14 @@ app.directive('resourceCard', function ($state, $log, ResourceFactory, GuideFact
         $state.go('searchSourceResults', {source: source})
       }
 
-      scope.delete = function(id){
-      if (scope.user.isAdmin){
-        ResourceFactory.delete(id)
-        }
-      }
+			scope.delete = function(id){
+				if (scope.user.isAdmin){
+					ResourceFactory.delete(id)
+					.then(function(){
+						element.html('');
+					})
+				}
+			}
 
       scope.remove = function(id){
         if (scope.user.id === scope.author.id){

@@ -12,7 +12,7 @@ app.config(function($stateProvider) {
         return AuthService.getLoggedInUser()
         .then(function(user){
           if (!user){
-            return {id: 0, name: 'Guest'}
+            return {id: 0, name: 'Guest', friend: [], resourceLike: [], resourceDislike: [], guideLike: [], guideDislike: []}
           }
           return UserFactory.getById(user.id);
         })
@@ -34,7 +34,13 @@ app.controller('GuideCtrl', function($scope, guide, user, GuideFactory, $log, $m
   });
 
   $scope.author = guide.author;
-  $scope.user = user
+  $scope.user = user;
+  $scope.deleteGuide = function(id){
+    return GuideFactory.delete(id)
+    .then(function(){
+      $state.go('profile');
+    })
+  }
   $scope.sortableOptions = {};
 
   $scope.updateOrder = function(){
@@ -49,3 +55,4 @@ app.controller('GuideCtrl', function($scope, guide, user, GuideFactory, $log, $m
     .catch($log.error);
   };
 });
+

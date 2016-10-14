@@ -5,7 +5,7 @@ app.config(function ($stateProvider) {
       controller: 'searchPeopleCtrl',
       resolve: {
       users: function(UserFactory) {
-      	return UserFactory.getAll()
+      	return UserFactory.getAll();
       }
     }
   });

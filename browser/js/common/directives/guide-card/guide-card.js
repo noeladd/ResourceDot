@@ -4,7 +4,8 @@ app.directive('guideCard', function(GuideFactory, $state, $log) {
     templateUrl: 'js/common/directives/guide-card/guide-card.html',
     scope: true,
     link: function(scope) {
-      let liked = scope.user.guideLike.filter(function(item) {
+      if (scope.user.id !== 0){
+        let liked = scope.user.guideLike.filter(function(item) {
                     return item.id === scope.guide.id;
                     }).length === 1;
 
@@ -49,6 +50,8 @@ app.directive('guideCard', function(GuideFactory, $state, $log) {
           .catch($log.error);
         }
       };
+      }
+      
 
       scope.findFriend = function(friendId) {
           $state.go('friend', {friendId: friendId});
