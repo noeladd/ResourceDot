@@ -56,7 +56,7 @@ router.put('/:id/like', function(req, res, next){
     Resource.findById(req.params.id)
     .then(function(resource){
         resource.increment('likes');
-       return resource.addLikeUser(req.body.user)
+       return resource.addLikeUser(req.user);
     })
     .then(function(){
         res.sendStatus(204);
@@ -68,12 +68,36 @@ router.put('/:id/dislike', function(req, res, next){
     Resource.findById(req.params.id)
     .then(function(resource){
         resource.increment('dislikes');
-        return resource.addDislikeUser(req.body.user)
+        return resource.addDislikeUser(req.user);
     })
     .then(function(){
         res.sendStatus(204);
     })
     .catch(next);
+});
+
+router.delete('/:id/like/users/:userId', function(req, res, next) {
+Resource.findById(req.params.id)
+.then(function(resource) {
+  resource.decrement('likes');
+  return resource.removeLikeUser(req.user);
+})
+.then(function() {
+  res.sendStatus(204);
+})
+.catch(next);
+});
+
+router.delete('/:id/dislike/users/:userId', function(req, res, next) {
+Resource.findById(req.params.id)
+.then(function(resource) {
+  resource.decrement('dislikes');
+  return resource.removeDislikeUser(req.user);
+})
+.then(function() {
+  res.sendStatus(204);
+})
+.catch(next);
 });
 
 router.delete('/:id', function(req, res, next){
