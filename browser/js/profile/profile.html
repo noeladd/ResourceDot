@@ -42,6 +42,17 @@
           <p>{{ friend.name }}</p>
         </div>
       </div>
+      <div ng-show="suggestedFriends">
+        <h4>Suggested Friends</h4>
+
+        <div layout="row" layout-align="center center" layout-wrap>
+          <div class="friend" ng-repeat="suggestion in suggestedFriends" layout="column" layout-align="center center" 
+          ng-click="findFriend(suggestion.id)" flex="50">
+            <img class="avatar" ng-src="{{ suggestion.picture }}" />
+            <p>{{ suggestion.name }}</p>
+          </div>
+        </div>
+      </div>
     </div>
 
 </div>

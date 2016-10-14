@@ -3,6 +3,8 @@
     <h2>{{guide.title}}</h2>
     <h3>Curated by: {{guide.author.name}}</h3>
     <h3>About: {{ guide.description }}</h3>
-    <resource-card ng-repeat="resource in resources"></resource-card>
+    <div infinite-scroll='getMoreData()' infinite-scroll-container='"#main"'>
+      <resource-card ng-repeat="resource in data"></resource-card>
+    </div>
   </div>
 </div>

@@ -1,6 +1,6 @@
 app.config(function($stateProvider) {
   $stateProvider.state('searchResults', {
-    url: '/search_results/:tagIds/:tagTitles',
+    url: '/search_results/tags/:tagIds/:tagTitles',
     templateUrl: 'js/search_results/search_results.html',
     controller: 'SearchCtrl',
     resolve: {
@@ -54,3 +54,4 @@ app.controller('SearchCtrl', function($scope, $stateParams, resources, guides, u
   $scope.guides = guides;
   $scope.userGuides = user.guides;
 });
+

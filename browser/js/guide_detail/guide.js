@@ -24,6 +24,10 @@ app.config(function($stateProvider) {
 app.controller('GuideCtrl', function($scope, guide, user) {
   $scope.guide = guide;
   $scope.resources = guide.resources;
+  $scope.data = $scope.resources.slice(0,5);
+  $scope.getMoreData = function () {
+    $scope.data = $scope.resources.slice(0, $scope.data.length + 5);
+  }
   $scope.author = guide.author;
   $scope.user = user
 })

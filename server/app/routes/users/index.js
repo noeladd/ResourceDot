@@ -92,6 +92,7 @@ router.put('/:id/addFriend', function(req, res, next) {
     .then(function(user) {
         user.addFriend(req.body.friendId);
     })
+
     .then(function() {
         res.sendStatus(201);
     })
