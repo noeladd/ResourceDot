@@ -65,7 +65,6 @@ describe('Tag Route', function(){
         Tag.create(tagInfo)
         .then(function(createdTag){
             tag = createdTag
-            //console.log(tag)
             done()
         })
     });
@@ -100,7 +99,6 @@ describe('Tag Route', function(){
             .expect(200)
             .end(function(err, res) {
                 if (err) return done(err);
-                console.log(res.body[0]);
                 expect(res.body).to.be.an('array');
                 expect(res.body).to.have.length(1);
                 expect(res.body[0].id).to.equal(tag.id);
