@@ -3,7 +3,7 @@
     <div layout="column" flex>
       <div ng-if="loaded">
         <div ng-hide="noTags">
-          <h3 class="header">Recommended Resources:</h3>
+          <h3 class="header" style="font-family: 'Questrial';">Recommended Resources:</h3>
           <md-content>
             <resource-card ng-repeat="resource in resources"></resource-card>
           </md-content>
@@ -17,7 +17,7 @@
         </div>
 
         <div ng-hide="noGuides">
-          <h3>Your Guides:</h3>
+          <h3 style="font-family: 'Questrial';">Your Guides:</h3>
           <md-content>
             <guide-card ng-repeat="guide in guides"></guide-card>
           </md-content>
@@ -27,12 +27,12 @@
 
     <div flex="30" layout="column">
       <img class="avatar" src="{{ user.picture }}">
-      <h4>{{ user.name }}</h4>
-      <p>{{ user.email }}</p>
-      <h4>Learning:</h4>
+      <h4 style="font-family: 'Montserrat';">{{ user.name }}</h4>
+      <p style="font-family: 'Montserrat';">{{ user.email }}</p>
+      <h4 style="font-family: 'Questrial';">Learning:</h4>
       <tag-chips selected-tags="selectedTags"></tag-chips>
       <md-button md-no-ink class="md-primary" ng-click="viewLikedResources()">Liked Resources</md-button>
-      <h4>Friends</h4>
+      <h4 style="font-family: 'Questrial';">Friends</h4>
 
       <p ng-click="findFriends(user.id)">See All</p>
       <div layout="row" layout-align="center center" layout-wrap>
@@ -43,7 +43,7 @@
         </div>
       </div>
       <div ng-show="suggestedFriends">
-        <h4>Suggested Friends</h4>
+        <h4 style="font-family: 'Questrial';">Suggested Friends</h4>
 
         <div layout="row" layout-align="center center" layout-wrap>
           <div class="friend" ng-repeat="suggestion in suggestedFriends" layout="column" layout-align="center center" 
