@@ -129,7 +129,6 @@ describe('User Route', function() {
                 .expect(200)
                 .end(function(err, res) {
                     if (err) return done(err);
-                    console.log(res.body);
                     expect(res.body.friend).to.be.an('array');
                     expect(res.body.friend[0].id).to.be.equal(friend.id);
                     done();

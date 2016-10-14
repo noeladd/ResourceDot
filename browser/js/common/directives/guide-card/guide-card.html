@@ -2,11 +2,11 @@
     <md-card-content>
       <div layout="row" layout-padding>
         <div layout="column" layout-align="center center">
-          <md-button class="md-raised" ng-click="like(guide.id)" ng-show="user.id !== 0">
+          <md-button class="md-raised" ng-click="like(guide.id)" ng-if="user.id !== 0">
             <i class="fa fa-thumbs-o-up" aria-hidden="true"></i>
             <h5>{{ guide.likes }}</h5>
           </md-button>
-          <md-button class="md-raised" ng-click="dislike(guide.id)" ng-show="user.id !== 0">
+          <md-button class="md-raised" ng-click="dislike(guide.id)" ng-if="user.id !== 0">
             <i class="fa fa-thumbs-o-down" aria-hidden="true"></i>
             <h5>{{ guide.dislikes }}</h5>
           </md-button>
@@ -23,9 +23,6 @@
             <md-chips ng-repeat="tag in guide.tags.slice(0,4)">
               <md-chip><span ng-click="searchByTag(tag.id, tag.title)">{{ tag.title }}</span></md-chip>
             </md-chips>
-          </div>
-          <i class="fa fa-trash" aria-hidden="true" ng-show="user.isAdmin"></i>
-        </div>
 
     </md-card-content>
 </md-card>

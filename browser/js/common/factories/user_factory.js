@@ -33,7 +33,6 @@ app.factory('UserFactory', function($http, DataFactory){
     }
 
     UserFactory.deleteFriend = function(userId, friendId) {
-      console.log('friendId', friendId);
       return $http.delete('/api/users/' + userId + '/deleteFriend/' + friendId);
     }
 

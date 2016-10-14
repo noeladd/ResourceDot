@@ -117,7 +117,6 @@ describe('Resource Route', function() {
             .get('/api/resources?source=' + resource.source)
             .expect(200)
             .end(function(err, response){
-                console.log(response.body)
                 if(err) return done(err)
                 expect(response.body[0].title).to.equal(resource.title);
                 done();
