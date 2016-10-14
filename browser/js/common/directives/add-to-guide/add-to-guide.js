@@ -43,7 +43,7 @@ app.directive('addToGuide', function($mdDialog, $mdToast, GuideFactory, $log){
 					})
 				}
 				else if (scope.guide.title){
-					return GuideFactory.addNewGuide({title: scope.guide.title, author: scope.user, tags: scope.guide.tags})
+					return GuideFactory.addNewGuide({title: scope.guide.title, author: scope.user, description: scope.guide.description, tags: scope.guide.tags})
 					.then(function(guide){
 						return GuideFactory.addResource(guide.id, scope.resource);
 					})

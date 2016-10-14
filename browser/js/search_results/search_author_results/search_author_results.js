@@ -23,6 +23,9 @@ app.config(function($stateProvider) {
 app.controller('SearchAuthorCtrl', function($scope, resources, user, $stateParams) {
   $scope.author = $stateParams.authorName;
   $scope.user = user;
-  $scope.data = resources;
   $scope.guides = [];
+  $scope.data = resources.slice(0, 5);
+  $scope.getMoreData = function(){
+    $scope.data = resources.slice(0, $scope.data.length + 5);
+  };
 });

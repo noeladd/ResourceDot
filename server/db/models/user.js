@@ -2,8 +2,9 @@
 var crypto = require('crypto');
 var _ = require('lodash');
 var Sequelize = require('sequelize');
-
+var Promise = require('bluebird');
 var db = require('../_db');
+var Tag = require('./tag.js')
 
 module.exports = db.define('user', {
     email: {
@@ -62,6 +63,24 @@ module.exports = db.define('user', {
             hash.update(plainText);
             hash.update(salt);
             return hash.digest('hex');
+        },
+        findByTag: function (tagIds) {
+            return Promise.map(tagIds, function(tag) {
+                return Tag.findById(+tag);
+            })
+            .then(function(tagInstances) {
+                return Promise.map(tagInstances, function(tag) {
+                    return tag.getUsers({include: [
+                        {model: Tag }
+                    ]});
+                })
+            })
+            .then(function(users) {
+              var allUsers = users.reduce(function(a, b) {
+                return a.concat(b);
+              })
+              return allUsers;
+            })
         }
     },
     hooks: {

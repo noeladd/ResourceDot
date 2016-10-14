@@ -16,4 +16,8 @@ app.controller('LikedResourcesCtrl', function($scope, user) {
     $scope.likedResources = user.resourceLike;
     $scope.user = user;
     $scope.guides = user.guides;
+    $scope.data = $scope.likedResources.slice(0, 5);
+    $scope.getMoreData = function () {
+      $scope.data = $scope.likedResources.slice(0, $scope.data.length + 5)
+    }
 });

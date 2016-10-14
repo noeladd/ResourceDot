@@ -35,7 +35,7 @@ app.controller('ProfileCtrl', function ($scope, $state, TagFactory, UserFactory,
     $scope.guides = guides;
     $scope.noGuides = $scope.guides.length === 0;
     if ($scope.selectedTags.length) {
-      return fetchResources($scope.selectedTags);
+      return fetchResources($scope.selectedTags)
     }
     else {
       $scope.noTags = true;
@@ -74,8 +74,26 @@ app.controller('ProfileCtrl', function ($scope, $state, TagFactory, UserFactory,
       $scope.resources = RecommendationFactory.get(resources, $scope.user)
       .map(obj => obj.resource).slice(0, 5);
     })
+    .then(function(){
+      return UserFactory.getByTags(tags)
+      .then(function(users){
+        if (users.length > 0){
+          var suggestedFriends =[];  
+          $scope.userFriendsIds = $scope.user.friend.map(function(friend){
+            return +friend.id
+          })
+          users.map(function(user){
+            if ($scope.userFriendsIds.indexOf(user.id) === -1 && $scope.user.id !== user.id){
+              suggestedFriends.push(user);
+            }
+          })
+          $scope.suggestedFriends = shuffleArray(suggestedFriends).slice(0,4);
+        }
+      })
+    })
     .catch($log.error);
   }
+
 
   function updateTags() {
     var tags = $scope.selectedTags.map(function(tag){
@@ -97,4 +115,5 @@ app.controller('ProfileCtrl', function ($scope, $state, TagFactory, UserFactory,
   $scope.viewLikedResources = function() {
     $state.go('likedResources', {userId: $scope.user.id});
   }
+
 });

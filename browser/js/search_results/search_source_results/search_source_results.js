@@ -23,6 +23,10 @@ app.config(function($stateProvider) {
 app.controller('SearchSourceCtrl', function($scope, resources, user, $stateParams) {
   $scope.source = $stateParams.source
   $scope.user = user
-  $scope.data = resources.splice(0, 100);
   $scope.guides = [];
+  $scope.resources = resources
+  $scope.data = $scope.resources.slice(0, 5);
+  $scope.getMoreData = function(){
+    $scope.data = $scope.resources.slice(0, $scope.data.length + 5);
+  }
 });

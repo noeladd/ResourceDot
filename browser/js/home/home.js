@@ -1,4 +1,4 @@
-app.controller('HomeCtrl', function($scope, $filter, TagFactory, ResourceFactory, $state, $log) {
+app.controller('HomeCtrl', function($scope, $filter, TagFactory, ResourceFactory, $state) {
   $scope.selectedTags = [];
 
   $scope.search = function() {
