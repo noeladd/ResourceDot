@@ -17,8 +17,13 @@
               <!--place a ui sref to this guide's detail state-->
               <a ui-sref="guideDetail({id: guide.id})">{{ guide.title }}</a>
           </h2>
-          <h4>{{ guide.author.name }}</h4>
+          <h4 ng-click="findFriend(guide.author.id)">{{ guide.author.name }}</h4>
           <h4>{{ guide.description }}</h4>
+          <div layout="row">
+            <md-chips ng-repeat="tag in guide.tags.slice(0,4)">
+              <md-chip><span ng-click="searchByTag(tag.id, tag.title)">{{ tag.title }}</span></md-chip>
+            </md-chips>
+          </div>
           <i class="fa fa-trash" aria-hidden="true" ng-show="user.isAdmin"></i>
         </div>
 
