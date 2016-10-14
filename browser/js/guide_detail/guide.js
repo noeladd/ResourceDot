@@ -21,7 +21,7 @@ app.config(function($stateProvider) {
   })
 });
 
-app.controller('GuideCtrl', function($scope, guide, user, GuideFactory, $log, $mdToast) {
+app.controller('GuideCtrl', function($scope, guide, user, GuideFactory, $log, $mdToast, $state) {
   $scope.guide = guide;
   $scope.resources = guide.resources.sort(function(a, b){
     if (b.order > a.order) {
