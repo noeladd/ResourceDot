@@ -36,5 +36,8 @@ app.factory('GuideFactory', function($http, DataFactory) {
    GuideFactory.dislike = function(id, data){
        return $http.put('/api/guides/' + id + '/dislike', data);
    }
+   GuideFactory.updateOrder = function(id, data){
+    return $http.put('/api/guides/' + id + '/order', data);
+   }
    return GuideFactory
 })

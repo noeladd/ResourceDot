@@ -108,3 +108,10 @@ router.put('/:id/delete', function(req, res, next){
     .catch(next);
 });
 
+router.put('/:id/order', function(req, res, next){
+    req.guideById.update({order: req.body})
+    .then(function(){
+        res.sendStatus(204);
+    })
+    .catch(next);
+});
