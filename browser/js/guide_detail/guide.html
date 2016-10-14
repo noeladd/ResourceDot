@@ -3,6 +3,7 @@
     <h2>{{guide.title}}</h2>
     <h3>Curated by: {{guide.author.name}}</h3>
     <h3>About: {{ guide.description }}</h3>
+    <md-button class="md-raised md-primary"" ng-show="user.id === author.id" ng-click="deleteGuide(guide.id)">DELETE GUIDE"</md-button>
     <div infinite-scroll='getMoreData()' infinite-scroll-container='"#main"'>
       <resource-card ng-repeat="resource in data"></resource-card>
     </div>

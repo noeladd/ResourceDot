@@ -21,7 +21,7 @@ app.config(function($stateProvider) {
   })
 });
 
-app.controller('GuideCtrl', function($scope, guide, user) {
+app.controller('GuideCtrl', function($scope, guide, user, GuideFactory, $state) {
   $scope.guide = guide;
   $scope.resources = guide.resources;
   $scope.data = $scope.resources.slice(0,5);
@@ -29,5 +29,11 @@ app.controller('GuideCtrl', function($scope, guide, user) {
     $scope.data = $scope.resources.slice(0, $scope.data.length + 5);
   }
   $scope.author = guide.author;
-  $scope.user = user
+  $scope.user = user;
+  $scope.deleteGuide = function(id){
+    return GuideFactory.delete(id)
+    .then(function(){
+      $state.go('profile');
+    })
+  }
 })

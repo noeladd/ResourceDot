@@ -23,9 +23,6 @@
             <md-chips ng-repeat="tag in guide.tags.slice(0,4)">
               <md-chip><span ng-click="searchByTag(tag.id, tag.title)">{{ tag.title }}</span></md-chip>
             </md-chips>
-          </div>
-          <i class="fa fa-trash" aria-hidden="true" ng-show="user.isAdmin"></i>
-        </div>
 
     </md-card-content>
 </md-card>

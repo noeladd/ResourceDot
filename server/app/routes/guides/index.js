@@ -74,6 +74,7 @@ router.get('/:id', function(req, res, next){
 
 
 router.put('/:id/like', function(req, res, next){
+    console.log("HELLO From IN LIKE!", req.body)
     req.guideById.increment('likes')
     req.guideById.addLikeUser(req.body.user)
     .then(function(){
@@ -108,3 +109,10 @@ router.put('/:id/delete', function(req, res, next){
     .catch(next);
 });
 
+router.delete('/:id', function(req, res, next){
+    req.guideById.destroy()
+    .then(function(){
+        res.sendStatus(204);
+    })
+    .catch(next);
+})

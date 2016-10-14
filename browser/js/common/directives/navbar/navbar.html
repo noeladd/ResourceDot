@@ -1,5 +1,4 @@
-<md-toolbar class="md-tall" layout="row" layout-align="center center">
-
+<md-toolbar class="md-tall md-toolbar-tools" layout="row" layout-align="center center">
   <div layout-padding layout-margin>
     <a ui-sref="home">
       <img id="logo" src="/img/logo.png">
@@ -16,6 +15,7 @@
     <span flex></span>
 
     <md-button ng-show="!user" ui-sref="login" class="md-raised">
+
       Login
     </md-button>
     <md-button ng-show="!user" ui-sref="signup" class="md-raised">

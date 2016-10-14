@@ -46,6 +46,9 @@ app.directive('resourceCard', function ($state, ResourceFactory, GuideFactory) {
 			scope.delete = function(id){
 				if (scope.user.isAdmin){
 					ResourceFactory.delete(id)
+					.then(function(){
+						element.html('');
+					})
 				}
 			}
 
