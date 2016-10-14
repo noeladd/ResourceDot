@@ -1,4 +1,3 @@
-
 app.directive('resourceCard', function ($state, $log, ResourceFactory, GuideFactory) {
     return {
 			restrict: 'E',

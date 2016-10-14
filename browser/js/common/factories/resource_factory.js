@@ -58,6 +58,5 @@ app.factory('ResourceFactory', function($http, DataFactory) {
 ResourceFactory.delete = function(id) {
 		return $http.delete('api/resources/' + id);
 };
-
 	return ResourceFactory;
 });

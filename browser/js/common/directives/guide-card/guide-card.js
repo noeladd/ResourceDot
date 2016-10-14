@@ -59,3 +59,4 @@ app.directive('guideCard', function(GuideFactory, $state, $log) {
     }
   };
 });
+

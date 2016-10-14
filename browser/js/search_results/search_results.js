@@ -38,7 +38,6 @@ app.config(function($stateProvider) {
           return UserFactory.getById(user.id);
         })
       }
-
     }
   });
 });

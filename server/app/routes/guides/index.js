@@ -74,9 +74,9 @@ router.get('/:id', function(req, res, next){
 
 
 router.put('/:id/like', function(req, res, next){
-    console.log("HELLO From IN LIKE!", req.body)
     req.guideById.increment('likes')
     req.guideById.addLikeUser(req.user)
+
     .then(function(){
         res.sendStatus(204);
     })
@@ -109,6 +109,7 @@ router.delete('/:id/dislike/users/:userId', function(req, res, next) {
   })
   .catch(next);
   });
+
 
 router.put('/:id/add', function(req, res, next){
      req.guideById.addOrderedResource(req.body)
