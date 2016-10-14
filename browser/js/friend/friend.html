@@ -1,9 +1,9 @@
 <div>
-  <img class="avatar" src="{{ friend.picture }}">
-  <h4 style="font-family: 'Montserrat';">{{ friend.name }}</h4>
-  <md-button class="md-raised md-primary" ng-click="follow(friend.id)" ng-show="userFriendsIds.indexOf(friend.id) === -1">Follow {{friend.name}}</md-button>
-  <md-button class="md-raised" ng-show ="userFriendsIds.indexOf(friend.id) !== -1" ng-click="unfollow(friend.id)">Unfollow {{friend.name}}</md-button>
-  <h4 style="font-family: 'Questrial';">Learning:</h4>
+  <img class="avatar" ng-src="{{ friend.picture }}">
+  <h4>{{ friend.name }}</h4>
+  <md-button class="md-raised md-primary" ng-click="follow(friend.id)" ng-show="userFriendsIds.indexOf(friend.id) === -1 && user.id !==friend.id">Follow {{friend.name}}</md-button>
+  <md-button class="md-raised" ng-show ="userFriendsIds.indexOf(friend.id) !== -1 && user !==friend.id" ng-click="unfollow(friend.id)">Unfollow {{friend.name}}</md-button>
+  <h4>Learning:</h4>
   <md-chips ng-repeat="tag in friend.tags">
     <md-chip ng-click="search(tag.id)">{{ tag.title }}</md-chip>
   </md-chips>

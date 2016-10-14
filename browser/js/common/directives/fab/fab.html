@@ -48,7 +48,7 @@
               <input type="text" ng-model="resource.title" placeholder="ex. My Fave Framework" required>
             </md-input-container>
 
-            <md-input-container flex="40" ng-show="loggedIn">
+            <md-input-container flex="40" ng-if="loggedIn">
               <label>Add to Guide</label>
               <md-select ng-model="resource.guide">
                 <md-option ng-value="guide.id" ng-repeat="guide in guides">{{ guide.title }}</md-option>
@@ -61,7 +61,7 @@
               <label>Tags</label>
               <tag-chips selected-tags="resource.tags" match="false">
               </tag-chips>
-              <p class="warning" ng-show="!resource.tags.length && resourceForm.tags.$invalid">Please apply at least one tag.</p>
+              <p class="warning" ng-if="!resource.tags.length && resourceForm.tags.$invalid">Please apply at least one tag.</p>
             </md-input-container>
           </div>
 
