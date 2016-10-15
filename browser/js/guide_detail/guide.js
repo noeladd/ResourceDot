@@ -2,27 +2,27 @@ app.config(function($stateProvider) {
   $stateProvider.state('guideDetail', {
     url: '/guide/:id',
     templateUrl: 'js/guide_detail/guide.html',
-    controller: 'GuideCtrl',
-    resolve: {
-      guide: function(GuideFactory, $stateParams){
-        let id = $stateParams.id
-        return GuideFactory.getById(id);
-      },
-      user: function(AuthService, UserFactory){
-        return AuthService.getLoggedInUser()
-        .then(function(user){
-          if (!user){
-            return {id: 0, name: 'Guest', friend: [], resourceLike: [], resourceDislike: [], guideLike: [], guideDislike: []}
-          }
-          return UserFactory.getById(user.id);
-        })
-      }
-    }
+    controller: 'GuideCtrl'
   })
 });
 
-app.controller('GuideCtrl', function($scope, guide, user, GuideFactory, $log, $mdToast, $state) {
-  $scope.guide = guide;
+app.controller('GuideCtrl', function ($scope, GuideFactory, $log, $mdToast, $state, UserFactory, AuthService, $stateParams) {
+  // $scope.guide = guide;
+  AuthService.getLoggedInUser()
+  .then(function(user){
+    if (!user){
+      $scope.user = {id: 0, name: 'Guest', friend: [], resourceLike: [], resourceDislike: [], guideLike: [], guideDislike: []}
+          }
+      UserFactory.getById(user.id)
+      .then(function(foundUser){
+        $scope.user = foundUser;
+      })
+    })
+  GuideFactory.getById($stateParams.id)
+  .then(function(guide){
+    $scope.guide = guide;
+    $scope.author = guide.author
+  })
   $scope.resources = guide.resources.sort(function(a, b){
     if (b.order > a.order) {
     return -1;
@@ -33,8 +33,8 @@ app.controller('GuideCtrl', function($scope, guide, user, GuideFactory, $log, $m
     return 0;
   });
 
-  $scope.author = guide.author;
-  $scope.user = user;
+  // $scope.author = guide.author;
+  // $scope.user = user;
   $scope.deleteGuide = function(id){
     return GuideFactory.delete(id)
     .then(function(){
