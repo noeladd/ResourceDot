@@ -6,7 +6,7 @@ app.config(function($stateProvider) {
     });
 });
 
-app.controller('LikedResourcesCtrl', function($scope, UserFactory, $stateParams) {
+app.controller('LikedResourcesCtrl', function($scope, UserFactory, $stateParams, $log) {
   return UserFactory.getById($stateParams.userId)
   .then(function(user){
     console.log("USER! :", user)
@@ -19,4 +19,5 @@ app.controller('LikedResourcesCtrl', function($scope, UserFactory, $stateParams)
       $scope.data = $scope.user.resourceLike.slice(0, $scope.data.length + 5)
     }
   })
+  .catch($log.error);
 });
