@@ -5,7 +5,7 @@ app.config(function ($stateProvider) {
       controller: 'friendCtrl',
   });
 });
-app.controller('friendCtrl', function($scope, $state, UserFactory, $stateParams, GuideFactory, AuthService) {
+app.controller('friendCtrl', function ($scope, $state, UserFactory, $stateParams, GuideFactory, AuthService, $log) {
  
   AuthService.getLoggedInUser()
   .then(function(user){
@@ -15,7 +15,6 @@ app.controller('friendCtrl', function($scope, $state, UserFactory, $stateParams,
     else {
       UserFactory.getById(user.id)
       .then(function(foundUser){
-        console.log("Found User", foundUser)
         $scope.user = foundUser;
         $scope.userFriends = foundUser.friend
         $scope.userFriendsIds = $scope.userFriends.map(function(userFriend) {
@@ -24,21 +23,26 @@ app.controller('friendCtrl', function($scope, $state, UserFactory, $stateParams,
       })
     }
   })
+  .catch($log.error);
+
   UserFactory.getById($stateParams.friendId)
   .then(function(friend){
     $scope.friend = friend;
   })
+  .catch($log.error);
 
   GuideFactory.getByAuthor($stateParams.friendId)
   .then(function(guides){
     $scope.guides = guides
   })
+  .catch($log.error)
 
   $scope.follow = function(friendId) {
     return UserFactory.addFriend($scope.user.id, {friendId: friendId})
     .then(function() {
       $scope.userFriendsIds.push(friendId);
     })
+    .catch($log.error);
   }
 
   $scope.search = function(tagId) {
@@ -53,5 +57,6 @@ app.controller('friendCtrl', function($scope, $state, UserFactory, $stateParams,
         $scope.userFriendsIds.splice(index, 1);
       }
     })
+    .catch($log.error);
   }
 });

@@ -6,12 +6,14 @@ app.config(function ($stateProvider) {
   });
 });
 
-app.controller('friendsCtrl', function($scope, $state, UserFactory, $stateParams) {
+app.controller('friendsCtrl', function($scope, $state, UserFactory, $stateParams, $log) {
   UserFactory.getById($stateParams.userId)
   .then(function(user){
     $scope.user = user;
     $scope.friends = user.friend;
   })
+  .catch($log.error);
+  
   $scope.findFriend = function(friendId) {
     $state.go('friend', {friendId: friendId});
   };

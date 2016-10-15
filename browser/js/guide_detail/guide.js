@@ -18,23 +18,24 @@ app.controller('GuideCtrl', function ($scope, GuideFactory, $log, $mdToast, $sta
         $scope.user = foundUser;
       })
     })
+    .catch($log.error)
+
   GuideFactory.getById($stateParams.id)
   .then(function(guide){
     $scope.guide = guide;
     $scope.author = guide.author
+    $scope.resources = guide.resources.sort(function(a, b){
+      if (b.order > a.order) {
+      return -1;
+      }
+      if (a.order > b.order) {
+        return 1;
+      }
+      return 0;
+    });
   })
-  $scope.resources = guide.resources.sort(function(a, b){
-    if (b.order > a.order) {
-    return -1;
-    }
-    if (a.order > b.order) {
-      return 1;
-    }
-    return 0;
-  });
+  .catch($log.error);
 
-  // $scope.author = guide.author;
-  // $scope.user = user;
   $scope.deleteGuide = function(id){
     return GuideFactory.delete(id)
     .then(function(){
