@@ -3,34 +3,36 @@ app.config(function ($stateProvider) {
       url: '/friends/:friendId',
       templateUrl: 'js/friend/friend.html',
       controller: 'friendCtrl',
-      resolve: {
-        friend: function(UserFactory, $stateParams) {
-          return UserFactory.getById($stateParams.friendId);
-        },
-        guides: function(GuideFactory, $stateParams) {
-          return GuideFactory.getByAuthor($stateParams.friendId);
-
-        },
-        user: function(AuthService, UserFactory){
-          return AuthService.getLoggedInUser()
-          .then(function(user){
-            if (!user){
-              return {id: 0, name: 'Guest', friend: []}
-            }
-            return UserFactory.getById(user.id);
-          })
-        }
-      }
   });
 });
-app.controller('friendCtrl', function($scope, $state, UserFactory, friend, guides, user) {
-  $scope.user = user;
-  $scope.userFriends = $scope.user.friend;
-  $scope.userFriendsIds = $scope.userFriends.map(function(userFriend) {
-    return userFriend.id;
+app.controller('friendCtrl', function($scope, $state, UserFactory, $stateParams, GuideFactory, AuthService) {
+ 
+  AuthService.getLoggedInUser()
+  .then(function(user){
+    if (!user){
+      $scope.user = {id: 0, name: 'Guest', friend: [], resourceLikes: [], resourceDislikes: [], guideLikes: [], guideDislikes: []}
+    }
+    else {
+      UserFactory.getById(user.id)
+      .then(function(foundUser){
+        console.log("Found User", foundUser)
+        $scope.user = foundUser;
+        $scope.userFriends = foundUser.friend
+        $scope.userFriendsIds = $scope.userFriends.map(function(userFriend) {
+          return userFriend.id;
+        })
+      })
+    }
   })
-  $scope.friend = friend;
-  $scope.guides = guides;
+  UserFactory.getById($stateParams.friendId)
+  .then(function(friend){
+    $scope.friend = friend;
+  })
+
+  GuideFactory.getByAuthor($stateParams.friendId)
+  .then(function(guides){
+    $scope.guides = guides
+  })
 
   $scope.follow = function(friendId) {
     return UserFactory.addFriend($scope.user.id, {friendId: friendId})
