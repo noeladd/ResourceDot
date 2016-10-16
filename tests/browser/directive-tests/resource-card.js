@@ -1,11 +1,8 @@
 'use strict';
 
 xdescribe('<resource-card> directive', function() {
-	/*------------------
-		CONFIGURATION
-	/------------------*/
 
-	//load our Angular app from scratch
+	// load our Angular app from scratch
 	beforeEach(module('FullstackGeneratedApp', 'karmaTemplates'));
 
 	var $compile, $rootScope, directiveDefinition, parentScope;
@@ -16,31 +13,30 @@ xdescribe('<resource-card> directive', function() {
 		parentScope = $rootScope.$new();
 	}));
 
+	// take a look at karma.conf.js to understand why templateUrl is the way it's written below (aka why we omitted 'browser/')
 	it('is an element directive that uses js/common/directives/resource-card/resource-card.html as its templateUrl', function () {
 		expect(directiveDefinition.restrict).to.be.equal('E');
 		expect(directiveDefinition.templateUrl).to.be.equal('js/common/directives/resource-card/resource-card.html');
 	});
 
-		/*------------------
-			TESTS
-		/------------------*/
 	describe('functionality', function () {
 		beforeEach(function() {
-			// creating scope.user
+			// imitating the instantiation of scope.user & scope.resource; in our app they are inherited from the environment surrounding the directive
 			parentScope.user = {
 				id: 1,
 				name: 'sungwon ma',
 				resourceLike: [{
 					author: 'sungwon',
 					link: 'sw.com',
-					source: 'sungwon company',
+					source: 'company',
 					tags: [],
 					type: 'article'
 				}],
 				resourceDislike: []
 			}
 			parentScope.resource = {
-				id: 1
+				id: 1,
+				source: 'real cool source'
 			}
 		})
 
@@ -51,6 +47,18 @@ xdescribe('<resource-card> directive', function() {
 			$rootScope.$digest();
 		})
 
-		//test directive behaviors here
+		//testing directive behaviors
+		it('goes to a state called "searchSourceResults" with the source\'s name as the $stateParams.source when the source name is clicked', function (done) {
+
+			$rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
+				expect(toState.name).to.be.equal('searchSourceResults');
+				// something goes here...
+				expect(toStateParams.source).to.be.equal(parentScope.resource.source);
+				done();
+			});
+
+			//is this a jQuery thing? what goes inside of .children?
+			$(directiveElement).children('').eq(0).triggerHandler('click');
+		});
 	})
 })

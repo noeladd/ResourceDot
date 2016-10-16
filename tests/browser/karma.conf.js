@@ -17,7 +17,7 @@ module.exports = function (config) {
         'node_modules/sinon/pkg/sinon.js',
         'node_modules/angular-mocks/angular-mocks.js',
         'node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min.js',
-        'browser/**/*.html',
+        'browser/**/*.html', // register all html files for frontend testing
         'public/main.js',
         'tests/browser/**/*.js'
     ];
@@ -39,7 +39,7 @@ module.exports = function (config) {
         exclude: excludeFiles,
         reporters: ['mocha', 'coverage'],
         preprocessors: {
-            'browser/**/*.html': ['ng-html2js'],
+            'browser/**/*.html': ['ng-html2js'], //TODO what does this achieve?
             'public/main.js': 'coverage'
         },
         coverageReporter: {
@@ -53,8 +53,8 @@ module.exports = function (config) {
             }]
         },
         ngHtml2JsPreprocessor: {
-            stripPrefix: 'browser/',
-            moduleName: 'karmaTemplates'
+            stripPrefix: 'browser/', // TODO remove 'browser/' prefix... from what?
+            moduleName: 'karmaTemplates' //TODO what does this achieve?
         }
     };
 
