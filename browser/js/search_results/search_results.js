@@ -19,10 +19,12 @@ app.config(function($stateProvider) {
 
 app.controller('SearchCtrl', function($scope, $stateParams, ResourceFactory, GuideFactory, user, $log) {
   $scope.tags = $stateParams.tagTitles.split('+');
-  let tags = $scope.tags.map(function(id){
+  let tags = $stateParams.tagIds.split('+')
+    tags = tags.map(function(id){
     return +id;
   });
   $scope.user = user
+  console.log("TAGS: ", tags);
   ResourceFactory.getAllByTag(tags)
   .then(function(resources){
     $scope.resources = resources.sort(function(a, b){
