@@ -17,6 +17,7 @@ module.exports = function (config) {
         'node_modules/sinon/pkg/sinon.js',
         'node_modules/angular-mocks/angular-mocks.js',
         'node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min.js',
+        'node_modules/angular-ui-sortable/dist/sortable.min.js',
         'browser/**/*.html',
         'public/main.js',
         'tests/browser/**/*.js'
