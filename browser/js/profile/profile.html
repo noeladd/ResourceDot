@@ -1,6 +1,7 @@
 <div layout-gt-sm="row" layout-sm="column" layout-padding layout-margin>
 
     <div layout="column" flex>
+
       <div ng-if="loaded">
         <div ng-hide="noTags">
           <h3 class="header" style="font-family: 'Questrial';">Recommended Resources:</h3>
@@ -34,7 +35,6 @@
       <tag-chips selected-tags="selectedTags"></tag-chips>
       <md-button md-no-ink class="md-primary" ng-click="viewLikedResources()">Liked Resources</md-button>
       <h4 style="font-family: 'Questrial';">Friends</h4>
-
       <p ng-click="findFriends(user.id)">See All</p>
       <div layout="row" layout-align="center center" layout-wrap>
         <div class="friend" ng-repeat="friend in friends" layout="column" layout-align="center center"

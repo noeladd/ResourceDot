@@ -76,6 +76,7 @@ router.put('/:id/dislike', function(req, res, next){
     .catch(next);
 });
 
+
 router.delete('/:id/like/users/:userId', function(req, res, next) {
 Resource.findById(req.params.id)
 .then(function(resource) {

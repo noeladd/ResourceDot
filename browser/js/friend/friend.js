@@ -9,6 +9,7 @@ app.config(function ($stateProvider) {
         },
         guides: function(GuideFactory, $stateParams) {
           return GuideFactory.getByAuthor($stateParams.friendId);
+
         },
         user: function(AuthService, UserFactory){
           return AuthService.getLoggedInUser()
@@ -22,7 +23,6 @@ app.config(function ($stateProvider) {
       }
   });
 });
-
 app.controller('friendCtrl', function($scope, $state, UserFactory, friend, guides, user) {
   $scope.user = user;
   $scope.userFriends = $scope.user.friend;
