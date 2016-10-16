@@ -6,12 +6,12 @@ app.directive('guideCard', function(GuideFactory, $state, $log) {
     link: function(scope) {
       if (scope.user.id !== 0){
         let liked = scope.user.guideLike.filter(function(item) {
-                    return item.id === scope.guide.id;
-                    }).length === 1;
+          return item.id === scope.guide.id;
+        }).length === 1;
 
       let disliked = scope.user.guideDislike.filter(function(item) {
-                      return item.id === scope.guide.id;
-                      }).length === 1;
+        return item.id === scope.guide.id;
+      }).length === 1;
 
       scope.like = function(id) {
         if (scope.user.guideLike.filter(function(guide) {
@@ -51,7 +51,6 @@ app.directive('guideCard', function(GuideFactory, $state, $log) {
         }
       };
       }
-      
 
       scope.findFriend = function(friendId) {
           $state.go('friend', {friendId: friendId});

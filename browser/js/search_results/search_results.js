@@ -47,6 +47,7 @@ app.controller('SearchCtrl', function($scope, $stateParams, ResourceFactory, Gui
   .then(function(guides){
     $scope.guides = guides;
   })
+
   $scope.userGuides = user.guides;
 });
 

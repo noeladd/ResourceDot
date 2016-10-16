@@ -42,7 +42,6 @@ app.controller('friendCtrl', function ($scope, $state, UserFactory, $stateParams
     .then(function() {
       $scope.userFriendsIds.push(friendId);
     })
-    .catch($log.error);
   }
 
   $scope.search = function(tagId) {
@@ -58,5 +57,6 @@ app.controller('friendCtrl', function ($scope, $state, UserFactory, $stateParams
       }
     })
     .catch($log.error);
+
   }
 });

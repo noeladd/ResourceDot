@@ -9,9 +9,9 @@
                    md-item-text="item.title"
                    md-no-cache="true"
                    placeholder="Add a topic">
-      <span md-highlight-text="searchText" style="font-family: 'Montserrat';">{{item.title}}</span>
+      <span md-highlight-text="searchText" class="tag">{{item.title}}</span>
   </md-autocomplete>
   <md-chip-template>
-      <span style="font-family: 'Montserrat';">{{$chip.title}}</span>
+      <span class="tag">{{$chip.title}}</span>
   </md-chip-template>
 </md-chips>
