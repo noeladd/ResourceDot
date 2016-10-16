@@ -1,12 +1,3 @@
-.searchResults .guide {
-  font-family: 'Montserrat'
-}
-
-.email .password {
-  font-family: 'Questrial';
-  font-size: 200%;
-}
-
 * {
   box-sizing: border-box;
 }
@@ -65,3 +56,6 @@ img.avatar{
 @import 'signup/main';
 @import 'search_results/main';
 @import 'profile/main';
+@import 'friend/main';
+@import 'friends/main';
+
