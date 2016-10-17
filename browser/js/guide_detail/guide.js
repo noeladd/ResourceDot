@@ -55,5 +55,3 @@ app.controller('GuideCtrl', function ($scope, GuideFactory, $log, $mdToast, $sta
     .catch($log.error);
   };
 });
-
-

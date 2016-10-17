@@ -6,7 +6,6 @@ app.config(function ($stateProvider) {
   });
 });
 app.controller('friendCtrl', function ($scope, $state, UserFactory, $stateParams, GuideFactory, AuthService, $log) {
- 
   AuthService.getLoggedInUser()
   .then(function(user){
     if (!user){
