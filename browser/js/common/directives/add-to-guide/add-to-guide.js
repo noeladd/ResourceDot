@@ -1,4 +1,4 @@
-app.directive('addToGuide', function($mdDialog, $mdToast, GuideFactory, $log){
+app.directive('addToGuide', function($mdDialog, $mdToast, GuideFactory, $log, $rootScope){
 	return {
 		restrict: 'E',
 		templateUrl: 'js/common/directives/add-to-guide/add-to-guide.html',
@@ -48,6 +48,7 @@ app.directive('addToGuide', function($mdDialog, $mdToast, GuideFactory, $log){
 						return GuideFactory.addResource(guide.id, scope.resource);
 					})
 					.then(function(){
+            $rootScope.$broadcast('new guide');
 						scope.clearForm();
 						$mdDialog.hide();
 						scope.openToast();

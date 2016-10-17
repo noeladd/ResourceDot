@@ -2,42 +2,47 @@ app.config(function ($stateProvider) {
   $stateProvider.state('friend', {
       url: '/friends/:friendId',
       templateUrl: 'js/friend/friend.html',
-      controller: 'friendCtrl',
-      resolve: {
-        friend: function(UserFactory, $stateParams) {
-          return UserFactory.getById($stateParams.friendId);
-        },
-        guides: function(GuideFactory, $stateParams) {
-          return GuideFactory.getByAuthor($stateParams.friendId);
-
-        },
-        user: function(AuthService, UserFactory){
-          return AuthService.getLoggedInUser()
-          .then(function(user){
-            if (!user){
-              return {id: 0, name: 'Guest', friend: []}
-            }
-            return UserFactory.getById(user.id);
-          })
-        }
-      }
+      controller: 'friendCtrl'
   });
 });
-app.controller('friendCtrl', function($scope, $state, UserFactory, friend, guides, user) {
-  $scope.user = user;
-  $scope.userFriends = $scope.user.friend;
-  $scope.userFriendsIds = $scope.userFriends.map(function(userFriend) {
-    return userFriend.id;
+
+app.controller('friendCtrl', function ($scope, $state, UserFactory, $stateParams, GuideFactory, AuthService, $log) {
+  UserFactory.getById($stateParams.friendId)
+  .then(function(friend){
+    $scope.friend = friend;
+    return AuthService.getLoggedInUser();
   })
-  $scope.friend = friend;
-  $scope.guides = guides;
+  .then(function(user){
+    if (!user){
+      $scope.user = {id: 0, name: 'Guest', friend: [], resourceLikes: [], resourceDislikes: [], guideLikes: [], guideDislikes: []}
+    }
+    else {
+      return UserFactory.getById(user.id)
+      .then(function(foundUser){
+        $scope.user = foundUser;
+        $scope.userFriends = foundUser.friend
+        $scope.userFriendsIds = $scope.userFriends.map(function(userFriend) {
+          return userFriend.id;
+        })
+        $scope.loaded = true;
+      })
+    }
+  })
+  .catch($log.error);
+
+  GuideFactory.getByAuthor($stateParams.friendId)
+  .then(function(guides){
+    $scope.guides = guides
+  })
+  .catch($log.error)
 
   $scope.follow = function(friendId) {
     return UserFactory.addFriend($scope.user.id, {friendId: friendId})
     .then(function() {
       $scope.userFriendsIds.push(friendId);
     })
-  }
+    .catch($log.error);
+  };
 
   $scope.search = function(tagId) {
     $state.go('searchResults', {tagIds: tagId});
@@ -51,5 +56,6 @@ app.controller('friendCtrl', function($scope, $state, UserFactory, friend, guide
         $scope.userFriendsIds.splice(index, 1);
       }
     })
-  }
+    .catch($log.error);
+  };
 });

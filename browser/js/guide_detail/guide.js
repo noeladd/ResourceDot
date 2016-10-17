@@ -4,37 +4,37 @@ app.config(function($stateProvider) {
     templateUrl: 'js/guide_detail/guide.html',
     controller: 'GuideCtrl',
     resolve: {
-      guide: function(GuideFactory, $stateParams){
-        let id = $stateParams.id
-        return GuideFactory.getById(id);
-      },
       user: function(AuthService, UserFactory){
         return AuthService.getLoggedInUser()
         .then(function(user){
           if (!user){
             return {id: 0, name: 'Guest', friend: [], resourceLike: [], resourceDislike: [], guideLike: [], guideDislike: []}
           }
-          return UserFactory.getById(user.id);
+          return UserFactory.getById(user.id)
         })
       }
     }
   })
 });
 
-app.controller('GuideCtrl', function($scope, guide, user, GuideFactory, $log, $mdToast, $state) {
-  $scope.guide = guide;
-  $scope.resources = guide.resources.sort(function(a, b){
-    if (b.order > a.order) {
-    return -1;
-    }
-    if (a.order > b.order) {
-      return 1;
-    }
-    return 0;
-  });
-
-  $scope.author = guide.author;
+app.controller('GuideCtrl', function ($scope, GuideFactory, $log, $mdToast, $state, user, $stateParams) {
   $scope.user = user;
+  GuideFactory.getById($stateParams.id)
+  .then(function(guide){
+    $scope.guide = guide;
+    $scope.author = guide.author
+    $scope.resources = guide.resources.sort(function(a, b){
+      if (b.order > a.order) {
+      return -1;
+      }
+      if (a.order > b.order) {
+        return 1;
+      }
+      return 0;
+    });
+  })
+  .catch($log.error);
+
   $scope.deleteGuide = function(id){
     return GuideFactory.delete(id)
     .then(function(){
@@ -47,7 +47,7 @@ app.controller('GuideCtrl', function($scope, guide, user, GuideFactory, $log, $m
     var newOrder = $scope.resources.map(function(resource){
         return resource.id;
     });
-    GuideFactory.updateOrder(guide.id, newOrder)
+    GuideFactory.updateOrder($scope.guide.id, newOrder)
     .then(function(){
       $mdToast.show($mdToast.simple()
                     .textContent('Guide updated!'));
@@ -55,4 +55,3 @@ app.controller('GuideCtrl', function($scope, guide, user, GuideFactory, $log, $m
     .catch($log.error);
   };
 });
-

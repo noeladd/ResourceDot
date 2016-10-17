@@ -87,7 +87,7 @@ return {
       $rootScope.$on(AUTH_EVENTS.loginSuccess, getGuides);
       $rootScope.$on(AUTH_EVENTS.logoutSuccess, clearGuides);
       $rootScope.$on(AUTH_EVENTS.sessionTimeout, clearGuides);
-
+      $rootScope.$on('new guide', getGuides);
     }
   }
 });
