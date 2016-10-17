@@ -43,11 +43,13 @@ app.controller('SearchCtrl', function($scope, $stateParams, ResourceFactory, Gui
     }
   })
   .catch($log.error);
-  
+
   GuideFactory.getAllByTag(tags)
   .then(function(guides){
     $scope.guides = guides;
   })
+  .catch($log.error);
 
   $scope.userGuides = user.guides;
 });
+

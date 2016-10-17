@@ -47,7 +47,7 @@ app.controller('GuideCtrl', function ($scope, GuideFactory, $log, $mdToast, $sta
     var newOrder = $scope.resources.map(function(resource){
         return resource.id;
     });
-    GuideFactory.updateOrder(guide.id, newOrder)
+    GuideFactory.updateOrder($scope.guide.id, newOrder)
     .then(function(){
       $mdToast.show($mdToast.simple()
                     .textContent('Guide updated!'));

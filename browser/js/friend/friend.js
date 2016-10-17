@@ -2,9 +2,10 @@ app.config(function ($stateProvider) {
   $stateProvider.state('friend', {
       url: '/friends/:friendId',
       templateUrl: 'js/friend/friend.html',
-      controller: 'friendCtrl',
+      controller: 'friendCtrl'
   });
 });
+
 app.controller('friendCtrl', function ($scope, $state, UserFactory, $stateParams, GuideFactory, AuthService, $log) {
   UserFactory.getById($stateParams.friendId)
   .then(function(friend){
@@ -40,7 +41,8 @@ app.controller('friendCtrl', function ($scope, $state, UserFactory, $stateParams
     .then(function() {
       $scope.userFriendsIds.push(friendId);
     })
-  }
+    .catch($log.error);
+  };
 
   $scope.search = function(tagId) {
     $state.go('searchResults', {tagIds: tagId});
@@ -55,6 +57,5 @@ app.controller('friendCtrl', function ($scope, $state, UserFactory, $stateParams
       }
     })
     .catch($log.error);
-
-  }
+  };
 });
