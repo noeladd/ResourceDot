@@ -1,10 +1,13 @@
 <div layout-gt-xs="row" layout-xs="column" layout-padding layout-margin>
 
   <div layout="column" flex>
-    <h4 class="header-friend header">Guides:</h4>
-    <md-content ng-repeat="guide in guides">
-      <guide-card></guide-card>
-    </md-content>
+    <h4 ng-if="!guides.length" class="header-friend header">User has no guides.</h4>
+    <div ng-if="guides.length">
+      <h4 class="header-friend header">Guides:</h4>
+      <md-content ng-repeat="guide in guides">
+        <guide-card></guide-card>
+      </md-content>
+    </div>
   </div>
 
   <div flex="30" layout="column">
