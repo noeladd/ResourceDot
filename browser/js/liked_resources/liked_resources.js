@@ -9,7 +9,6 @@ app.config(function($stateProvider) {
 app.controller('LikedResourcesCtrl', function($scope, UserFactory, $stateParams, $log) {
   return UserFactory.getById($stateParams.userId)
   .then(function(user){
-    console.log("USER! :", user)
     $scope.user = user;
     $scope.data = user.resourceLike.slice(0,5);
     $scope.guides = user.guideLike;
