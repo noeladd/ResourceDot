@@ -1,18 +1,27 @@
-<div>
-  <img class="avatar" ng-src="{{ friend.picture }}">
-  <h4 class="friend-name">{{ friend.name }}</h4>
-  <div ng-if="user.id !==0">
-    <div ng-if="loaded">
-      <md-button class="md-raised md-primary" ng-click="follow(friend.id)" ng-show="userFriendsIds.indexOf(friend.id) === -1 && user.id !==friend.id">Follow {{friend.name}}</md-button>
-      <md-button class="md-raised" ng-show="userFriendsIds.indexOf(friend.id) !== -1 && user !==friend.id" ng-click="unfollow(friend.id)">Unfollow {{friend.name}}</md-button>
+<div layout-gt-xs="row" layout-xs="column" layout-padding layout-margin>
+
+  <div layout="column" flex>
+    <h4 class="header-friend header">Guides:</h4>
+    <md-content ng-repeat="guide in guides">
+      <guide-card></guide-card>
+    </md-content>
+  </div>
+
+  <div flex="30" layout="column">
+    <img class="avatar" ng-src="{{ friend.picture }}">
+    <h4 class="friend-name">{{ friend.name }}</h4>
+    <div ng-if="user.id !==0">
+      <div ng-if="loaded">
+        <md-button class="md-raised md-primary" ng-click="follow(friend.id)" ng-show="userFriendsIds.indexOf(friend.id) === -1 && user.id !==friend.id">Follow {{friend.name}}</md-button>
+        <md-button class="md-raised" ng-show="userFriendsIds.indexOf(friend.id) !== -1 && user !==friend.id" ng-click="unfollow(friend.id)">Unfollow {{friend.name}}</md-button>
+      </div>
+    </div>
+    <h4 class="header-friend">Learning:</h4>
+    <div layout="row">
+      <md-chips ng-repeat="tag in friend.tags">
+        <md-chip ng-click="search(tag.id)">{{ tag.title }}</md-chip>
+      </md-chips>
     </div>
   </div>
-  <h4 class="header-friend">Learning:</h4>
-  <md-chips ng-repeat="tag in friend.tags">
-    <md-chip ng-click="search(tag.id)">{{ tag.title }}</md-chip>
-  </md-chips>
-  <h4 class="header-friend">Guides:</h4>
-  <md-content ng-repeat="guide in guides">
-    <guide-card></guide-card>
-  </md-content>
+
 </div>
