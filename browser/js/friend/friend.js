@@ -6,28 +6,28 @@ app.config(function ($stateProvider) {
   });
 });
 app.controller('friendCtrl', function ($scope, $state, UserFactory, $stateParams, GuideFactory, AuthService, $log) {
- 
-  AuthService.getLoggedInUser()
+
+
+  UserFactory.getById($stateParams.friendId)
+  .then(function(friend){
+    $scope.friend = friend;
+    return AuthService.getLoggedInUser();
+  })
   .then(function(user){
     if (!user){
       $scope.user = {id: 0, name: 'Guest', friend: [], resourceLikes: [], resourceDislikes: [], guideLikes: [], guideDislikes: []}
     }
     else {
-      UserFactory.getById(user.id)
+      return UserFactory.getById(user.id)
       .then(function(foundUser){
         $scope.user = foundUser;
         $scope.userFriends = foundUser.friend
         $scope.userFriendsIds = $scope.userFriends.map(function(userFriend) {
           return userFriend.id;
         })
+        $scope.loaded = true;
       })
     }
-  })
-  .catch($log.error);
-
-  UserFactory.getById($stateParams.friendId)
-  .then(function(friend){
-    $scope.friend = friend;
   })
   .catch($log.error);
 
