@@ -1,6 +1,6 @@
 'use strict';
 
-xdescribe('<resource-card> directive', function() {
+describe('<resource-card> directive', function() {
 
 	// load our Angular app from scratch
 	beforeEach(module('FullstackGeneratedApp', 'karmaTemplates'));
@@ -56,8 +56,11 @@ xdescribe('<resource-card> directive', function() {
 				done();
 			});
 
-			//is this a jQuery thing?
+			// is this jQuery? gets an error ($ is not defined)
 			$(directiveElement).children('#searchBySource').eq(0).triggerHandler('click');
+
+			// 2nd approach; gets an error back (toContain is not a function)
+			//expect(directiveElement.html()).toContain('real cool source');
 		});
 	})
 })
