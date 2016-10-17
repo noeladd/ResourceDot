@@ -6,8 +6,6 @@ app.config(function ($stateProvider) {
   });
 });
 app.controller('friendCtrl', function ($scope, $state, UserFactory, $stateParams, GuideFactory, AuthService, $log) {
-
-
   UserFactory.getById($stateParams.friendId)
   .then(function(friend){
     $scope.friend = friend;

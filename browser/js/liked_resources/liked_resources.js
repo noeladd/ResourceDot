@@ -20,3 +20,4 @@ app.controller('LikedResourcesCtrl', function($scope, UserFactory, $stateParams,
   })
   .catch($log.error);
 });
+

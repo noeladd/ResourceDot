@@ -2,23 +2,23 @@ app.config(function($stateProvider) {
   $stateProvider.state('guideDetail', {
     url: '/guide/:id',
     templateUrl: 'js/guide_detail/guide.html',
-    controller: 'GuideCtrl'
+    controller: 'GuideCtrl',
+    resolve: {
+      user: function(AuthService, UserFactory){
+        return AuthService.getLoggedInUser()
+        .then(function(user){
+          if (!user){
+            return {id: 0, name: 'Guest', friend: [], resourceLike: [], resourceDislike: [], guideLike: [], guideDislike: []}
+          }
+          return UserFactory.getById(user.id)
+        })
+      }
+    }
   })
 });
 
-app.controller('GuideCtrl', function ($scope, GuideFactory, $log, $mdToast, $state, UserFactory, AuthService, $stateParams) {
-  AuthService.getLoggedInUser()
-  .then(function(user){
-    if (!user){
-      $scope.user = {id: 0, name: 'Guest', friend: [], resourceLike: [], resourceDislike: [], guideLike: [], guideDislike: []}
-          }
-      UserFactory.getById(user.id)
-      .then(function(foundUser){
-        $scope.user = foundUser;
-      })
-    })
-    .catch($log.error)
-
+app.controller('GuideCtrl', function ($scope, GuideFactory, $log, $mdToast, $state, user, $stateParams) {
+  $scope.user = user;
   GuideFactory.getById($stateParams.id)
   .then(function(guide){
     $scope.guide = guide;
