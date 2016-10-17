@@ -7,7 +7,6 @@ app.config(function($stateProvider) {
 });
 
 app.controller('GuideCtrl', function ($scope, GuideFactory, $log, $mdToast, $state, UserFactory, AuthService, $stateParams) {
-  // $scope.guide = guide;
   AuthService.getLoggedInUser()
   .then(function(user){
     if (!user){
