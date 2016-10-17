@@ -4,9 +4,6 @@ app.config(function($stateProvider) {
     templateUrl: 'js/search_results/search_results.html',
     controller: 'SearchSourceCtrl',
     resolve: {
-      resources: function(ResourceFactory, $stateParams) {
-        return ResourceFactory.getAllBySource($stateParams.source);
-      },
       user: function(AuthService, UserFactory){
         return AuthService.getLoggedInUser()
         .then(function(user){
@@ -20,13 +17,19 @@ app.config(function($stateProvider) {
   });
 });
 
-app.controller('SearchSourceCtrl', function($scope, resources, user, $stateParams) {
+app.controller('SearchSourceCtrl', function($scope, ResourceFactory, $log, user, $stateParams) {
   $scope.source = $stateParams.source
   $scope.user = user
   $scope.guides = [];
-  $scope.resources = resources
-  $scope.data = $scope.resources.slice(0, 5);
-  $scope.getMoreData = function(){
-    $scope.data = $scope.resources.slice(0, $scope.data.length + 5);
-  }
+  ResourceFactory.getAllBySource($stateParams.source)
+  .then(function(resources){
+    $scope.resources = resources
+    $scope.data = $scope.resources.slice(0, 5);
+  })
+  .then(function(){
+    $scope.getMoreData = function(){
+      $scope.data = $scope.resources.slice(0, $scope.data.length + 5);
+    }
+  })
+  .catch($log.error);
 });

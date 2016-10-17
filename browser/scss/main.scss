@@ -1,29 +1,3 @@
-#home h1 {
-  font-family: 'Questrial'
-}
-
-.searchResults {
-  font-family: 'Montserrat'
-}
-
-.guide {
-  font-family: 'Montserrat'
-}
-
-.resource {
-  font-family: 'Montserrat'
-}
-
-.email {
-  font-family: 'Questrial';
-  font-size: 200%;
-}
-
-.password {
-  font-family: 'Questrial';
-  font-size: 200%;
-}
-
 * {
   box-sizing: border-box;
 }
@@ -82,3 +56,8 @@ img.avatar{
 @import 'signup/main';
 @import 'search_results/main';
 @import 'profile/main';
+@import 'friend/main';
+@import 'friends/main';
+@import 'search_people/main';
+@import 'new_guides/main';
+@import 'new_resources/main';
