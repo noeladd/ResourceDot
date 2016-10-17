@@ -23,8 +23,7 @@ app.controller('SearchCtrl', function($scope, $stateParams, ResourceFactory, Gui
     tags = tags.map(function(id){
     return +id;
   });
-  $scope.user = user
-  console.log("TAGS: ", tags);
+  $scope.user = user;
   ResourceFactory.getAllByTag(tags)
   .then(function(resources){
     $scope.resources = resources.sort(function(a, b){
@@ -52,4 +51,3 @@ app.controller('SearchCtrl', function($scope, $stateParams, ResourceFactory, Gui
 
   $scope.userGuides = user.guides;
 });
-
