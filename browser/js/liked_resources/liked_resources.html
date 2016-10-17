@@ -1,5 +1,9 @@
 <div layout="column">
   <md-content>
+    <div ng-show="guides">
+      <h2>Previously liked guides: </h2>
+      <guide-card ng-repeat="guide in guides"></guide-card>
+    </div>
     <h2>Previously liked resources: </h2>
     <div infinite-scroll='getMoreData()' infinite-scroll-container='"#main"'>
     <resource-card ng-repeat="resource in data"></resource-card>

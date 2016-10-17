@@ -4,6 +4,7 @@ var path = require('path');
 module.exports = function (config) {
 
     var filesCollection = [
+        'node_modules/jquery/dist/jquery.js',
         'node_modules/lodash/index.js',
         'node_modules/angular/angular.js',
         'node_modules/angular-animate/angular-animate.js',
@@ -17,6 +18,7 @@ module.exports = function (config) {
         'node_modules/sinon/pkg/sinon.js',
         'node_modules/angular-mocks/angular-mocks.js',
         'node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min.js',
+        'node_modules/angular-ui-sortable/dist/sortable.min.js',
         'browser/**/*.html', // register all html files for frontend testing
         'public/main.js',
         'tests/browser/**/*.js'
@@ -53,8 +55,8 @@ module.exports = function (config) {
             }]
         },
         ngHtml2JsPreprocessor: {
-            stripPrefix: 'browser/', // TODO remove 'browser/' prefix... from what?
-            moduleName: 'karmaTemplates' //TODO what does this achieve?
+            stripPrefix: 'browser/', // TODO: why do this ?
+            moduleName: 'karmaTemplates' // TODO: why do this ?
         }
     };
 

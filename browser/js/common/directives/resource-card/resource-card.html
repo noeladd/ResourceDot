@@ -18,7 +18,7 @@
           <a href="{{ resource.link }}" target="_blank">{{ resource.title }}</a>
         </h2>
         <h4 ng-click="searchByAuthor(resource.author)">{{ resource.author }}</h4>
-        <h4 ng-click="searchBySource(resource.source)">{{ resource.source }}</h4>
+        <h4 id="searchBySource" ng-click="searchBySource(resource.source)">{{ resource.source }}</h4>
         <div layout="row">
           <md-chips ng-repeat="tag in resource.tags.slice(0,4)">
             <md-chip><span ng-click="searchByTag(tag.id, tag.title)">{{ tag.title }}</span></md-chip>

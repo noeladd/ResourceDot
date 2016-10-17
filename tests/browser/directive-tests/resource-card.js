@@ -52,13 +52,12 @@ xdescribe('<resource-card> directive', function() {
 
 			$rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
 				expect(toState.name).to.be.equal('searchSourceResults');
-				// something goes here...
 				expect(toStateParams.source).to.be.equal(parentScope.resource.source);
 				done();
 			});
 
-			//is this a jQuery thing? what goes inside of .children?
-			$(directiveElement).children('').eq(0).triggerHandler('click');
+			//is this a jQuery thing?
+			$(directiveElement).children('#searchBySource').eq(0).triggerHandler('click');
 		});
 	})
 })

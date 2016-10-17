@@ -1,4 +1,4 @@
-<center><h2 style="font-family: 'Questrial';">Search Users</h2></center>
+<center><h2 class="header">Search Users</h2></center>
 <center><input ng-model="searchText" class="form-control" id="searchBar"></center>
 <br/>
 <br/>
@@ -6,7 +6,7 @@
 	<div ng-repeat="user in users | filter:searchText" layout="column" layout-align="center center" flex="25">
 		<div class="friend" ng-click="findFriend(user.id)">
 			<img class="avatar" ng-src="{{user.picture}}">
-			<p style="font-family: 'Montserrat';">{{user.name}}</p>
+			<p class='user-name'>{{user.name}}</p>
 		</div>
 	</div>
 </div>
