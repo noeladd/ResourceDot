@@ -41,7 +41,7 @@ module.exports = function (config) {
         exclude: excludeFiles,
         reporters: ['mocha', 'coverage'],
         preprocessors: {
-            'browser/**/*.html': ['ng-html2js'], //TODO what does this achieve?
+            'browser/**/*.html': ['ng-html2js'],
             'public/main.js': 'coverage'
         },
         coverageReporter: {
@@ -55,8 +55,8 @@ module.exports = function (config) {
             }]
         },
         ngHtml2JsPreprocessor: {
-            stripPrefix: 'browser/', // TODO: why do this ?
-            moduleName: 'karmaTemplates' // TODO: why do this ?
+            stripPrefix: 'browser/',
+            moduleName: 'karmaTemplates'
         }
     };
 
