@@ -26,7 +26,7 @@ describe('<resource-card> directive', function() {
 				id: 1,
 				name: 'sungwon ma',
 				resourceLike: [{
-					author: 'sungwon',
+					authorName: 'sungwon',
 					link: 'sw.com',
 					source: 'company',
 					tags: [],
@@ -36,6 +36,7 @@ describe('<resource-card> directive', function() {
 			}
 			parentScope.resource = {
 				id: 1,
+				author: 'coolAuthor',
 				source: 'real cool source'
 			}
 		})
@@ -43,7 +44,7 @@ describe('<resource-card> directive', function() {
 		var directiveElement;
 		beforeEach('Compile an instance of the directive', function () {
 			var html = '<resource-card></resource-card>';
-			directiveElement = $compile(html)(parentScope);
+			directiveElement = $compile(html)(parentScope); // creates a jQuery instance
 			$rootScope.$digest();
 		})
 
@@ -56,11 +57,18 @@ describe('<resource-card> directive', function() {
 				done();
 			});
 
-			// is this jQuery? gets an error ($ is not defined)
-			$(directiveElement).children('#searchBySource').eq(0).triggerHandler('click');
-
-			// 2nd approach; gets an error back (toContain is not a function)
-			//expect(directiveElement.html()).toContain('real cool source');
+			directiveElement.find('.searchBySource').eq(0).triggerHandler('click');
 		});
+
+		it('goes to a state called "searchAuthorResults" with the source\'s author name as the $stateParams.authorName when the source\'s author name is clicked', function (done) {
+
+			$rootScope.$on('$stateChangeStart', function (event, toState, toStateParams) {
+				expect(toState.name).to.be.equal('searchAuthorResults');
+				expect(toStateParams.authorName).to.be.equal(parentScope.resource.author);
+				done();
+			});
+
+			directiveElement.find('.searchByAuthor').eq(0).triggerHandler('click');
+		})
 	})
 })
