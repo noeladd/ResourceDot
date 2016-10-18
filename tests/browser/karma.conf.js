@@ -4,6 +4,7 @@ var path = require('path');
 module.exports = function (config) {
 
     var filesCollection = [
+        'node_modules/jquery/dist/jquery.js',
         'node_modules/lodash/index.js',
         'node_modules/angular/angular.js',
         'node_modules/angular-animate/angular-animate.js',
@@ -18,7 +19,7 @@ module.exports = function (config) {
         'node_modules/angular-mocks/angular-mocks.js',
         'node_modules/ng-infinite-scroll/build/ng-infinite-scroll.min.js',
         'node_modules/angular-ui-sortable/dist/sortable.min.js',
-        'browser/**/*.html',
+        'browser/**/*.html', // register all html files for frontend testing
         'public/main.js',
         'tests/browser/**/*.js'
     ];
