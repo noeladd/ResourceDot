@@ -4,6 +4,7 @@ var path = require('path');
 module.exports = function (config) {
 
     var filesCollection = [
+        'node_modules/jquery/dist/jquery.js',
         'node_modules/lodash/index.js',
         'node_modules/angular/angular.js',
         'node_modules/angular-animate/angular-animate.js',
